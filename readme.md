@@ -1,1 +1,1 @@
-This code is for FRC Team 5892 for the 2022 Rapid React FRC season!
+This code is for FRC Team 5892 for the 2022 Rapid React FRC season.
