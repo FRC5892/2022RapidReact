@@ -1,0 +1,2 @@
+* text=auto eol=lf
+*.{jar, so, so.*.*, so.*, lock, bin, odf, ods, odt, pdf, doc, docx, xls, xlsx} binary
