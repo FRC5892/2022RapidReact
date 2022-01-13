@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -25,19 +24,19 @@ public class DriveTrain extends SubsystemBase {
 
 	public CANSparkMax driveMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
-		sparkMax.restoreFactoryDefaults();
-		sparkMax.setInverted(inverted);
-		sparkMax.setIdleMode(IdleMode.kBrake);
+		// sparkMax.restoreFactoryDefaults();
+		// sparkMax.setInverted(inverted);
+		// sparkMax.setIdleMode(IdleMode.kBrake);
 		return sparkMax;
 	}
 
 	public DriveTrain() {
-		leftMotor1 = driveMotor(1, false);
-		leftMotor2 = driveMotor(2, false);
-		leftMotor3 = driveMotor(3, false);
-		rightMotor1 = driveMotor(4, true);
-		rightMotor2 = driveMotor(5, true);
-		rightMotor3 = driveMotor(6, true);
+		leftMotor1 = driveMotor(1, true);
+		leftMotor2 = driveMotor(2, true);
+		leftMotor3 = driveMotor(3, true);
+		rightMotor1 = driveMotor(4, false);
+		rightMotor2 = driveMotor(5, false);
+		rightMotor3 = driveMotor(6, false);
 
 		leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 		rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
