@@ -14,4 +14,7 @@ package frc.robot;
  * reduce verbosity.
  */
 public final class Constants {
+
+	public static final double DRIVE_FORWARD_ROTATIONS = 10;
+	public static final double AUTONOMOUS_SPEED = 0.7;
 }

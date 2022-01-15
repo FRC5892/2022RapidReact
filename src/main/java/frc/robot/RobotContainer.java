@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.subsystems.DriveTrain;
 
@@ -18,7 +20,7 @@ public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
 
 	private DriveWithJoysticks driveWithJoysticks;
-
+	private DriveForwardTimed driveForwardTimed;
 	private DriveTrain driveTrain;
 
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -26,6 +28,7 @@ public class RobotContainer {
 		driveTrain = new DriveTrain();
 		driveWithJoysticks = new DriveWithJoysticks(driveTrain);
 		driveTrain.setDefaultCommand(driveWithJoysticks);
+		driveForwardTimed = new DriveForwardTimed(driveTrain);
 		// Configure the button bindings
 		configureButtonBindings();
 	}
@@ -43,8 +46,8 @@ public class RobotContainer {
 	 *
 	 * @return the command to run in autonomous
 	 */
-	// public Command getAutonomousCommand() {
-	// // An ExampleCommand will run in autonomous
-	// return m_autoCommand;
-	// }
+	public Command getAutonomousCommand() {
+		// An ExampleCommand will run in autonomous
+		return driveForwardTimed;
+	}
 }

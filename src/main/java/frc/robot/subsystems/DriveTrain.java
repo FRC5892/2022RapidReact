@@ -58,4 +58,25 @@ public class DriveTrain extends SubsystemBase {
 	public void simulationPeriodic() {
 		// This method will be called once per scheduler run during simulation
 	}
+
+	public void stop() {
+		drive.stopMotor();
+	}
+
+	public double getLeftPosition() {
+		double position = leftMotor1.getEncoder().getPosition();
+		return position;
+	}
+
+	public double getRightPosition() {
+		double position = rightMotor1.getEncoder().getPosition();
+		return position;
+	}
+
+	public void restoreFactoryDefaults() {
+	}
+
+	public void driveForward(double speed) {
+		drive.tankDrive(speed, speed);
+	}
 }
