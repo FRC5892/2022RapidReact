@@ -24,9 +24,10 @@ public class DriveTrain extends SubsystemBase {
 
 	public CANSparkMax driveMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
-		// sparkMax.restoreFactoryDefaults();
-		// sparkMax.setInverted(inverted);
-		// sparkMax.setIdleMode(IdleMode.kBrake);
+		sparkMax.restoreFactoryDefaults();
+		sparkMax.setInverted(inverted);
+		sparkMax.setIdleMode(IdleMode.kBrake);
+		sparkMax.burnFlash();
 		return sparkMax;
 	}
 
