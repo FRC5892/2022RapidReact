@@ -75,7 +75,10 @@ public class DriveTrain extends SubsystemBase {
 		return position;
 	}
 
-	public void restoreFactoryDefaults() {
+	public void resetEncoders() {
+		leftMotor1.getEncoder().setPosition(0);
+		rightMotor1.getEncoder().setPosition(0);
+
 	}
 
 	public void driveForward(double speed) {
