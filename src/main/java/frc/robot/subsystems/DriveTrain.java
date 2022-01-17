@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
@@ -56,6 +58,7 @@ public class DriveTrain extends SubsystemBase {
 			VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
 	private EncoderSim leftEncoderSim = new EncoderSim(leftEncoder);
 	private EncoderSim rightEncoderSim = new EncoderSim(rightEncoder);
+	private final Field2d field = new Field2d();
 
 	public CANSparkMax driveMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
@@ -70,6 +73,7 @@ public class DriveTrain extends SubsystemBase {
 		// TODO set distance per pulse and distance per rev
 		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
 		// rightEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
+		SmartDashboard.putData(field);
 	}
 
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
@@ -91,6 +95,7 @@ public class DriveTrain extends SubsystemBase {
 		leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
 		rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
 		rightEncoderSim.setDistance(driveSim.getRightVelocityMetersPerSecond());
+		field.setRobotPose(driveSim.getPose());
 
 	}
 }
