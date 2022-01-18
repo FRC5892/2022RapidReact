@@ -9,8 +9,12 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -30,13 +34,15 @@ public class DriveTrain extends SubsystemBase {
 	private CANSparkMax rightMotor3 = driveMotor(6, false);
 
 	// TODO evaluate connecting to spark maxes, make sparkmax sim work
-	private Encoder leftEncoder = new Encoder(1, 2);
-	private Encoder rightEncoder = new Encoder(3, 4);
+	private Encoder leftEncoder = new Encoder(1, 2, false);
+	private Encoder rightEncoder = new Encoder(3, 4, true);
 
 	private MotorControllerGroup leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+
+	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	// Create the simulation model of our drivetrain.
 	// https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/drivesim-tutorial/drivetrain-model.html
@@ -56,9 +62,13 @@ public class DriveTrain extends SubsystemBase {
 			// l and r velocity: 0.1 m/s
 			// l and r position: 0.005 m
 			VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
+
 	private EncoderSim leftEncoderSim = new EncoderSim(leftEncoder);
 	private EncoderSim rightEncoderSim = new EncoderSim(rightEncoder);
+
 	private final Field2d field = new Field2d();
+
+	private final DifferentialDriveOdometry odometry;
 
 	public CANSparkMax driveMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
@@ -74,8 +84,15 @@ public class DriveTrain extends SubsystemBase {
 		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
 		// rightEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
 		SmartDashboard.putData(field);
+		odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
 	}
 
+	/**
+	 * @param xSpeed
+	 *            Commanded forward speed
+	 * @param zRotation
+	 *            Commanded rotation speed
+	 */
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
 		drive.arcadeDrive(xSpeed, zRotation);
 	}
@@ -98,4 +115,109 @@ public class DriveTrain extends SubsystemBase {
 		field.setRobotPose(driveSim.getPose());
 
 	}
+
+	// pathing methods
+
+	/**
+	 * Returns the currently-estimated pose of the robot.
+	 *
+	 * @return The pose.
+	 */
+	public Pose2d getPose() {
+		return odometry.getPoseMeters();
+	}
+
+	/**
+	 * Returns the current wheel speeds of the robot.
+	 *
+	 * @return The current wheel speeds.
+	 */
+	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+		return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+	}
+
+	public void resetOdometry(Pose2d pose) {
+		resetEncoders();
+		odometry.resetPosition(pose, gyro.getRotation2d());
+	}
+
+	/**
+	 * Controls the left and right sides of the drive directly with voltages.
+	 *
+	 * @param leftVolts
+	 *            Commanded left output
+	 * @param rightVolts
+	 *            Commanded right output
+	 */
+	public void tankDriveVolts(double leftVolts, double rightVolts) {
+		leftMotors.setVoltage(leftVolts);
+		rightMotors.setVoltage(rightVolts);
+		drive.feed();
+	}
+
+	/**
+	 * Resets the encoders.
+	 */
+	public void resetEncoders() {
+		leftEncoder.reset();
+		rightEncoder.reset();
+	}
+
+	/**
+	 * Gets the average distance of the two encoders.
+	 *
+	 * @return the average of the two encoder readings
+	 */
+	public double getAverageEncoderDistance() {
+		// type casting the integer 2 into a double otherwise the division won't work out right
+		return ((leftEncoder.getDistance() + rightEncoder.getDistance()) / (double) 2);
+	}
+
+	/**
+	 * Gets the left drive encoder
+	 * @return the left drive encoder
+	 */
+	public Encoder getLeftEncoder() {
+		return leftEncoder;
+	}
+
+	/**
+	 * Gets the right drive encoder
+	 * @return the right drive encoder
+	 */
+	public Encoder getRightEncoder() {
+		return rightEncoder;
+	}
+
+	/**
+	 * Sets the max output of the drive
+	 * @param maxOutput the maximum output to which the drive will be constrained
+	 */
+	public void setMaxOutput(double maxOutput) {
+		drive.setMaxOutput(maxOutput);
+	}
+
+	/**
+	 * Zeroes the heading 
+	 */
+	public void zeroHeading() {
+		gyro.reset();
+	}
+
+	/**
+	 * Returns the heading of the robot
+	 * @return the robot's heading in degrees, from -180 to 180
+	 */	
+	public double getHeading() {
+		return gyro.getRotation2d().getDegrees();
+	}
+	
+	/**
+	 * Returns the turn rate of the robot
+	 * @return The turn rate of the robot, in degrees per second
+	 */
+	public double getTurnRate() {
+		return -gyro.getRate();
+	}
+	// end of pathing methods
 }
