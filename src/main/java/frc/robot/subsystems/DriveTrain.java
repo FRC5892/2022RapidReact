@@ -33,12 +33,12 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 	public DriveTrain() {
-		leftMotor1 = driveMotor(1, true);
-		leftMotor2 = driveMotor(2, true);
-		leftMotor3 = driveMotor(3, true);
-		rightMotor1 = driveMotor(4, false);
-		rightMotor2 = driveMotor(5, false);
-		rightMotor3 = driveMotor(6, false);
+		leftMotor1 = driveMotor(1, false);
+		leftMotor2 = driveMotor(2, false);
+		leftMotor3 = driveMotor(3, false);
+		rightMotor1 = driveMotor(4, true);
+		rightMotor2 = driveMotor(5, true);
+		rightMotor3 = driveMotor(6, true);
 
 		leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 		rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
