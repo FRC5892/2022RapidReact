@@ -78,7 +78,7 @@ public class DriveTrain extends SubsystemBase {
 	public void resetEncoders() {
 		leftMotor1.getEncoder().setPosition(0);
 		rightMotor1.getEncoder().setPosition(0);
-
+		System.out.println("Resetting Encoders");
 	}
 
 	public void driveForward(double speed) {

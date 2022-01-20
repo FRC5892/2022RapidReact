@@ -10,7 +10,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class DriveForwardTimed extends CommandBase {
 	DriveTrain driveTrain;
-	private boolean finish = false;
+	private boolean finish;
 
 	/**
 	 * Creates a new DriveForwardTimed.
@@ -26,18 +26,22 @@ public class DriveForwardTimed extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		driveTrain.resetEncoders();
+		finish = false;
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		driveTrain.resetEncoders();
-
+		System.out.println("Encoders Reset");
 		if (driveTrain.getLeftPosition() < Constants.DRIVE_FORWARD_ROTATIONS) {
 			driveTrain.driveForward(Constants.AUTONOMOUS_SPEED);
+			System.out.println("Driving...");
 		}
 		else {
 			finish = true;
+			System.out.println("Driving Completed");
 		}
 	}
 
