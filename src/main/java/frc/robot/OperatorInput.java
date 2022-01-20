@@ -5,8 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /** Add your docs here. */
 public class OperatorInput {
 	public static XboxController driverJoystick = new XboxController(0);
+	public static JoystickButton runShooterFullButton = new JoystickButton(driverJoystick, XboxController.Button.kStart.value);
+	
 }
