@@ -26,6 +26,7 @@ public class DriveForwardTimed extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		System.out.println("Initializing");
 		driveTrain.resetEncoders();
 		finish = false;
 	}
@@ -33,13 +34,13 @@ public class DriveForwardTimed extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		driveTrain.resetEncoders();
 		System.out.println("Encoders Reset");
 		if (driveTrain.getLeftPosition() < Constants.DRIVE_FORWARD_ROTATIONS) {
 			driveTrain.driveForward(Constants.AUTONOMOUS_SPEED);
 			System.out.println("Driving...");
 		}
 		else {
+			// return;
 			finish = true;
 			System.out.println("Driving Completed");
 		}

@@ -15,6 +15,6 @@ package frc.robot;
  */
 public final class Constants {
 
-	public static final double DRIVE_FORWARD_ROTATIONS = 10;
+	public static final double DRIVE_FORWARD_ROTATIONS = 30;
 	public static final double AUTONOMOUS_SPEED = 0.7;
 }
