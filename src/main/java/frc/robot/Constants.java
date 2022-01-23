@@ -14,4 +14,21 @@ package frc.robot;
  * reduce verbosity.
  */
 public final class Constants {
+	public final class drive {
+
+		public static final double ksVolts = 0;
+		public static final double kvVoltSecondsPerMeter = 0;
+		public static final double kaVoltSecondsSquaredPerMeter = 0;
+		public static final double kTrackwidth = 0;
+		public static final double kP = 0;
+	}
+
+	public final class auton {
+
+		public static final double kMaxSpeedMetersPerSecond = 0;
+		public static final double kMaxAccelerationMetersPerSecondSquared = 0;
+		public static final double kRamseteB = 0;
+		public static final double kRamseteZeta = 0;
+
+	}
 }
