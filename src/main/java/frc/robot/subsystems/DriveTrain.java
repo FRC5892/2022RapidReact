@@ -97,6 +97,11 @@ public class DriveTrain extends SubsystemBase {
 		drive.arcadeDrive(xSpeed, zRotation);
 	}
 
+	public void stopMotors() {
+		leftMotors.stopMotor();
+		rightMotors.stopMotor();
+	}
+
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
@@ -175,6 +180,7 @@ public class DriveTrain extends SubsystemBase {
 
 	/**
 	 * Gets the left drive encoder
+	 *
 	 * @return the left drive encoder
 	 */
 	public Encoder getLeftEncoder() {
@@ -183,6 +189,7 @@ public class DriveTrain extends SubsystemBase {
 
 	/**
 	 * Gets the right drive encoder
+	 *
 	 * @return the right drive encoder
 	 */
 	public Encoder getRightEncoder() {
@@ -191,14 +198,16 @@ public class DriveTrain extends SubsystemBase {
 
 	/**
 	 * Sets the max output of the drive
-	 * @param maxOutput the maximum output to which the drive will be constrained
+	 *
+	 * @param maxOutput
+	 *            the maximum output to which the drive will be constrained
 	 */
 	public void setMaxOutput(double maxOutput) {
 		drive.setMaxOutput(maxOutput);
 	}
 
 	/**
-	 * Zeroes the heading 
+	 * Zeroes the heading
 	 */
 	public void zeroHeading() {
 		gyro.reset();
@@ -206,14 +215,16 @@ public class DriveTrain extends SubsystemBase {
 
 	/**
 	 * Returns the heading of the robot
+	 *
 	 * @return the robot's heading in degrees, from -180 to 180
-	 */	
+	 */
 	public double getHeading() {
 		return gyro.getRotation2d().getDegrees();
 	}
-	
+
 	/**
 	 * Returns the turn rate of the robot
+	 *
 	 * @return The turn rate of the robot, in degrees per second
 	 */
 	public double getTurnRate() {
