@@ -16,19 +16,19 @@ package frc.robot;
 public final class Constants {
 	public final class drive {
 
-		public static final double ksVolts = 0;
-		public static final double kvVoltSecondsPerMeter = 0;
-		public static final double kaVoltSecondsSquaredPerMeter = 0;
-		public static final double kTrackwidth = 0;
-		public static final double kP = 0;
+		public static final double ksVolts = 1.83;
+		public static final double kvVoltSecondsPerMeter = 0.245;
+		public static final double kaVoltSecondsSquaredPerMeter = 0.444;
+		public static final double kTrackwidth = 0.6;
+		public static final double kP = 0.944;
 	}
 
 	public final class auton {
 
-		public static final double kMaxSpeedMetersPerSecond = 0;
-		public static final double kMaxAccelerationMetersPerSecondSquared = 0;
-		public static final double kRamseteB = 0;
-		public static final double kRamseteZeta = 0;
+		public static final double kMaxSpeedMetersPerSecond = 18;
+		public static final double kMaxAccelerationMetersPerSecondSquared = 7;
+		public static final double kRamseteB = 2;
+		public static final double kRamseteZeta = 0.7;
 
 	}
 }
