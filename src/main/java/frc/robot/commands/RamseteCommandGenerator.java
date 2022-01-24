@@ -4,15 +4,13 @@
 
 package frc.robot.commands;
 
-import java.io.IOException;
+import com.pathplanner.lib.PathPlanner;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
@@ -22,14 +20,15 @@ import frc.robot.subsystems.DriveTrain;
 public class RamseteCommandGenerator {
 	private static Trajectory trajectory;
 
-	public static SequentialCommandGroup generate(DriveTrain driveTrain, String trajectoryJSON) {
-		try {
-			trajectory = TrajectoryUtil
-					.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static SequentialCommandGroup generate(DriveTrain driveTrain, String pathName) {
+		// try {
+		// trajectory = TrajectoryUtil
+		// .fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON));
+		// }
+		// catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		trajectory = PathPlanner.loadPath(pathName, 8, 5);
 
 		// var autoVoltageConstraint =
 		// new DifferentialDriveVoltageConstraint(

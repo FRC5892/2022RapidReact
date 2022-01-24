@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
 
@@ -13,7 +12,6 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TestPath extends SequentialCommandGroup {
 	private DriveTrain driveTrain;
-	private Object ramseteCommand;
 
 	/** Creates a new TestPath. */
 	public TestPath(DriveTrain dt) {
@@ -21,10 +19,7 @@ public class TestPath extends SequentialCommandGroup {
 		// Add your commands in the addCommands() call, e.g.
 		// addCommands(new FooCommand(), new BarCommand());
 
-		addCommands(RamseteCommandGenerator.generate(driveTrain, "paths/testPath.wpilib.json"));
+		addCommands(RamseteCommandGenerator.generate(driveTrain, "New Path"));
 	}
 
-	private Command RamseteCommandGenerator() {
-		return null;
-	}
 }
