@@ -16,6 +16,7 @@ import edu.wpi.first.math.util.Units;
  * reduce verbosity.
  */
 public final class Constants {
+	public static final int JOYSTICK_NUMBER = 1;
 	// Constants such as camera and target height stored. Change per robot and goal!
 	final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(24);
 	final double TARGET_HEIGHT_METERS = Units.feetToMeters(5);
@@ -24,4 +25,5 @@ public final class Constants {
 
 	// How far from the target we want to be
 	final double GOAL_RANGE_METERS = Units.feetToMeters(3);
+	final double DriveSpeed = .7;
 }

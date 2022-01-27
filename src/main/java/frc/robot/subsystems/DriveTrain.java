@@ -36,7 +36,7 @@ public class DriveTrain extends SubsystemBase {
 	private MotorControllerGroup leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
 
-	private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+	protected DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
 	// Create the simulation model of our drivetrain.
 	// https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/drivesim-tutorial/drivetrain-model.html
