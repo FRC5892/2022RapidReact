@@ -30,8 +30,8 @@ public class DriveTrain extends SubsystemBase {
 	private CANSparkMax rightMotor3 = driveMotor(6, true);
 
 	// TODO evaluate connecting to spark maxes, make sparkmax sim work
-	private Encoder leftEncoder = new Encoder(1, 2);
-	private Encoder rightEncoder = new Encoder(3, 4);
+	private Encoder leftEncoder = new Encoder(0, 1);
+	private Encoder rightEncoder = new Encoder(2, 3, true);
 
 	private MotorControllerGroup leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
@@ -83,6 +83,8 @@ public class DriveTrain extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
+		SmartDashboard.putNumber("Left Encoder", leftEncoder.get());
+		SmartDashboard.putNumber("Right Encoder", rightEncoder.get());
 	}
 
 	@Override
