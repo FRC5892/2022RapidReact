@@ -24,4 +24,7 @@ public final class Constants {
 
 	// How far from the target we want to be
 	final double GOAL_RANGE_METERS = Units.feetToMeters(3);
+	// final double ROTATION_TARGET_SPEED = 0.2;
+	// final double FOWARD_TARGET_SPEED = 0.2;
+
 }

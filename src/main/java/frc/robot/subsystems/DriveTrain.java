@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
-	private CANSparkMax leftMotor1 = driveMotor(1, true);
+	public CANSparkMax leftMotor1 = driveMotor(1, true);
 	private CANSparkMax leftMotor2 = driveMotor(2, true);
 	private CANSparkMax leftMotor3 = driveMotor(3, true);
 	private CANSparkMax rightMotor1 = driveMotor(4, false);
