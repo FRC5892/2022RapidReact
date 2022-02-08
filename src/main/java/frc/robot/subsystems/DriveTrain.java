@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 	private CANSparkMax leftMotor1 = driveMotor(1, false);
@@ -34,8 +35,8 @@ public class DriveTrain extends SubsystemBase {
 	private CANSparkMax rightMotor3 = driveMotor(6, true);
 
 	// TODO evaluate connecting to spark maxes, make sparkmax sim work
-	private Encoder leftEncoder = new Encoder(1, 2, false);
-	private Encoder rightEncoder = new Encoder(3, 4, true);
+	private Encoder leftEncoder = new Encoder(0, 1);
+	private Encoder rightEncoder = new Encoder(2, 3, true);
 
 	private MotorControllerGroup leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
@@ -105,6 +106,8 @@ public class DriveTrain extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
+		SmartDashboard.putNumber("Left Encoder", getLeftPosition());
+		SmartDashboard.putNumber("Right Encoder", getRightPosition());
 	}
 
 	@Override
@@ -231,4 +234,20 @@ public class DriveTrain extends SubsystemBase {
 		return -gyro.getRate();
 	}
 	// end of pathing methods
+	
+	public double getLeftPosition() {
+		return leftEncoder.get()*Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public double getRightPosition() {
+		return rightEncoder.get()*Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public double getLeftRate() {
+		return leftEncoder.getRate()*Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public double getRightRate() {
+		return rightEncoder.getRate()*Constants.ENCODER_CONVERSION_FACTOR;
+	}
 }
