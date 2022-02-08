@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 	private CANSparkMax leftMotor1 = driveMotor(1, false);
@@ -83,8 +84,8 @@ public class DriveTrain extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
-		SmartDashboard.putNumber("Left Encoder", leftEncoder.get());
-		SmartDashboard.putNumber("Right Encoder", rightEncoder.get());
+		SmartDashboard.putNumber("Left Encoder", getLeftPosition());
+		SmartDashboard.putNumber("Right Encoder", getRightPosition());
 	}
 
 	@Override
@@ -99,5 +100,21 @@ public class DriveTrain extends SubsystemBase {
 		rightEncoderSim.setDistance(driveSim.getRightVelocityMetersPerSecond());
 		field.setRobotPose(driveSim.getPose());
 
+	}
+
+	public double getLeftPosition() {
+		return leftEncoder.get()*Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public double getRightPosition() {
+		return rightEncoder.get()*Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public double getLeftRate() {
+		return leftEncoder.getRate()*Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public double getRightRate() {
+		return rightEncoder.getRate()*Constants.ENCODER_CONVERSION_FACTOR;
 	}
 }
