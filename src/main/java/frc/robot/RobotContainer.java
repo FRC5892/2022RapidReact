@@ -35,7 +35,7 @@ public class RobotContainer {
 
 		shooter = new Shooter();
 		runShooterFullSpeed = new RunShooterFullSpeed(shooter);
-		
+
 		// Configure the button bindings
 		configureButtonBindings();
 	}
