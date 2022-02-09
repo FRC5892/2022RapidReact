@@ -9,15 +9,19 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import frc.robot.Constants;
 
 public class Shooter extends PIDSubsystem {
 	private CANSparkMax leftMotor = shooterMotor(7, false);
 	private CANSparkMax rightMotor = shooterMotor(8, true);
 	private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);
 
-  public CANSparkMax shooterMotor(int motorID, boolean inverted) {
+	private Encoder encoder = new Encoder(Constants.SHOOTER_ENCODER_PORTS[1], Constants.SHOOTER_ENCODER_PORTS[2]);
+
+	public CANSparkMax shooterMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
 		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
@@ -25,13 +29,14 @@ public class Shooter extends PIDSubsystem {
 		sparkMax.burnFlash();
 		return sparkMax;
 	}
+
 	/** Creates a new Shooter. */
 	public Shooter() {
-    super(
-      // The PIDController used by the subsystem
-      new PIDController(0, 0, 0));
+		super(
+				// The PIDController used by the subsystem
+				new PIDController(0, 0, 0));
 
-    }
+	}
 
 	public void setMotors(double speed) {
 		motors.set(speed);
@@ -40,14 +45,20 @@ public class Shooter extends PIDSubsystem {
 	public void stop() {
 		motors.stopMotor();
 	}
+
+	public double getVelocity() {
+		return encoder.getRate() * Constants.SHOOTER_ENCODER_CONVERSION_FACTOR;
+	}
+
 	@Override
 	public void useOutput(double output, double setpoint) {
 		// Use the output here
+		motors.set(output);
 	}
 
 	@Override
 	public double getMeasurement() {
 		// Return the process variable measurement here
-		return 0;
+		return getVelocity();
 	}
 }

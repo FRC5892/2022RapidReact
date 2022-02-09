@@ -14,4 +14,7 @@ package frc.robot;
  * reduce verbosity.
  */
 public final class Constants {
+
+	public static final int[] SHOOTER_ENCODER_PORTS = new int[] { 4, 5 };
+	public static final double SHOOTER_ENCODER_CONVERSION_FACTOR = 1;
 }
