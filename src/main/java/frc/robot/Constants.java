@@ -27,4 +27,6 @@ public final class Constants {
 
 	public final static double ACUTAL_WHEEL_DIAMETER = Units.inchesToMeters(4.1966);
 	public final static double ENCODER_CONVERSION_FACTOR = (Math.PI * ACUTAL_WHEEL_DIAMETER) / 1024;
+	public final static double JOYSTICK_DEADZONE = 0.01;
+
 }

@@ -103,19 +103,23 @@ public class DriveTrain extends SubsystemBase {
 
 	}
 
+	public void stop() {
+		drive.stopMotor();
+	}
+
 	public double getLeftPosition() {
-		return leftEncoder.get()*Constants.ENCODER_CONVERSION_FACTOR;
+		return leftEncoder.get() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
 
 	public double getRightPosition() {
-		return rightEncoder.get()*Constants.ENCODER_CONVERSION_FACTOR;
+		return rightEncoder.get() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
 
 	public double getLeftRate() {
-		return leftEncoder.getRate()*Constants.ENCODER_CONVERSION_FACTOR;
+		return leftEncoder.getRate() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
 
 	public double getRightRate() {
-		return rightEncoder.getRate()*Constants.ENCODER_CONVERSION_FACTOR;
+		return rightEncoder.getRate() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
 }
