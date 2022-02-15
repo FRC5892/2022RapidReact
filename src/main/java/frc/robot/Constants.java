@@ -25,8 +25,11 @@ public final class Constants {
 	// How far from the target we want to be
 	final double GOAL_RANGE_METERS = Units.feetToMeters(3);
 
-	public final static double ACUTAL_WHEEL_DIAMETER = Units.inchesToMeters(4.1966);
+	public final static double ACUTAL_WHEEL_DIAMETER = 0.104672061299478;
 	public final static double ENCODER_CONVERSION_FACTOR = (Math.PI * ACUTAL_WHEEL_DIAMETER) / 1024;
-	public final static double JOYSTICK_DEADZONE = 0.01;
+	// public final static double ENCODER_CONVERSION_FACTOR = 1 / 1024;
+    public final static double DRIVE_GEAR_RATIO = 4.44;
+	
+    public final static double JOYSTICK_DEADZONE = 0.01;
 
 }

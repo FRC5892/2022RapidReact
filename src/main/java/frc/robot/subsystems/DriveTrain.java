@@ -67,6 +67,7 @@ public class DriveTrain extends SubsystemBase {
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
 		sparkMax.setSmartCurrentLimit(60);
+		sparkMax.getEncoder().setPosition(0);
 		sparkMax.burnFlash();
 		return sparkMax;
 	}
@@ -75,7 +76,6 @@ public class DriveTrain extends SubsystemBase {
 		// TODO set distance per pulse and distance per rev
 		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
 		// rightEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
-		SmartDashboard.putData(field);
 	}
 
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
@@ -87,6 +87,13 @@ public class DriveTrain extends SubsystemBase {
 		// This method will be called once per scheduler run
 		SmartDashboard.putNumber("Left Encoder", getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", getRightPosition());
+		SmartDashboard.putNumber("Left Encoder Raw", leftEncoder.get());
+		SmartDashboard.putNumber("Right Encoder Raw", rightEncoder.get());
+		SmartDashboard.putNumber("Left Neo Encoder", leftMotor1.getEncoder().getPosition()/Constants.DRIVE_GEAR_RATIO);
+		SmartDashboard.putNumber("Right Neo Encoder", rightMotor1.getEncoder().getPosition()/Constants.DRIVE_GEAR_RATIO);
+		SmartDashboard.putNumber("Left Neo Encoder Raw", leftMotor1.getEncoder().getPosition());
+		SmartDashboard.putNumber("Right Neo Encoder Raw", rightMotor1.getEncoder().getPosition());
+		
 	}
 
 	@Override
