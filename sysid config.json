@@ -13,7 +13,7 @@
     "SPARK MAX (Brushless)"
   ],
   "number of samples per average": 5,
-  "primary encoder inverted": false,
+  "primary encoder inverted": true,
   "primary encoder ports": [
     0,
     1
@@ -24,11 +24,11 @@
     3
   ],
   "primary motors inverted": [
-    false,
-    false,
-    false
+    true,
+    true,
+    true
   ],
-  "secondary encoder inverted": true,
+  "secondary encoder inverted": false,
   "secondary encoder ports": [
     2,
     3
@@ -39,9 +39,9 @@
     6
   ],
   "secondary motors inverted": [
-    true,
-    true,
-    true
+    false,
+    false,
+    false
   ],
   "velocity measurement period": 100
 }

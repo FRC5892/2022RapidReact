@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
@@ -61,6 +62,12 @@ public class DriveTrain extends SubsystemBase {
 	private EncoderSim rightEncoderSim = new EncoderSim(rightEncoder);
 	private final Field2d field = new Field2d();
 
+	private PIDController leftPIDController = new PIDController(Constants.LEFT_DRIVE_PID_CONSTANTS[0],
+			Constants.LEFT_DRIVE_PID_CONSTANTS[1], Constants.LEFT_DRIVE_PID_CONSTANTS[2]);
+	private PIDController rightPIDController = new PIDController(Constants.RIGHT_DRIVE_PID_CONSTANTS[0],
+			Constants.RIGHT_DRIVE_PID_CONSTANTS[1], Constants.RIGHT_DRIVE_PID_CONSTANTS[2]);
+	private boolean stop = true;
+
 	public CANSparkMax driveMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
 		sparkMax.restoreFactoryDefaults();
@@ -79,7 +86,7 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
-		drive.arcadeDrive(xSpeed, zRotation);
+		pidArcadeDrive(xSpeed, zRotation, true);
 	}
 
 	@Override
@@ -89,11 +96,20 @@ public class DriveTrain extends SubsystemBase {
 		SmartDashboard.putNumber("Right Encoder", getRightPosition());
 		SmartDashboard.putNumber("Left Encoder Raw", leftEncoder.get());
 		SmartDashboard.putNumber("Right Encoder Raw", rightEncoder.get());
-		SmartDashboard.putNumber("Left Neo Encoder", leftMotor1.getEncoder().getPosition()/Constants.DRIVE_GEAR_RATIO);
-		SmartDashboard.putNumber("Right Neo Encoder", rightMotor1.getEncoder().getPosition()/Constants.DRIVE_GEAR_RATIO);
+		SmartDashboard.putNumber("Left Neo Encoder",
+				leftMotor1.getEncoder().getPosition() / Constants.DRIVE_GEAR_RATIO);
+		SmartDashboard.putNumber("Right Neo Encoder",
+				rightMotor1.getEncoder().getPosition() / Constants.DRIVE_GEAR_RATIO);
 		SmartDashboard.putNumber("Left Neo Encoder Raw", leftMotor1.getEncoder().getPosition());
 		SmartDashboard.putNumber("Right Neo Encoder Raw", rightMotor1.getEncoder().getPosition());
-		
+
+		SmartDashboard.putData(leftPIDController);
+		SmartDashboard.putData(rightPIDController);
+
+		if (!stop) {
+			drive.tankDrive(leftPIDOutput(), rightPIDOutput());
+		}
+
 	}
 
 	@Override
@@ -112,6 +128,7 @@ public class DriveTrain extends SubsystemBase {
 
 	public void stop() {
 		drive.stopMotor();
+		stop = true;
 	}
 
 	public double getLeftPosition() {
@@ -128,5 +145,24 @@ public class DriveTrain extends SubsystemBase {
 
 	public double getRightRate() {
 		return rightEncoder.getRate() * Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public void pidTankDrive(double leftSpeed, double rightSpeed) {
+		leftPIDController.setSetpoint(leftSpeed);
+		rightPIDController.setSetpoint(rightSpeed);
+		stop = false;
+	}
+
+	public void pidArcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
+		var speeds = DifferentialDrive.arcadeDriveIK(xSpeed, zRotation, squareInputs);
+		pidTankDrive(speeds.left, speeds.right);
+	}
+
+	public double leftPIDOutput() {
+		return leftPIDController.calculate(leftEncoder.get());
+	}
+
+	public double rightPIDOutput() {
+		return rightPIDController.calculate(rightEncoder.get());
 	}
 }

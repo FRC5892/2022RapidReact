@@ -28,8 +28,11 @@ public final class Constants {
 	public final static double ACUTAL_WHEEL_DIAMETER = 0.104672061299478;
 	public final static double ENCODER_CONVERSION_FACTOR = (Math.PI * ACUTAL_WHEEL_DIAMETER) / 1024;
 	// public final static double ENCODER_CONVERSION_FACTOR = 1 / 1024;
-    public final static double DRIVE_GEAR_RATIO = 4.44;
-	
-    public final static double JOYSTICK_DEADZONE = 0.01;
+	public final static double DRIVE_GEAR_RATIO = 4.44;
+
+	public final static double JOYSTICK_DEADZONE = 0.01;
+
+	public final static double[] LEFT_DRIVE_PID_CONSTANTS = new double[] { 0, 0, 0 };
+	public final static double[] RIGHT_DRIVE_PID_CONSTANTS = new double[] { 0, 0, 0 };
 
 }
