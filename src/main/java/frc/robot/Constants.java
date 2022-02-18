@@ -28,7 +28,7 @@ public final class Constants {
 
 	public final static double ACUTAL_WHEEL_DIAMETER = Units.inchesToMeters(4.1966);
 	public final static double ENCODER_CONVERSION_FACTOR = (Math.PI * ACUTAL_WHEEL_DIAMETER) / 1024;
-	
-	public static final int[] SHOOTER_ENCODER_PORTS = new int[] { 4, 5 };
-	public static final double SHOOTER_ENCODER_CONVERSION_FACTOR = 1;
+
+	public static final int[] FLYWHEEL_ENCODER_PORTS = new int[] { 4, 5 };
+	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1;
 }

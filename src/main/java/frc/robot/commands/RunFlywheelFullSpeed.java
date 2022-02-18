@@ -5,21 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter.Flywheel;
 
-public class RunShooterFullSpeed extends CommandBase {
-	private Shooter shooter;
+public class RunFlywheelFullSpeed extends CommandBase {
+	private Flywheel flywheel;
 
-	/** Creates a new runShooterFullSpeed. */
-	public RunShooterFullSpeed(Shooter s) {
-		shooter = s;
+	/** Creates a new runFlywheelFullSpeed. */
+	public RunFlywheelFullSpeed(Flywheel f) {
+		flywheel = f;
+		addRequirements(flywheel);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		shooter.setMotors(1);
+		flywheel.setMotors(1);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -30,7 +31,7 @@ public class RunShooterFullSpeed extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		shooter.stop();
+		flywheel.stop();
 	}
 
 	// Returns true when the command should end.
