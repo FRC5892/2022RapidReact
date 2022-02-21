@@ -41,6 +41,11 @@ public class Hood extends PIDSubsystem {
 		motor.set(output);
 	}
 
+	public void stop() {
+		motor.stopMotor();
+		this.disable();
+	}
+
 	@Override
 	public double getMeasurement() {
 		// Return the process variable measurement here
