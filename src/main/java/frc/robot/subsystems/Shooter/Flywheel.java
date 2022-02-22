@@ -15,11 +15,11 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class Flywheel extends PIDSubsystem {
-	private CANSparkMax leftMotor = shooterMotor(7, false);
-	private CANSparkMax rightMotor = shooterMotor(8, true);
+	private CANSparkMax leftMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
+	private CANSparkMax rightMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[1], true);
 	private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);
 
-	private Encoder encoder = new Encoder(Constants.FLYWHEEL_ENCODER_PORTS[1], Constants.FLYWHEEL_ENCODER_PORTS[2]);
+	private Encoder encoder = new Encoder(Constants.FLYWHEEL_ENCODER_PORTS[0], Constants.FLYWHEEL_ENCODER_PORTS[1]);
 
 	public CANSparkMax shooterMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
@@ -43,7 +43,6 @@ public class Flywheel extends PIDSubsystem {
 	}
 
 	public void stop() {
-		motors.stopMotor();
 		this.disable();
 	}
 
