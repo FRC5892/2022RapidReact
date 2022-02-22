@@ -60,7 +60,6 @@ public class Turret extends PIDSubsystem {
 	}
 
 	public void stop() {
-		motor.stopMotor();
 		this.disable();
 	}
 
