@@ -29,21 +29,28 @@ public class Turret extends PIDSubsystem {
 	}
 
 	private CANSparkMax motor = turretMotor(Constants.TURRET_MOTOR_ID, false);
-	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
-	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
+	private SparkMaxLimitSwitch leftLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
+	private SparkMaxLimitSwitch rightLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
+	private boolean useVision;
+	private double error;
 
 	/** Creates a new Hood. */
 	public Turret() {
 		super(
 				// The PIDController used by the subsystem
 				new PIDController(0, 0, 0));
-		topLimit.enableLimitSwitch(true);
-		bottomLimit.enableLimitSwitch(true);
+		leftLimit.enableLimitSwitch(true);
+		rightLimit.enableLimitSwitch(true);
 		SmartDashboard.putData("Turret PID", this.m_controller);
 	}
 
 	public void stop() {
+		motor.stopMotor();
 		this.disable();
+	}
+
+	public void setMotor(double speed) {
+		motor.set(speed);
 	}
 
 	public double getAngle() {
@@ -51,21 +58,42 @@ public class Turret extends PIDSubsystem {
 		return potentiometer.getVoltage() * 1 + 1;
 	}
 
+	public void setError(double error) {
+		this.setSetpoint(0);
+	}
+
+	public void useVision(boolean useVision) {
+		// should assign useVision for the rest of the code, if it doesn't look here
+	}
+
+	public boolean atLimit() {
+		return leftLimit.isPressed()||rightLimit.isPressed();
+	}
+
+	public boolean atLeftLimit() {
+		return leftLimit.isPressed();
+	}
+
+	public boolean  atRightLimit() {
+		return rightLimit.isPressed();
+	}
+
 	@Override
 	public void useOutput(double output, double setpoint) {
 		// Use the output here
 		motor.set(output);
-		SmartDashboard.putBoolean("Turret Top Limit", topLimit.isPressed());
-		SmartDashboard.putBoolean("Turret Bottom Limit", bottomLimit.isPressed());
-	}
-
-	public void stop() {
-		this.disable();
+		SmartDashboard.putBoolean("Turret Top Limit", leftLimit.isPressed());
+		SmartDashboard.putBoolean("Turret Bottom Limit", rightLimit.isPressed());
 	}
 
 	@Override
 	public double getMeasurement() {
 		// Return the process variable measurement here
-		return getAngle();
+		if (useVision) {
+			return error;
+		}
+		else {
+			return getAngle();
+		}
 	}
 }

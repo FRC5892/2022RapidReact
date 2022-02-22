@@ -17,6 +17,7 @@ public class AimAndShoot extends CommandBase {
 	private Hood hood;
 	private TurretVision turretVision;
 	private boolean finished;
+	private boolean reverse;
 
 	/** Creates a new AimAndShoot. */
 	public AimAndShoot(Flywheel f, Turret t, Hood h, TurretVision tv) {
@@ -32,13 +33,30 @@ public class AimAndShoot extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-    flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
-    hood.setSetpoint(turretVision.distanceFromTarget());
+		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		if (turretVision.hasTargets()) {
+			turret.setError(turretVision.targetYaw());
+			hood.setSetpoint(turretVision.distanceFromTarget());
+		}
+		else {
+			if (turret.atLeftLimit()) {
+				reverse = true;
+			}
+			else if (turret.atRightLimit()) {
+				reverse = false;
+			}
+			if (reverse) {				
+				turret.setMotor(-.3);
+			}
+			else {
+				turret.setMotor(.3);
+			}
+		}
 	}
 
 	// Called once the command ends or is interrupted.

@@ -6,18 +6,18 @@ package PolynomialFunction;
 
 /** Add your docs here. */
 public class PolynomialFunction {
-    public double polynomailFunction(double x, double[] coefficients) {
-        double value = 0;
-        int i = 0;
-        for (double coefficient : coefficients) {
-            if (i > 0) {
-                value = value + coefficient * (Math.pow(x, i));
-            }
-            else {
-                value = coefficient;
-            }
-            i++;
-        }
-        return value;
-    }
+	public double polynomailFunction(double x, double[] coefficients) {
+		double value = 0;
+		int i = 0;
+		for (double coefficient : coefficients) {
+			if (i > 0) {
+				value = value + coefficient * (Math.pow(x, i));
+			}
+			else {
+				value = coefficient;
+			}
+			i++;
+		}
+		return value;
+	}
 }

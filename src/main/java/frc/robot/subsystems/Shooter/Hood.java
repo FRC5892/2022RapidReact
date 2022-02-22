@@ -59,10 +59,6 @@ public class Hood extends PIDSubsystem {
 		SmartDashboard.putBoolean("Hood Bottom Limit", bottomLimit.isPressed());
 	}
 
-	public void stop() {
-		this.disable();
-	}
-
 	@Override
 	public double getMeasurement() {
 		// Return the process variable measurement here
