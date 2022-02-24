@@ -16,6 +16,7 @@ import edu.wpi.first.math.util.Units;
  * reduce verbosity.
  */
 public final class Constants {
+
 	// Constants such as camera and target height stored. Change per robot and goal!
 	final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(24);
 	final double TARGET_HEIGHT_METERS = Units.feetToMeters(5);
@@ -27,4 +28,21 @@ public final class Constants {
 
 	public final static double ACUTAL_WHEEL_DIAMETER = Units.inchesToMeters(4.1966);
 	public final static double ENCODER_CONVERSION_FACTOR = (Math.PI * ACUTAL_WHEEL_DIAMETER) / 1024;
+
+	public static final int[] FLYWHEEL_ENCODER_PORTS = new int[] { 4, 5 };
+	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1;
+	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 7, 8 };
+
+	public static final int TURRET_POTENTIOMETER = 6;
+	public static final double TURRET_ENCODER_CONVERSION_FACTOR = 1;
+	public static final int TURRET_MOTOR_ID = 9;
+
+	public static final int HOOD_POTENTIOMETER_PORT = 7;
+	public static final double HOOD_ENCODER_CONVERSION_FACTOR = 1;
+	public static final int HOOD_MOTOR_ID = 10;
+
+	public static final double TURRETVISION_CAMERA_HEIGHT = 0;
+	public static final double TURRETVISION_CAMERA_PITCH = 0;
+	public static final double GOAL_HEIGHT = 0;
+	public static final double FLYWHEEL_SHOOTING_SPEED = 0;
 }

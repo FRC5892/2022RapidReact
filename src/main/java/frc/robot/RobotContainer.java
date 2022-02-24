@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter.Flywheel;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -21,11 +23,19 @@ public class RobotContainer {
 
 	private DriveTrain driveTrain;
 
+	private Flywheel flywheel;
+
+	private RunFlywheelFullSpeed runFlywheelFullSpeed;
+
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		driveTrain = new DriveTrain();
 		driveWithJoysticks = new DriveWithJoysticks(driveTrain);
 		driveTrain.setDefaultCommand(driveWithJoysticks);
+
+		flywheel = new Flywheel();
+		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
+
 		// Configure the button bindings
 		configureButtonBindings();
 	}
@@ -36,6 +46,7 @@ public class RobotContainer {
 	 * and then passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
+		OperatorInput.runFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
 	}
 
 	/**
