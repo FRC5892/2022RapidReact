@@ -58,23 +58,15 @@ public class Turret extends PIDSubsystem {
 		return potentiometer.getVoltage() * 1 + 1;
 	}
 
-	public void setError(double error) {
-		this.setSetpoint(0);
-	}
-
-	public void useVision(boolean useVision) {
-		// should assign useVision for the rest of the code, if it doesn't look here
-	}
-
 	public boolean atLimit() {
-		return leftLimit.isPressed()||rightLimit.isPressed();
+		return leftLimit.isPressed() || rightLimit.isPressed();
 	}
 
 	public boolean atLeftLimit() {
 		return leftLimit.isPressed();
 	}
 
-	public boolean  atRightLimit() {
+	public boolean atRightLimit() {
 		return rightLimit.isPressed();
 	}
 
@@ -89,11 +81,6 @@ public class Turret extends PIDSubsystem {
 	@Override
 	public double getMeasurement() {
 		// Return the process variable measurement here
-		if (useVision) {
-			return error;
-		}
-		else {
-			return getAngle();
-		}
+		return getAngle();
 	}
 }
