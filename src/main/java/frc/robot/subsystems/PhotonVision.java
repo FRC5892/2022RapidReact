@@ -7,11 +7,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PhotonVision extends SubsystemBase {
-  /** Creates a new PhotonVision. */
-  public PhotonVision() {}
+	/** Creates a new PhotonVision. */
+	public PhotonVision() {
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }
