@@ -34,19 +34,20 @@ public final class Constants {
 	public static final int[] FLYWHEEL_ENCODER_PORTS = new int[] { 4, 5 };
 	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1;
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 7, 8 };
+	public static final double FLYWHEEL_SHOOTING_SPEED = 0;
 
 	public static final int TURRET_POTENTIOMETER = 6;
-	public static final double TURRET_ENCODER_CONVERSION_FACTOR = 1;
+	public static final double TURRET_POTENTIOMETER_CONVERSION_FACTOR = 1;
 	public static final int TURRET_MOTOR_ID = 9;
+	public static final double TURRET_SCAN_SPEED = 0.3;
+	
+	public static final double TURRETVISION_CAMERA_HEIGHT = 0;
+	public static final double TURRETVISION_CAMERA_PITCH = 0;
+	public static final double GOAL_HEIGHT = 0;
 
 	public static final int HOOD_POTENTIOMETER_PORT = 7;
 	public static final double HOOD_ENCODER_CONVERSION_FACTOR = 1;
 	public static final int HOOD_MOTOR_ID = 10;
-
-	public static final double TURRETVISION_CAMERA_HEIGHT = 0;
-	public static final double TURRETVISION_CAMERA_PITCH = 0;
-	public static final double GOAL_HEIGHT = 0;
-	public static final double FLYWHEEL_SHOOTING_SPEED = 0;
 
 	public static final int[] INTAKE_MOTOR_PORTS = new int[] { 11, 12 };
 	public static final double INTAKE_SPEED_MULTIPLIER = 1;
@@ -57,5 +58,4 @@ public final class Constants {
 
 	public static final int[] ACCUMULATOR_MOTOR_PORTS = new int[] { 13, 14 };
 	public static final double ACCUMULATOR_SPEED = 0.3;
-
 }
