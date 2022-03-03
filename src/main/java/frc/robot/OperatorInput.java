@@ -12,5 +12,9 @@ public class OperatorInput {
 	public static XboxController driverJoystick = new XboxController(0);
 	public static JoystickButton runFlywheelFullButton = new JoystickButton(driverJoystick,
 			XboxController.Button.kStart.value);
+	public static JoystickButton toggleIntake = new JoystickButton(driverJoystick,
+			XboxController.Button.kLeftBumper.value);
+	public static JoystickButton toggleIntakePosition = new JoystickButton(driverJoystick,
+			XboxController.Button.kRightBumper.value);
 
 }

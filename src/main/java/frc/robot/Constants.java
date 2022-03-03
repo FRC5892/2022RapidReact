@@ -15,6 +15,8 @@ import edu.wpi.first.math.util.Units;
  * It is advised to statically import this class (or one of its inner classes) wherever the constants are needed, to
  * reduce verbosity.
  */
+
+// !IMPORTANT! pairs of motor ports stored in an array are always ordered left motor right motor
 public final class Constants {
 
 	// Constants such as camera and target height stored. Change per robot and goal!
@@ -45,4 +47,12 @@ public final class Constants {
 	public static final double TURRETVISION_CAMERA_PITCH = 0;
 	public static final double GOAL_HEIGHT = 0;
 	public static final double FLYWHEEL_SHOOTING_SPEED = 0;
+
+	public static final int[] INTAKE_MOTOR_PORTS = new int[] { 11, 12 };
+	public static final double INTAKE_SPEED_MULTIPLIER = 1;
+	public static final int[] INTAKE_LEFT_PRIMARY_SOLENOID_PORTS = new int[] { 1, 2 };
+	public static final int[] INTAKE_RIGHT_PRIMARY_SOLENOID_PORTS = new int[] { 3, 4 };
+	public static final int[] INTAKE_LEFT_POSITION_SOLENOID_PORTS = new int[] { 5, 6 };
+	public static final int[] INTAKE_RIGHT_POSITION_SOLENOID_PORTS = new int[] { 7, 8 };
+
 }

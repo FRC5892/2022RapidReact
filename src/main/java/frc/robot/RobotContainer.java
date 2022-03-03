@@ -6,9 +6,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.RunFlywheelFullSpeed;
+import frc.robot.commands.RunIntakeRollers;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter.Flywheel;
 
 /**
@@ -27,6 +31,12 @@ public class RobotContainer {
 
 	private RunFlywheelFullSpeed runFlywheelFullSpeed;
 
+	private Intake intake;
+
+	private RunIntakeRollers runIntakeRollers;
+
+	private ToggleIntake toggleIntake;
+
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		driveTrain = new DriveTrain();
@@ -35,6 +45,11 @@ public class RobotContainer {
 
 		flywheel = new Flywheel();
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
+
+		intake = new Intake();
+		runIntakeRollers = new RunIntakeRollers(intake);
+		intake.setDefaultCommand(runIntakeRollers);
+		toggleIntake = new ToggleIntake(intake);
 
 		// Configure the button bindings
 		configureButtonBindings();
@@ -47,6 +62,8 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		OperatorInput.runFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
+		OperatorInput.toggleIntake.whenPressed(toggleIntake);
+		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 	}
 
 	/**
