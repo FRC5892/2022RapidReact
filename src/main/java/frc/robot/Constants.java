@@ -55,4 +55,7 @@ public final class Constants {
 	public static final int[] INTAKE_LEFT_POSITION_SOLENOID_PORTS = new int[] { 5, 6 };
 	public static final int[] INTAKE_RIGHT_POSITION_SOLENOID_PORTS = new int[] { 7, 8 };
 
+	public static final int[] ACCUMULATOR_MOTOR_PORTS = new int[] { 13, 14 };
+	public static final double ACCUMULATOR_SPEED = 0.3;
+
 }

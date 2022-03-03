@@ -16,6 +16,7 @@ public class RunIntakeRollers extends CommandBase {
 	public RunIntakeRollers(Intake i) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		intake = i;
+		addRequirements(intake);
 	}
 
 	// Called when the command is initially scheduled.
