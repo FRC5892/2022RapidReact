@@ -19,7 +19,7 @@ public class AimAndShoot extends CommandBase {
 	private TurretVision turretVision;
 	private boolean finished;
 	private boolean reverse;
-	private double hoodRangingCoefficients[] = new double[] { 1, 2, 3 };
+	private double[] hoodRangingCoefficients = new double[] { 1, 2, 3 };
 
 	/** Creates a new AimAndShoot. */
 	public AimAndShoot(Flywheel f, Turret t, Hood h, TurretVision tv) {
@@ -54,10 +54,10 @@ public class AimAndShoot extends CommandBase {
 				reverse = false;
 			}
 			if (reverse) {
-				turret.setMotor(-.3);
+				turret.setMotor(-(Constants.TURRET_SCAN_SPEED));
 			}
 			else {
-				turret.setMotor(.3);
+				turret.setMotor(Constants.TURRET_SCAN_SPEED);
 			}
 		}
 	}
