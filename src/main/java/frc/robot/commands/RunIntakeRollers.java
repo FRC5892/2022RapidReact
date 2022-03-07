@@ -30,8 +30,11 @@ public class RunIntakeRollers extends CommandBase {
 		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
 			intake.setMotors(OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
 		}
-		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+		else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
 			intake.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
+		}
+		else {
+			intake.stopMotors();
 		}
 	}
 
