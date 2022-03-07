@@ -27,7 +27,7 @@ public class DriveWithJoysticks extends CommandBase {
 	@Override
 	public void execute() {
 		driveTrain.driveWithJoysticks(OperatorInput.driverJoystick.getLeftY(),
-				-(OperatorInput.driverJoystick.getRightX()));
+				(OperatorInput.driverJoystick.getRightX()));
 	}
 
 	// Called once the command ends or is interrupted.
