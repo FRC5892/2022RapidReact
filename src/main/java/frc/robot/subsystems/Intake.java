@@ -47,7 +47,12 @@ public class Intake extends SubsystemBase {
 	}
 
 	public void setMotors(double speed) {
-		motors.set(speed);
+		if (leftPositionSolenoid.get() == Value.kForward) {
+			motors.set(-speed);
+		}
+		else {
+			motors.set(speed);
+		}
 	}
 
 	public void togglePrimarySolenoids() {
