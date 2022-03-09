@@ -7,6 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PolynomialFunction;
+import frc.robot.subsystems.Accumulator;
+import frc.robot.subsystems.Kicker;
+import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Shooter.Flywheel;
 import frc.robot.subsystems.Shooter.Hood;
 import frc.robot.subsystems.Shooter.Turret;
@@ -20,15 +23,21 @@ public class AimAndShoot extends CommandBase {
 	private boolean finished;
 	private boolean reverse;
 	private double[] hoodRangingCoefficients = new double[] { 1, 2, 3 };
+	private Accumulator accumulator;
+	private Tower tower;
+	private Kicker kicker;
 
 	/** Creates a new AimAndShoot. */
-	public AimAndShoot(Flywheel f, Turret t, Hood h, TurretVision tv) {
+	public AimAndShoot(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv) {
 		flywheel = f;
 		turret = t;
 		hood = h;
+		accumulator = a;
+		tower = tw;
+		kicker = k;
 		turretVision = tv;
 
-		addRequirements(flywheel, turret, hood, tv);
+		addRequirements(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
@@ -42,9 +51,15 @@ public class AimAndShoot extends CommandBase {
 	@Override
 	public void execute() {
 		if (turretVision.hasTargets()) {
-			turret.setSetpoint(turret.getMeasurement() - turretVision.targetYaw());
+			turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
 			hood.setSetpoint(
 					PolynomialFunction.polynomailFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
+			if (hood.atSetpoint() && turret.atSetpoint() && flywheel.atSetpoint()) {
+				kicker.setMotors(Constants.KICKER_SPEED);
+			}
+			else {
+				kicker.stopMotors();
+			}
 		}
 		else {
 			if (turret.atLeftLimit()) {
@@ -60,6 +75,19 @@ public class AimAndShoot extends CommandBase {
 				turret.setMotor(Constants.TURRET_SCAN_SPEED);
 			}
 		}
+		if (!kicker.hasBall()) {
+			kicker.setMotors(Constants.KICKER_SPEED);
+			tower.setMotors(Constants.TOWER_SPEED);
+			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+		}
+		else if (kicker.hasBall()) {
+			accumulator.stopMotors();
+			tower.stopMotors();
+		}
+		if (kicker.hasBall() && !turretVision.hasTargets()) {
+			kicker.stopMotors();
+		}
+
 	}
 
 	// Called once the command ends or is interrupted.
@@ -68,6 +96,9 @@ public class AimAndShoot extends CommandBase {
 		flywheel.stop();
 		turret.stop();
 		hood.stop();
+		accumulator.stopMotors();
+		tower.stopMotors();
+		kicker.stopMotors();
 	}
 
 	// Returns true when the command should end.

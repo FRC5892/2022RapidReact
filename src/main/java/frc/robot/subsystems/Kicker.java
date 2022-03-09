@@ -8,11 +8,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Accumulator extends SubsystemBase {
-	private CANSparkMax accumulatorMotor(int motorID, boolean inverted) {
+public class Kicker extends SubsystemBase {
+	private CANSparkMax kickerMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushed);
 		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
@@ -21,19 +22,25 @@ public class Accumulator extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = accumulatorMotor(Constants.ACCUMULATOR_MOTOR_PORT, false);
+	private CANSparkMax kickerMotors = kickerMotor(Constants.KICKER_MOTOR_PORT, false);
 
-	/** Creates a new Accumulator. */
-	public Accumulator() {
-		// template
+	private DigitalInput kickerSensor = new DigitalInput(Constants.KICKER_SENSOR_PORT);
+
+	/** Creates a new Kicker. */
+	public Kicker() {
+		// default
 	}
 
-	public void setMotors(Double speed) {
-		motor.set(speed);
+	public void setMotors(double speed) {
+		kickerMotors.set(speed);
 	}
 
 	public void stopMotors() {
-		motor.stopMotor();
+		kickerMotors.stopMotor();
+	}
+
+	public boolean hasBall() {
+		return kickerSensor.get();
 	}
 
 	@Override

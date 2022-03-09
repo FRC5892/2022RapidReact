@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class PhotonVision extends SubsystemBase {
 	/** Creates a new PhotonVision. */
 	public PhotonVision() {
+		// default
 	}
 
 	@Override

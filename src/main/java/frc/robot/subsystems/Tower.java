@@ -11,8 +11,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Accumulator extends SubsystemBase {
-	private CANSparkMax accumulatorMotor(int motorID, boolean inverted) {
+public class Tower extends SubsystemBase {
+	private CANSparkMax towerMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushed);
 		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
@@ -21,19 +21,19 @@ public class Accumulator extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = accumulatorMotor(Constants.ACCUMULATOR_MOTOR_PORT, false);
+	private CANSparkMax towerMotors = towerMotor(Constants.TOWER_MOTOR_PORT, false);
 
-	/** Creates a new Accumulator. */
-	public Accumulator() {
+	/** Creates a new Tower. */
+	public Tower() {
 		// template
 	}
 
-	public void setMotors(Double speed) {
-		motor.set(speed);
+	public void setMotors(double speed) {
+		towerMotors.set(speed);
 	}
 
 	public void stopMotors() {
-		motor.stopMotor();
+		towerMotors.stopMotor();
 	}
 
 	@Override

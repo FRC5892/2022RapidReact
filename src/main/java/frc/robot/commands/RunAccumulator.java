@@ -5,17 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.OperatorInput;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Accumulator;
 
-public class DriveWithJoysticks extends CommandBase {
-	private DriveTrain driveTrain;
+public class RunAccumulator extends CommandBase {
+	private Accumulator accumulator;
 
-	/** Creates a new DriveWithJoysticks. */
-	public DriveWithJoysticks(DriveTrain dt) {
+	/** Creates a new RunAccumulator. */
+	public RunAccumulator(Accumulator a) {
+		accumulator = a;
 		// Use addRequirements() here to declare subsystem dependencies.
-		driveTrain = dt;
-		addRequirements(driveTrain);
+		addRequirements(accumulator);
 	}
 
 	// Called when the command is initially scheduled.
@@ -27,14 +28,20 @@ public class DriveWithJoysticks extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		driveTrain.driveWithJoysticks(OperatorInput.driverJoystick.getLeftY(),
-				-(OperatorInput.driverJoystick.getRightX()));
+		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
+			// spit ball out
+			accumulator.setMotors(
+					OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.ACCUMULATOR_SPEED_MULTIPLIER);
+		}
+		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+			// accumulator.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis()
+		}
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		// default
+		accumulator.stopMotors();
 	}
 
 	// Returns true when the command should end.

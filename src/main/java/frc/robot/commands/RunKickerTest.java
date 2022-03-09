@@ -4,18 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.OperatorInput;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Kicker;
 
-public class DriveWithJoysticks extends CommandBase {
-	private DriveTrain driveTrain;
+public class RunKickerTest extends CommandBase {
+	private Kicker kicker;
 
-	/** Creates a new DriveWithJoysticks. */
-	public DriveWithJoysticks(DriveTrain dt) {
+	/** Creates a new RunKickerTest. */
+	public RunKickerTest(Kicker k) {
+		kicker = k;
 		// Use addRequirements() here to declare subsystem dependencies.
-		driveTrain = dt;
-		addRequirements(driveTrain);
+		addRequirements(kicker);
+		SmartDashboard.putNumber("Kicker Set Speed", 0);
 	}
 
 	// Called when the command is initially scheduled.
@@ -27,14 +28,14 @@ public class DriveWithJoysticks extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		driveTrain.driveWithJoysticks(OperatorInput.driverJoystick.getLeftY(),
-				-(OperatorInput.driverJoystick.getRightX()));
+		kicker.setMotors(SmartDashboard.getNumber("Kicker Set Speed", 0));
+
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		// default
+		kicker.stopMotors();
 	}
 
 	// Returns true when the command should end.

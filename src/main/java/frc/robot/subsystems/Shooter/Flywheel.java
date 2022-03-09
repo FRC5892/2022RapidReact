@@ -50,6 +50,10 @@ public class Flywheel extends PIDSubsystem {
 		return encoder.getRate() * Constants.FLYWHEEL_ENCODER_CONVERSION_FACTOR;
 	}
 
+	public boolean atSetpoint() {
+		return this.m_controller.atSetpoint();
+	}
+
 	@Override
 	public void useOutput(double output, double setpoint) {
 		// Use the output here

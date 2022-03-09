@@ -51,6 +51,10 @@ public class Hood extends PIDSubsystem {
 		return potentiometer.getVoltage() * 1 + 1;
 	}
 
+	public boolean atSetpoint() {
+		return this.m_controller.atSetpoint();
+	}
+
 	@Override
 	public void useOutput(double output, double setpoint) {
 		// Use the output here

@@ -7,13 +7,24 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.PreloadBall;
+import frc.robot.commands.RunAccumulator;
 import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.commands.RunIntakeRollers;
+import frc.robot.commands.RunKickerTest;
+import frc.robot.commands.RunShooterAtSetpoint;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Kicker;
+import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Shooter.Flywheel;
+import frc.robot.subsystems.Shooter.Hood;
+import frc.robot.subsystems.Shooter.Turret;
+import frc.robot.subsystems.Shooter.TurretVision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -37,6 +48,28 @@ public class RobotContainer {
 
 	private ToggleIntake toggleIntake;
 
+	private Accumulator accumulator;
+
+	private RunAccumulator runAccumulator;
+
+	private Tower tower;
+
+	private Kicker kicker;
+
+	private Hood hood;
+
+	private Turret turret;
+
+	private AimAndShoot aimAndShoot;
+
+	private TurretVision turretVision;
+
+	private PreloadBall preloadBall;
+
+	private RunShooterAtSetpoint runShooterAtSetpoint;
+
+	private RunKickerTest runKickerTest;
+
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		driveTrain = new DriveTrain();
@@ -46,12 +79,34 @@ public class RobotContainer {
 		flywheel = new Flywheel();
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
 
+		accumulator = new Accumulator();
+		runAccumulator = new RunAccumulator(accumulator);
+		accumulator.setDefaultCommand(runAccumulator);
+
 		intake = new Intake();
 		runIntakeRollers = new RunIntakeRollers(intake);
 		intake.setDefaultCommand(runIntakeRollers);
 		toggleIntake = new ToggleIntake(intake);
 
-		// Configure the button bindings
+		tower = new Tower();
+
+		kicker = new Kicker();
+
+		turret = new Turret();
+
+		hood = new Hood();
+
+		turretVision = new TurretVision();
+
+		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
+
+		preloadBall = new PreloadBall(accumulator, tower, kicker);
+
+		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
+
+		runKickerTest = new RunKickerTest(kicker);
+
+		// Configure the button bindingsz
 		configureButtonBindings();
 	}
 
@@ -64,6 +119,9 @@ public class RobotContainer {
 		OperatorInput.runFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
 		OperatorInput.toggleIntake.whenPressed(toggleIntake);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
+		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
+		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 	}
 
 	/**
