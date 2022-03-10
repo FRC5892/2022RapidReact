@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter.Flywheel;
@@ -27,6 +28,8 @@ public class RobotContainer {
 
 	private RunFlywheelFullSpeed runFlywheelFullSpeed;
 
+	private OutputFlywheelEncoder outputFlywheelEncoder;
+
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		driveTrain = new DriveTrain();
@@ -34,6 +37,8 @@ public class RobotContainer {
 		driveTrain.setDefaultCommand(driveWithJoysticks);
 
 		flywheel = new Flywheel();
+		outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
+		flywheel.setDefaultCommand(outputFlywheelEncoder);
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
 
 		// Configure the button bindings
