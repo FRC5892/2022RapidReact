@@ -11,6 +11,7 @@ import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.PreloadBall;
 import frc.robot.commands.RunAccumulator;
+import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.commands.RunIntakeRollers;
 import frc.robot.commands.RunKickerTest;
@@ -69,6 +70,8 @@ public class RobotContainer {
 	private RunShooterAtSetpoint runShooterAtSetpoint;
 
 	private RunKickerTest runKickerTest;
+	
+	private OutputFlywheelEncoder outputFlywheelEncoder;
 
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
@@ -77,6 +80,8 @@ public class RobotContainer {
 		driveTrain.setDefaultCommand(driveWithJoysticks);
 
 		flywheel = new Flywheel();
+		outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
+		flywheel.setDefaultCommand(outputFlywheelEncoder);
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
 
 		accumulator = new Accumulator();
