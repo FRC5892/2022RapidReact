@@ -11,7 +11,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -25,9 +24,7 @@ public class Intake extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax leftMotor = intakeMotor(Constants.INTAKE_MOTOR_PORTS[0], false);
-	private CANSparkMax rightMotor = intakeMotor(Constants.INTAKE_MOTOR_PORTS[1], true);
-	private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);
+	private CANSparkMax motor = intakeMotor(Constants.INTAKE_MOTOR_PORT, false);
 
 	private DoubleSolenoid leftPrimarySolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
 			Constants.INTAKE_LEFT_PRIMARY_SOLENOID_PORTS[0], Constants.INTAKE_LEFT_PRIMARY_SOLENOID_PORTS[1]);
@@ -48,10 +45,10 @@ public class Intake extends SubsystemBase {
 
 	public void setMotors(double speed) {
 		if (leftPositionSolenoid.get() == Value.kForward) {
-			motors.set(-speed);
+			motor.set(-speed);
 		}
 		else {
-			motors.set(speed);
+			motor.set(speed);
 		}
 	}
 
@@ -75,7 +72,7 @@ public class Intake extends SubsystemBase {
 	}
 
 	public void stopMotors() {
-		motors.stopMotor();
+		motor.stopMotor();
 	}
 
 	@Override
