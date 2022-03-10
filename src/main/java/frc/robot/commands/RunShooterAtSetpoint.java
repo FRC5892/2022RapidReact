@@ -23,6 +23,7 @@ public class RunShooterAtSetpoint extends CommandBase {
 	@Override
 	public void initialize() {
 		flywheel.setSetpoint(SmartDashboard.getNumber("Flywheel Setpoint RPM", 0));
+		flywheel.enable();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
