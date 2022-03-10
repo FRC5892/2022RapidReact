@@ -9,38 +9,39 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter.Flywheel;
 
 public class OutputFlywheelEncoder extends CommandBase {
-  private Flywheel flywheel;
+	private Flywheel flywheel;
 
-  /** Creates a new OutputFlywheelEncoder. */
-  public OutputFlywheelEncoder(Flywheel f) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    flywheel = f;
-    addRequirements(flywheel);
-  }
+	/** Creates a new OutputFlywheelEncoder. */
+	public OutputFlywheelEncoder(Flywheel f) {
+		// Use addRequirements() here to declare subsystem dependencies.
+		flywheel = f;
+		addRequirements(flywheel);
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    // flywheel.setMotors(.2);
-    flywheel.enable();
-    // flywheel.setSetpoint(100);
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		// flywheel.setMotors(.2);
+		flywheel.enable();
+		// flywheel.setSetpoint(100);
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    SmartDashboard.putNumber("Flywheel Position", flywheel.getPosition());
-    SmartDashboard.putNumber("Flywheel Velocity", flywheel.getVelocity());
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		SmartDashboard.putNumber("Flywheel Position", flywheel.getPosition());
+		SmartDashboard.putNumber("Flywheel Velocity", flywheel.getVelocity());
 
-  }
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }
