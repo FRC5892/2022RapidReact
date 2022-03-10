@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -22,6 +23,7 @@ public class Tower extends SubsystemBase {
 	}
 
 	private CANSparkMax towerMotors = towerMotor(Constants.TOWER_MOTOR_PORT, false);
+	private DigitalInput ballSensor = new DigitalInput(Constants.TOWER_SENSOR_PORT);
 
 	/** Creates a new Tower. */
 	public Tower() {
@@ -34,6 +36,10 @@ public class Tower extends SubsystemBase {
 
 	public void stopMotors() {
 		towerMotors.stopMotor();
+	}
+
+	public boolean hasBall() {
+		return ballSensor.get();
 	}
 
 	@Override

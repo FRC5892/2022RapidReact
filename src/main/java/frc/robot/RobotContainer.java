@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
@@ -27,6 +28,7 @@ import frc.robot.subsystems.Shooter.Flywheel;
 import frc.robot.subsystems.Shooter.Hood;
 import frc.robot.subsystems.Shooter.Turret;
 import frc.robot.subsystems.Shooter.TurretVision;
+import frc.robot.commands.autonomous.AutonDrive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -53,28 +55,22 @@ public class RobotContainer {
 	private Accumulator accumulator;
 
 	private RunAccumulator runAccumulator;
-
 	private Tower tower;
-
 	private Kicker kicker;
-
 	private Hood hood;
-
 	private Turret turret;
 
 	private AimAndShoot aimAndShoot;
-
 	private TurretVision turretVision;
-
 	private PreloadBall preloadBall;
 
 	private RunShooterAtSetpoint runShooterAtSetpoint;
-
+	private RunKickerandTower runKickerAndTower;
 	private RunKickerTest runKickerTest;
 
 	private OutputFlywheelEncoder outputFlywheelEncoder;
 
-	private RunKickerandTower runKickerAndTower;
+	private AutonDrive autonDrive;
 
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
@@ -89,11 +85,11 @@ public class RobotContainer {
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
 		accumulator = new Accumulator();
-		runAccumulator = new RunAccumulator(accumulator);
-		accumulator.setDefaultCommand(runAccumulator);
+		// runAccumulator = new RunAccumulator(accumulator, kicker, tower);
+		// accumulator.setDefaultCommand(runAccumulator);
 
 		intake = new Intake();
-		runIntakeRollers = new RunIntakeRollers(intake);
+		runIntakeRollers = new RunIntakeRollers(intake, accumulator, tower, kicker);
 		intake.setDefaultCommand(runIntakeRollers);
 		toggleIntake = new ToggleIntake(intake);
 
@@ -105,10 +101,14 @@ public class RobotContainer {
 
 		preloadBall = new PreloadBall(accumulator, tower, kicker);
 
-		runKickerTest = new RunKickerTest(kicker);
+		// runKickerTest = new RunKickerTest(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
-		runKickerAndTower = new RunKickerandTower(kicker, tower);
+		// runKickerAndTower = new RunKickerandTower(kicker, tower);
+
+		autonDrive = new AutonDrive(driveTrain);
+
+		// complexAuto = new ComplexAuto(driveTrain, )
 		// Configure the button bindingsz
 		configureButtonBindings();
 	}
@@ -134,8 +134,9 @@ public class RobotContainer {
 	 *
 	 * @return the command to run in autonomous
 	 */
-	// public Command getAutonomousCommand() {
-	// // An ExampleCommand will run in autonomous
-	// return m_autoCommand;
-	// }
+	public Command getAutonomousCommand() {
+		// return complexAuto;
+		return null;
+
+	}
 }
