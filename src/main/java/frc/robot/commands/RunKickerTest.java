@@ -23,13 +23,12 @@ public class RunKickerTest extends CommandBase {
 	@Override
 	public void initialize() {
 		// default
+		kicker.setMotors(.3);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		kicker.setMotors(SmartDashboard.getNumber("Kicker Set Speed", 0));
-
 	}
 
 	// Called once the command ends or is interrupted.
