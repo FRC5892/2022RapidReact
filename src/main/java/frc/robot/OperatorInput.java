@@ -21,5 +21,6 @@ public class OperatorInput {
 			XboxController.Button.kStart.value);
 	public static JoystickButton holdRunKickerTest = new JoystickButton(driverJoystick,
 			XboxController.Button.kBack.value);
+	public static JoystickButton runKickerAndTower = new JoystickButton(driverJoystick, XboxController.Button.kA.value);
 
 }
