@@ -32,10 +32,10 @@ public final class Constants {
 	public final static double ENCODER_CONVERSION_FACTOR = (Math.PI * ACUTAL_WHEEL_DIAMETER) / 1024;
 
 	public static final int[] FLYWHEEL_ENCODER_PORTS = new int[] { 4, 5 };
-	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1/.4;
+	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1 / .4;
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 9, 10 };
 	public static final double FLYWHEEL_SHOOTING_SPEED = 0;
-	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] {0.00125/.4, 0.002/.4, 0/.4};
+	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00125 / .4, 0.002 / .4, 0 / .4 };
 
 	public static final int TURRET_POTENTIOMETER = 6;
 	public static final double TURRET_POTENTIOMETER_CONVERSION_FACTOR = 1;
@@ -53,21 +53,21 @@ public final class Constants {
 
 	public static final int HOOD_MOTOR_ID = 8;
 
-	public static final int[] INTAKE_MOTOR_PORTS = new int[] { 11, 12 };
+	public static final int INTAKE_MOTOR_PORT = 7;
 	public static final double INTAKE_SPEED_MULTIPLIER = 1;
 	public static final int[] INTAKE_LEFT_PRIMARY_SOLENOID_PORTS = new int[] { 1, 2 };
 	public static final int[] INTAKE_RIGHT_PRIMARY_SOLENOID_PORTS = new int[] { 3, 4 };
 	public static final int[] INTAKE_LEFT_POSITION_SOLENOID_PORTS = new int[] { 5, 6 };
 	public static final int[] INTAKE_RIGHT_POSITION_SOLENOID_PORTS = new int[] { 7, 8 };
 
-	public static final int ACCUMULATOR_MOTOR_PORT = 13;
+	public static final int ACCUMULATOR_MOTOR_PORT = 12;
 	public static final double ACCUMULATOR_SPEED = 0.3;
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
-	public static final int KICKER_SENSOR_PORT = 12;
+	public static final int KICKER_SENSOR_PORT = 8;
 	public static final double KICKER_SPEED = 0;
 
 	public static final String LIMELIGHT_NAME = "limelight";
 	public static final double TOWER_SPEED = 0;
 	public static final int KICKER_MOTOR_PORT = 15;
-	public static final int TOWER_MOTOR_PORT = 14;
+	public static final int TOWER_MOTOR_PORT = 13;
 }
