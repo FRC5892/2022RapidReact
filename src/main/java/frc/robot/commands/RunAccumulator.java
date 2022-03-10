@@ -34,7 +34,10 @@ public class RunAccumulator extends CommandBase {
 					OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.ACCUMULATOR_SPEED_MULTIPLIER);
 		}
 		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
-			// accumulator.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis()
+			accumulator.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis());
+		}
+		else {
+			accumulator.stopMotors();
 		}
 	}
 
