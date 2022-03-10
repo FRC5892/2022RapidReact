@@ -23,16 +23,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-	private CANSparkMax leftMotor1 = driveMotor(1, false);
-	private CANSparkMax leftMotor2 = driveMotor(2, false);
-	private CANSparkMax leftMotor3 = driveMotor(3, false);
-	private CANSparkMax rightMotor1 = driveMotor(4, true);
-	private CANSparkMax rightMotor2 = driveMotor(5, true);
-	private CANSparkMax rightMotor3 = driveMotor(6, true);
+	private CANSparkMax leftMotor1 = driveMotor(1, true);
+	private CANSparkMax leftMotor2 = driveMotor(2, true);
+	private CANSparkMax leftMotor3 = driveMotor(3, true);
+	private CANSparkMax rightMotor1 = driveMotor(4, false);
+	private CANSparkMax rightMotor2 = driveMotor(5, false);
+	private CANSparkMax rightMotor3 = driveMotor(6, false);
 
 	// TODO evaluate connecting to spark maxes, make sparkmax sim work
-	private Encoder leftEncoder = new Encoder(0, 1);
-	private Encoder rightEncoder = new Encoder(2, 3, true);
+	private Encoder leftEncoder = new Encoder(0, 1, true);
+	private Encoder rightEncoder = new Encoder(2, 3, false);
 
 	private MotorControllerGroup leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
