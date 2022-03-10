@@ -39,7 +39,6 @@ public class Hood extends PIDSubsystem {
 				new PIDController(0, 0, 0));
 		topLimit.enableLimitSwitch(true);
 		bottomLimit.enableLimitSwitch(true);
-		SmartDashboard.putData("Hood PID", this.m_controller);
 	}
 
 	public void stop() {
