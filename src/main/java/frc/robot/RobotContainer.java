@@ -15,6 +15,7 @@ import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.commands.RunIntakeRollers;
 import frc.robot.commands.RunKickerTest;
+import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Accumulator;
@@ -70,8 +71,10 @@ public class RobotContainer {
 	private RunShooterAtSetpoint runShooterAtSetpoint;
 
 	private RunKickerTest runKickerTest;
-	
+
 	private OutputFlywheelEncoder outputFlywheelEncoder;
+
+	private RunKickerandTower runKickerAndTower;
 
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
@@ -83,6 +86,7 @@ public class RobotContainer {
 		outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
 		flywheel.setDefaultCommand(outputFlywheelEncoder);
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
+		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
 		accumulator = new Accumulator();
 		runAccumulator = new RunAccumulator(accumulator);
@@ -94,23 +98,17 @@ public class RobotContainer {
 		toggleIntake = new ToggleIntake(intake);
 
 		tower = new Tower();
-
 		kicker = new Kicker();
-
 		turret = new Turret();
-
 		hood = new Hood();
-
 		turretVision = new TurretVision();
-
-		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
 
 		preloadBall = new PreloadBall(accumulator, tower, kicker);
 
-		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
-
 		runKickerTest = new RunKickerTest(kicker);
 
+		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
+		runKickerAndTower = new RunKickerandTower(kicker, tower);
 		// Configure the button bindingsz
 		configureButtonBindings();
 	}
@@ -127,6 +125,8 @@ public class RobotContainer {
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 	}
 
 	/**
