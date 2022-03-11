@@ -64,15 +64,15 @@ public final class Constants {
 	public static final double ACCUMULATOR_SPEED = 0.3;
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
 	public static final int KICKER_SENSOR_PORT = 8;
-	public static final double KICKER_SPEED = 0;
+	public static final double KICKER_SPEED = .3;
 
 	public static final String LIMELIGHT_NAME = "limelight";
-	public static final double TOWER_SPEED = 0;
+	public static final double TOWER_SPEED = .3;
 	public static final int KICKER_MOTOR_PORT = 15;
 	public static final int TOWER_MOTOR_PORT = 13;
 	public static final double ACCUMULATOR_TIMEOUT = 3000;
 	public static final double AUTONOMOUS_SPEED = .25;
-	public static final int TOWER_SENSOR_PORT = 0;
-	public static final double PRELOAD_TIMEOUT = 0;
+	public static final int TOWER_SENSOR_PORT = 9;
+	public static final double PRELOAD_TIMEOUT = 3000;
 
 }
