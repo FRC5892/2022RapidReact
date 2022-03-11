@@ -63,7 +63,7 @@ public final class Constants {
 	public static final int ACCUMULATOR_MOTOR_PORT = 12;
 	public static final double ACCUMULATOR_SPEED = 0.3;
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
-	public static final int KICKER_SENSOR_PORT = 8;
+	public static final int KICKER_SENSOR_PORT = 9;
 	public static final double KICKER_SPEED = .3;
 
 	public static final String LIMELIGHT_NAME = "limelight";
@@ -72,7 +72,7 @@ public final class Constants {
 	public static final int TOWER_MOTOR_PORT = 13;
 	// public static final double ACCUMULATOR_TIMEOUT = 3;
 	public static final double AUTONOMOUS_SPEED = .25;
-	public static final int TOWER_SENSOR_PORT = 9;
+	public static final int TOWER_SENSOR_PORT = 8;
 	public static final double PRELOAD_TIMEOUT = 3;
 
 }
