@@ -12,15 +12,15 @@ import frc.robot.subsystems.Shooter.Turret;
 import frc.robot.subsystems.Shooter.TurretVision;
 
 public class ComplexAuto extends SequentialCommandGroup {
-	Flywheel f = new Flywheel();
-	Turret t = new Turret();
-	Hood h = new Hood();
-	Accumulator a = new Accumulator();
-	Tower tw = new Tower();
-	Kicker k = new Kicker();
-	TurretVision tv = new TurretVision();
+	private Flywheel f;
+	private Turret t;
+	private Hood h;
+	private Accumulator a;
+	private Tower tw;
+	private Kicker k;
+	private TurretVision tv;
 
-	DriveTrain driveTrain = new DriveTrain();
+	private DriveTrain driveTrain;
 	// AimAndShoot aimAndShoot = new AimAndShoot(f, t, h, a, tw, k, tv)
 
 	public ComplexAuto() {
