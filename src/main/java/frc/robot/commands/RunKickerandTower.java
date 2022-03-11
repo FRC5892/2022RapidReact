@@ -4,39 +4,40 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter.Flywheel;
+import frc.robot.subsystems.Kicker;
+import frc.robot.subsystems.Tower;
 
-public class OutputFlywheelEncoder extends CommandBase {
-	private Flywheel flywheel;
+public class RunKickerandTower extends CommandBase {
+	private Kicker kicker;
+	private Tower tower;
 
-	/** Creates a new OutputFlywheelEncoder. */
-	public OutputFlywheelEncoder(Flywheel f) {
+	/** Creates a new RunKickerandTower. */
+	public RunKickerandTower(Kicker k, Tower t) {
 		// Use addRequirements() here to declare subsystem dependencies.
-		flywheel = f;
-		addRequirements(flywheel);
+		kicker = k;
+		tower = t;
+		addRequirements(kicker, tower);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		// flywheel.setMotors(.2);
-		flywheel.disable();
-		// flywheel.setSetpoint(100);
+
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		SmartDashboard.putNumber("Flywheel Position", flywheel.getPosition());
-		SmartDashboard.putNumber("Flywheel Velocity", flywheel.getVelocity());
-
+		kicker.setMotors(.5);
+		tower.setMotors(.5);
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		kicker.stopMotors();
+		tower.stopMotors();
 	}
 
 	// Returns true when the command should end.

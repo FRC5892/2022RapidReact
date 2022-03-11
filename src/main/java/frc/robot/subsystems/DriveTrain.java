@@ -73,8 +73,8 @@ public class DriveTrain extends SubsystemBase {
 
 	public DriveTrain() {
 		// TODO set distance per pulse and distance per rev
-		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
-		// rightEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev);
+		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev)
+		// rightEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev)
 		SmartDashboard.putData(field);
 	}
 
@@ -103,6 +103,11 @@ public class DriveTrain extends SubsystemBase {
 
 	}
 
+	// @Override
+	public void stop() {
+		drive.stopMotor();
+	}
+
 	public double getLeftPosition() {
 		return leftEncoder.get() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
@@ -118,4 +123,5 @@ public class DriveTrain extends SubsystemBase {
 	public double getRightRate() {
 		return rightEncoder.getRate() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
+
 }

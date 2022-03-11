@@ -6,11 +6,30 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunFlywheelFullSpeed;
+import frc.robot.commands.RunKickerTest;
+import frc.robot.commands.RunKickerandTower;
+import frc.robot.commands.RunShooterAtSetpoint;
+import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.BallLoadingCrap.RunAccumulator;
+import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
+import frc.robot.commands.BallLoadingCrap.RunKicker;
+import frc.robot.commands.BallLoadingCrap.RunTower;
+import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Kicker;
+import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Shooter.Flywheel;
+import frc.robot.subsystems.Shooter.Hood;
+import frc.robot.subsystems.Shooter.Turret;
+import frc.robot.subsystems.Shooter.TurretVision;
+import frc.robot.commands.autonomous.ComplexAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -28,7 +47,34 @@ public class RobotContainer {
 
 	private RunFlywheelFullSpeed runFlywheelFullSpeed;
 
+	private Intake intake;
+
+	private RunIntakeRollers runIntakeRollers;
+
+	private ToggleIntake toggleIntake;
+
+	private Accumulator accumulator;
+
+	private RunAccumulator runAccumulator;
+	private Tower tower;
+	private Kicker kicker;
+	private Hood hood;
+	private Turret turret;
+
+	private AimAndShoot aimAndShoot;
+	private TurretVision turretVision;
+
+	private RunShooterAtSetpoint runShooterAtSetpoint;
+	private RunKickerandTower runKickerAndTower;
+	private RunKickerTest runKickerTest;
+
 	private OutputFlywheelEncoder outputFlywheelEncoder;
+
+	private ComplexAuto complexAuto;
+
+	private RunKicker runKicker;
+
+	private RunTower runTower;
 
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
@@ -40,8 +86,38 @@ public class RobotContainer {
 		outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
 		flywheel.setDefaultCommand(outputFlywheelEncoder);
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
+		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
-		// Configure the button bindings
+		tower = new Tower();
+		kicker = new Kicker();
+
+		runKicker = new RunKicker(kicker, tower);
+		kicker.setDefaultCommand(runKicker);
+		runTower = new RunTower(kicker, tower);
+		tower.setDefaultCommand(runTower);
+
+		accumulator = new Accumulator();
+		runAccumulator = new RunAccumulator(accumulator, kicker, tower);
+		accumulator.setDefaultCommand(runAccumulator);
+
+		intake = new Intake();
+		runIntakeRollers = new RunIntakeRollers(intake);
+		intake.setDefaultCommand(runIntakeRollers);
+		toggleIntake = new ToggleIntake(intake);
+
+		turret = new Turret();
+		hood = new Hood();
+		turretVision = new TurretVision();
+
+		// runKickerTest = new RunKickerTest(kicker);
+
+		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
+		runKickerAndTower = new RunKickerandTower(kicker, tower);
+
+		// autonDrive = new AutonDrive(driveTrain);
+
+		// complexAuto = new ComplexAuto();
+		// Configure the button bindingsz
 		configureButtonBindings();
 	}
 
@@ -52,6 +128,13 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		OperatorInput.runFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
+		OperatorInput.toggleIntake.whenPressed(toggleIntake);
+		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
+		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
+		// OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 	}
 
 	/**
@@ -59,8 +142,9 @@ public class RobotContainer {
 	 *
 	 * @return the command to run in autonomous
 	 */
-	// public Command getAutonomousCommand() {
-	// // An ExampleCommand will run in autonomous
-	// return m_autoCommand;
-	// }
+	public Command getAutonomousCommand() {
+		// return complexAuto;
+		return null;
+
+	}
 }

@@ -8,35 +8,34 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter.Flywheel;
 
-public class OutputFlywheelEncoder extends CommandBase {
+public class RunShooterAtSetpoint extends CommandBase {
 	private Flywheel flywheel;
 
-	/** Creates a new OutputFlywheelEncoder. */
-	public OutputFlywheelEncoder(Flywheel f) {
+	/** Creates a new RunShooterAtSetpoint. */
+	public RunShooterAtSetpoint(Flywheel f) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		flywheel = f;
 		addRequirements(flywheel);
+		SmartDashboard.putNumber("Flywheel Setpoint RPM", 0);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		// flywheel.setMotors(.2);
-		flywheel.disable();
-		// flywheel.setSetpoint(100);
+		flywheel.setSetpoint(SmartDashboard.getNumber("Flywheel Setpoint RPM", 0));
+		flywheel.enable();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		SmartDashboard.putNumber("Flywheel Position", flywheel.getPosition());
-		SmartDashboard.putNumber("Flywheel Velocity", flywheel.getVelocity());
-
+		// default
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		flywheel.stop();
 	}
 
 	// Returns true when the command should end.

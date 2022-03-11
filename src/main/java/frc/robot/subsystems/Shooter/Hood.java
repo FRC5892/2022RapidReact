@@ -29,8 +29,8 @@ public class Hood extends PIDSubsystem {
 	}
 
 	private CANSparkMax motor = turretMotor(Constants.HOOD_MOTOR_ID, false);
-	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
-	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
+	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyOpen);
+	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyOpen);
 
 	/** Creates a new Hood. */
 	public Hood() {
@@ -39,7 +39,6 @@ public class Hood extends PIDSubsystem {
 				new PIDController(0, 0, 0));
 		topLimit.enableLimitSwitch(true);
 		bottomLimit.enableLimitSwitch(true);
-		SmartDashboard.putData("Hood PID", this.m_controller);
 	}
 
 	public void stop() {
@@ -49,6 +48,10 @@ public class Hood extends PIDSubsystem {
 	public double getAngle() {
 		// TODO set conversion factor
 		return potentiometer.getVoltage() * 1 + 1;
+	}
+
+	public boolean atSetpoint() {
+		return this.m_controller.atSetpoint();
 	}
 
 	@Override

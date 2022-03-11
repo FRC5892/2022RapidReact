@@ -31,8 +31,6 @@ public class Turret extends PIDSubsystem {
 	private CANSparkMax motor = turretMotor(Constants.TURRET_MOTOR_ID, false);
 	private SparkMaxLimitSwitch leftLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
 	private SparkMaxLimitSwitch rightLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
-	private boolean useVision;
-	private double error;
 
 	/** Creates a new Hood. */
 	public Turret() {
@@ -68,6 +66,10 @@ public class Turret extends PIDSubsystem {
 
 	public boolean atRightLimit() {
 		return rightLimit.isPressed();
+	}
+
+	public boolean atSetpoint() {
+		return this.m_controller.atSetpoint();
 	}
 
 	@Override

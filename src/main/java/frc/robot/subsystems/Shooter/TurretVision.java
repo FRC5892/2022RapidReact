@@ -4,38 +4,34 @@
 
 package frc.robot.subsystems.Shooter;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
-import org.photonvision.targeting.PhotonPipelineResult;
-
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class TurretVision extends SubsystemBase {
-	private PhotonCamera camera = new PhotonCamera("turretVision");
-	private PhotonPipelineResult result;
 
 	/** Creates a new TurretVision. */
 	public TurretVision() {
+		// template
 	}
 
 	public boolean hasTargets() {
-		return result.hasTargets();
+		return NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("tv").getDouble(0) == 0d;
 	}
 
 	public double distanceFromTarget() {
-		return PhotonUtils.calculateDistanceToTargetMeters(Constants.TURRETVISION_CAMERA_HEIGHT, Constants.GOAL_HEIGHT,
-				Constants.TURRETVISION_CAMERA_PITCH, Units.degreesToRadians(result.getBestTarget().getPitch()));
+		return (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT) / Math.tan(Units.radiansToDegrees(
+				NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0)
+						+ Constants.TURRETVISION_CAMERA_PITCH));
 	}
 
-	public double targetYaw() {
-		return result.getBestTarget().getYaw();
+	public double xAngle() {
+		return NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("tx").getDouble(0);
 	}
 
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
-		result = camera.getLatestResult();
 	}
 }

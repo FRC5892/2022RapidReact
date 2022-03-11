@@ -2,20 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.BallLoadingCrap;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.OperatorInput;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 
-public class DriveWithJoysticks extends CommandBase {
-	private DriveTrain driveTrain;
+public class RunIntakeRollers extends CommandBase {
+	private Intake intake;
 
-	/** Creates a new DriveWithJoysticks. */
-	public DriveWithJoysticks(DriveTrain dt) {
+	/** Creates a new RunIntakeRollers. */
+	public RunIntakeRollers(Intake i) {
 		// Use addRequirements() here to declare subsystem dependencies.
-		driveTrain = dt;
-		addRequirements(driveTrain);
+		intake = i;
+		addRequirements(intake);
 	}
 
 	// Called when the command is initially scheduled.
@@ -27,14 +28,23 @@ public class DriveWithJoysticks extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		driveTrain.driveWithJoysticks(OperatorInput.driverJoystick.getLeftY(),
-				(OperatorInput.driverJoystick.getRightX()));
+		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
+			// outake
+			intake.setMotors(OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
+		}
+		else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+			// intake
+			intake.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
+		}
+		else {
+			intake.stopMotors();
+		}
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		// default
+		intake.stopMotors();
 	}
 
 	// Returns true when the command should end.

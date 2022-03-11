@@ -10,20 +10,14 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class Flywheel extends PIDSubsystem {
-	private CANSparkMax leftMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
-	private CANSparkMax rightMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[1], true);
-	private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);
 
-	private Encoder encoder = new Encoder(Constants.FLYWHEEL_ENCODER_PORTS[0], Constants.FLYWHEEL_ENCODER_PORTS[1]);
-
-	private RelativeEncoder neoEncoder = leftMotor.getEncoder(); 
+	// private Encoder encoder = new Encoder(Constants.FLYWHEEL_ENCODER_PORTS[0], Constants.FLYWHEEL_ENCODER_PORTS[1]);
 
 	public CANSparkMax shooterMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
@@ -34,17 +28,18 @@ public class Flywheel extends PIDSubsystem {
 		return sparkMax;
 	}
 
+	private CANSparkMax leftMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
+	private CANSparkMax rightMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[1], true);
+	private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);
+	private RelativeEncoder neoEncoder = leftMotor.getEncoder();
+
 	/** Creates a new Shooter. */
 	public Flywheel() {
 		super(
 				// The PIDController used by the subsystem
-				new PIDController(Constants.FLYWHEEL_PID_CONSTANTS[0], Constants.FLYWHEEL_PID_CONSTANTS[1], Constants.FLYWHEEL_PID_CONSTANTS[2]));
-		SmartDashboard.putNumber("Flywheel P", this.m_controller.getP());
-		SmartDashboard.putNumber("Flywheel I", this.m_controller.getI());
-		SmartDashboard.putNumber("Flywheel D", this.m_controller.getD());
-		SmartDashboard.putNumber("Flywheel Setpoint", this.m_controller.getSetpoint());
-
-
+				new PIDController(Constants.FLYWHEEL_PID_CONSTANTS[0], Constants.FLYWHEEL_PID_CONSTANTS[1],
+						Constants.FLYWHEEL_PID_CONSTANTS[2]));
+		this.disable();
 	}
 
 	public void setMotors(double speed) {
@@ -63,15 +58,15 @@ public class Flywheel extends PIDSubsystem {
 		return neoEncoder.getPosition() * Constants.FLYWHEEL_ENCODER_CONVERSION_FACTOR;
 	}
 
+	public boolean atSetpoint() {
+		return this.m_controller.atSetpoint();
+	}
+
 	@Override
 	public void useOutput(double output, double setpoint) {
 		// Use the output here
 		motors.set(output);
 		SmartDashboard.putNumber("Flywheel Velocity", getVelocity());
-		this.m_controller.setP(SmartDashboard.getNumber("Flywheel P", 0));
-		this.m_controller.setI(SmartDashboard.getNumber("Flywheel I", 0));
-		this.m_controller.setD(SmartDashboard.getNumber("Flywheel D", 0));
-		this.setSetpoint(SmartDashboard.getNumber("Flywheel Setpoint", 0));
 
 	}
 
