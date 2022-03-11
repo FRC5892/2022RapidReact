@@ -47,6 +47,6 @@ public class Kicker extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
-		SmartDashboard.putBoolean("Ball Sensor", hasBall());
+		SmartDashboard.putBoolean("Kicker Sensor", hasBall());
 	}
 }
