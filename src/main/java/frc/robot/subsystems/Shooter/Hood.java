@@ -29,8 +29,8 @@ public class Hood extends PIDSubsystem {
 	}
 
 	private CANSparkMax motor = turretMotor(Constants.HOOD_MOTOR_ID, false);
-	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
-	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
+	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyOpen);
+	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyOpen);
 
 	/** Creates a new Hood. */
 	public Hood() {
