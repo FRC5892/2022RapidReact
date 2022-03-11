@@ -87,14 +87,14 @@ public class RobotContainer {
 		accumulator = new Accumulator();
 		// runAccumulator = new RunAccumulator(accumulator, kicker, tower);
 		// accumulator.setDefaultCommand(runAccumulator);
+		tower = new Tower();
+		kicker = new Kicker();
 
 		intake = new Intake();
 		runIntakeRollers = new RunIntakeRollers(intake, accumulator, tower, kicker);
 		intake.setDefaultCommand(runIntakeRollers);
 		toggleIntake = new ToggleIntake(intake);
 
-		tower = new Tower();
-		kicker = new Kicker();
 		turret = new Turret();
 		hood = new Hood();
 		turretVision = new TurretVision();
@@ -104,11 +104,11 @@ public class RobotContainer {
 		// runKickerTest = new RunKickerTest(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
-		// runKickerAndTower = new RunKickerandTower(kicker, tower);
+		runKickerAndTower = new RunKickerandTower(kicker, tower);
 
 		// autonDrive = new AutonDrive(driveTrain);
 
-		complexAuto = new ComplexAuto();
+		// complexAuto = new ComplexAuto();
 		// Configure the button bindingsz
 		configureButtonBindings();
 	}
@@ -124,9 +124,9 @@ public class RobotContainer {
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
+		// OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
-		OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
+		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 	}
 
 	/**
@@ -135,8 +135,8 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		return complexAuto;
-		// return null;
+		// return complexAuto;
+		return null;
 
 	}
 }
