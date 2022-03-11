@@ -51,30 +51,30 @@ public class AimAndShoot extends CommandBase {
 	@Override
 	public void execute() {
 		if (turretVision.hasTargets()) {
-			turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
+			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
 			hood.setSetpoint(
 					PolynomialFunction.polynomailFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
-			if (hood.atSetpoint() && turret.atSetpoint() && flywheel.atSetpoint()) {
+			if (hood.atSetpoint() /* && turret.atSetpoint() */ && flywheel.atSetpoint()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
 			}
 			else {
 				kicker.stopMotors();
 			}
 		}
-		else {
-			if (turret.atLeftLimit()) {
-				reverse = true;
-			}
-			else if (turret.atRightLimit()) {
-				reverse = false;
-			}
-			if (reverse) {
-				turret.setMotor(-(Constants.TURRET_SCAN_SPEED));
-			}
-			else {
-				turret.setMotor(Constants.TURRET_SCAN_SPEED);
-			}
-		}
+		// else {
+		// if (turret.atLeftLimit()) {
+		// reverse = true;
+		// }
+		// else if (turret.atRightLimit()) {
+		// reverse = false;
+		// }
+		// if (reverse) {
+		// turret.setMotor(-(Constants.TURRET_SCAN_SPEED));
+		// }
+		// else {
+		// turret.setMotor(Constants.TURRET_SCAN_SPEED);
+		// }
+		// }
 		if (!kicker.hasBall()) {
 			kicker.setMotors(Constants.KICKER_SPEED);
 			tower.setMotors(Constants.TOWER_SPEED);
@@ -94,7 +94,7 @@ public class AimAndShoot extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		flywheel.stop();
-		turret.stop();
+		// turret.stop();
 		hood.stop();
 		accumulator.stopMotors();
 		tower.stopMotors();

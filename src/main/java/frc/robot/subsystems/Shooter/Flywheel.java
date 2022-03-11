@@ -10,17 +10,15 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class Flywheel extends PIDSubsystem {
-	
+
 	// private Encoder encoder = new Encoder(Constants.FLYWHEEL_ENCODER_PORTS[0], Constants.FLYWHEEL_ENCODER_PORTS[1]);
-	
-	
+
 	public CANSparkMax shooterMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
 		sparkMax.restoreFactoryDefaults();
@@ -29,6 +27,7 @@ public class Flywheel extends PIDSubsystem {
 		sparkMax.burnFlash();
 		return sparkMax;
 	}
+
 	private CANSparkMax leftMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
 	private CANSparkMax rightMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[1], true);
 	private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);

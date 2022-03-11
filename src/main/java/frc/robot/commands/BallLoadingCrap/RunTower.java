@@ -29,7 +29,6 @@ public class RunTower extends CommandBase {
 	@Override
 	public void initialize() {
 		// default
-		timer.reset();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -39,13 +38,11 @@ public class RunTower extends CommandBase {
 			// intake
 			timer.reset();
 			timer.start();
-		}
-		if (timer.get() < Constants.PRELOAD_TIMEOUT && (!kicker.hasBall() || !tower.hasBall())) {
 			tower.setMotors(Constants.TOWER_SPEED);
-
 		}
-		else {
+		if (timer.get() > Constants.PRELOAD_TIMEOUT || (kicker.hasBall() && tower.hasBall())) {
 			tower.stopMotors();
+			timer.stop();
 		}
 	}
 
@@ -53,6 +50,7 @@ public class RunTower extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		tower.stopMotors();
+		timer.stop();
 	}
 
 	// Returns true when the command should end.

@@ -17,6 +17,7 @@ public class RunAccumulator extends CommandBase {
 	private Kicker kicker;
 	private Timer timer;
 	private Tower tower;
+	private boolean preloading;
 
 	/** Creates a new RunAccumulator. */
 	public RunAccumulator(Accumulator a, Kicker k, Tower t) {
@@ -26,44 +27,47 @@ public class RunAccumulator extends CommandBase {
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(accumulator);
 		timer = new Timer();
+		preloading = false;
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		timer.reset();
 		// default
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		
 		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
 			// spit ball out
+			preloading = false;
 			accumulator.setMotors(
 					-OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.ACCUMULATOR_SPEED_MULTIPLIER);
 		}
+		else if (OperatorInput.driverJoystick.getLeftTriggerAxis() == 0 && !preloading) {
+			accumulator.stopMotors();
+		}
 		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
 			// intake
+			preloading = true;
 			timer.reset();
 			timer.start();
-			// accumulator.setMotors(OperatorInput.driverJoystick.getRightTriggerAxis());
-			// driver shouldn't have control of accumulator
-		}
-		if (timer.get() < Constants.PRELOAD_TIMEOUT && (!kicker.hasBall() || !tower.hasBall())) {
 			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
-
 		}
-		else {
+		if (((timer.get() > Constants.PRELOAD_TIMEOUT || (kicker.hasBall() && tower.hasBall())) && preloading)) {
+			preloading = false;
 			accumulator.stopMotors();
+			timer.stop();
 		}
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		preloading = false;
 		accumulator.stopMotors();
+		timer.stop();
 	}
 
 	// Returns true when the command should end.

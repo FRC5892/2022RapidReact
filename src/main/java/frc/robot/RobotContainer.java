@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.PreloadBall;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.commands.RunKickerTest;
@@ -64,7 +63,6 @@ public class RobotContainer {
 
 	private AimAndShoot aimAndShoot;
 	private TurretVision turretVision;
-	private PreloadBall preloadBall;
 
 	private RunShooterAtSetpoint runShooterAtSetpoint;
 	private RunKickerandTower runKickerAndTower;
@@ -90,30 +88,26 @@ public class RobotContainer {
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
-		accumulator = new Accumulator();
-		// runAccumulator = new RunAccumulator(accumulator, kicker, tower);
-		// accumulator.setDefaultCommand(runAccumulator);
 		tower = new Tower();
 		kicker = new Kicker();
-		
-		runKicker = new RunKicker(kicker, tower);
-		runTower = new RunTower(kicker, tower);
-		runAccumulator = new RunAccumulator(accumulator, kicker, tower);
 
+		runKicker = new RunKicker(kicker, tower);
 		kicker.setDefaultCommand(runKicker);
+		runTower = new RunTower(kicker, tower);
 		tower.setDefaultCommand(runTower);
+
+		accumulator = new Accumulator();
+		runAccumulator = new RunAccumulator(accumulator, kicker, tower);
 		accumulator.setDefaultCommand(runAccumulator);
 
 		intake = new Intake();
-		runIntakeRollers = new RunIntakeRollers(intake, accumulator, tower, kicker);
+		runIntakeRollers = new RunIntakeRollers(intake);
 		intake.setDefaultCommand(runIntakeRollers);
 		toggleIntake = new ToggleIntake(intake);
 
 		turret = new Turret();
 		hood = new Hood();
 		turretVision = new TurretVision();
-
-		preloadBall = new PreloadBall(accumulator, tower, kicker);
 
 		// runKickerTest = new RunKickerTest(kicker);
 

@@ -38,13 +38,11 @@ public class RunKicker extends CommandBase {
 			// intake
 			timer.reset();
 			timer.start();
-		}
-		if (timer.get() < Constants.PRELOAD_TIMEOUT && timer.hasElapsed(3) && (!kicker.hasBall() || !tower.hasBall())) {
 			kicker.setMotors(Constants.KICKER_SPEED);
-
 		}
-		else {
+		if (timer.get() > Constants.PRELOAD_TIMEOUT || kicker.hasBall()) {
 			kicker.stopMotors();
+			timer.stop();
 		}
 	}
 
