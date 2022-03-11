@@ -109,7 +109,7 @@ public class RobotContainer {
 		hood = new Hood();
 		turretVision = new TurretVision();
 
-		// runKickerTest = new RunKickerTest(kicker);
+		runKickerTest = new RunKickerTest(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
 		runKickerAndTower = new RunKickerandTower(kicker, tower);
@@ -132,7 +132,7 @@ public class RobotContainer {
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		// OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 	}
@@ -148,3 +148,4 @@ public class RobotContainer {
 
 	}
 }
+// SmartDashboard.putNumber("Flywheel Setpoint RPM", 0);
