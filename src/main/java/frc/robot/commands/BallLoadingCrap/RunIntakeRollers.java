@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.BallLoadingCrap;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -24,10 +24,10 @@ public class RunIntakeRollers extends CommandBase {
 	public RunIntakeRollers(Intake i, Accumulator a, Tower t, Kicker k) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		intake = i;
-		accumulator = a;
-		tower = t;
-		kicker = k;
-		addRequirements(intake, accumulator, tower, kicker);
+		// accumulator = a;
+		// tower = t;
+		// kicker = k;
+		addRequirements(intake);
 	}
 
 	// Called when the command is initially scheduled.
@@ -42,8 +42,8 @@ public class RunIntakeRollers extends CommandBase {
 		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
 			// outake
 			intake.setMotors(OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
-			accumulator.setMotors(
-					OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.ACCUMULATOR_SPEED_MULTIPLIER);
+			// accumulator.setMotors(
+			// 		OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.ACCUMULATOR_SPEED_MULTIPLIER);
 		}
 		else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
 			// intake
@@ -54,26 +54,26 @@ public class RunIntakeRollers extends CommandBase {
 		else {
 			intake.stopMotors();
 		}
-		if (timer.get() < Constants.PRELOAD_TIMEOUT) {
-			if (!kicker.hasBall()) {
-				kicker.setMotors(Constants.KICKER_SPEED);
-			}
-			else {
-				kicker.stopMotors();
-			}
-			if (!tower.hasBall()) {
-				tower.setMotors(Constants.TOWER_SPEED);
-			}
-			else {
-				tower.stopMotors();
-			}
-			if (!tower.hasBall() || !kicker.hasBall()) {
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
-			}
-			else {
-				accumulator.stopMotors();
-			}
-		}
+		// if (timer.get() < Constants.PRELOAD_TIMEOUT) {
+		// 	if (!kicker.hasBall()) {
+		// 		kicker.setMotors(Constants.KICKER_SPEED);
+		// 	}
+		// 	else {
+		// 		kicker.stopMotors();
+		// 	}
+		// 	if (!tower.hasBall()) {
+		// 		tower.setMotors(Constants.TOWER_SPEED);
+		// 	}
+		// 	else {
+		// 		tower.stopMotors();
+		// 	}
+		// 	if (!tower.hasBall() || !kicker.hasBall()) {
+		// 		accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+		// 	}
+		// 	if (tower.hasBall() && kicker.hasBall()) {
+		// 		accumulator.stopMotors();
+		// 	}
+		// }
 		// if timer (if kicker no ball (run kicker), if kicker no ball or tower no ball (run accumulator))
 	}
 
@@ -81,9 +81,9 @@ public class RunIntakeRollers extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		intake.stopMotors();
-		accumulator.stopMotors();
-		tower.stopMotors();
-		kicker.stopMotors();
+		// accumulator.stopMotors();
+		// tower.stopMotors();
+		// kicker.stopMotors();
 	}
 
 	// Returns true when the command should end.

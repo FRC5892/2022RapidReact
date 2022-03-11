@@ -70,9 +70,9 @@ public final class Constants {
 	public static final double TOWER_SPEED = .3;
 	public static final int KICKER_MOTOR_PORT = 15;
 	public static final int TOWER_MOTOR_PORT = 13;
-	public static final double ACCUMULATOR_TIMEOUT = 3000;
+	// public static final double ACCUMULATOR_TIMEOUT = 3;
 	public static final double AUTONOMOUS_SPEED = .25;
 	public static final int TOWER_SENSOR_PORT = 9;
-	public static final double PRELOAD_TIMEOUT = 3000;
+	public static final double PRELOAD_TIMEOUT = 3;
 
 }

@@ -11,14 +11,16 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.PreloadBall;
-import frc.robot.commands.RunAccumulator;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunFlywheelFullSpeed;
-import frc.robot.commands.RunIntakeRollers;
 import frc.robot.commands.RunKickerTest;
 import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.BallLoadingCrap.RunAccumulator;
+import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
+import frc.robot.commands.BallLoadingCrap.RunKicker;
+import frc.robot.commands.BallLoadingCrap.RunTower;
 import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -72,6 +74,10 @@ public class RobotContainer {
 
 	private ComplexAuto complexAuto;
 
+	private RunKicker runKicker;
+
+	private RunTower runTower;
+
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		driveTrain = new DriveTrain();
@@ -89,6 +95,14 @@ public class RobotContainer {
 		// accumulator.setDefaultCommand(runAccumulator);
 		tower = new Tower();
 		kicker = new Kicker();
+		
+		runKicker = new RunKicker(kicker, tower);
+		runTower = new RunTower(kicker, tower);
+		runAccumulator = new RunAccumulator(accumulator, kicker, tower);
+
+		kicker.setDefaultCommand(runKicker);
+		tower.setDefaultCommand(runTower);
+		accumulator.setDefaultCommand(runAccumulator);
 
 		intake = new Intake();
 		runIntakeRollers = new RunIntakeRollers(intake, accumulator, tower, kicker);
