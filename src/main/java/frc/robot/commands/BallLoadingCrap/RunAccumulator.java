@@ -40,22 +40,18 @@ public class RunAccumulator extends CommandBase {
 	public void execute() {
 		
 		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
-			System.out.println(OperatorInput.driverJoystick.getLeftTriggerAxis());
 			// spit ball out
 			accumulator.setMotors(
 					-OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.ACCUMULATOR_SPEED_MULTIPLIER);
 		}
 		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
-			// System.out.println(OperatorInput.driverJoystick.getRightTriggerAxis());
 			// intake
 			timer.reset();
 			timer.start();
-			System.out.println(timer.get());
 			// accumulator.setMotors(OperatorInput.driverJoystick.getRightTriggerAxis());
 			// driver shouldn't have control of accumulator
 		}
 		if (timer.get() < Constants.PRELOAD_TIMEOUT && (!kicker.hasBall() || !tower.hasBall())) {
-			System.out.println("stuff");
 			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 
 		}
