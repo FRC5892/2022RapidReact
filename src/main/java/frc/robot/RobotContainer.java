@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
+import frc.robot.commands.RunClimb;
 import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.commands.RunKickerTest;
 import frc.robot.commands.RunKickerandTower;
@@ -25,6 +26,7 @@ import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
 import frc.robot.commands.BallLoadingCrap.RunKicker;
 import frc.robot.commands.BallLoadingCrap.RunTower;
 import frc.robot.subsystems.Accumulator;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Kicker;
@@ -84,8 +86,11 @@ public class RobotContainer {
 
 	private Shoot shoot;
 
-	private timedShoot TimedShoot;
+	private timedShoot TimedShoot; 
+	
+	private Climb climb;
 
+	private RunClimb runClimb;
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 
@@ -130,6 +135,9 @@ public class RobotContainer {
 		runKickerAndTower = new RunKickerandTower(kicker, tower);
 		TimedShoot = new timedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
+		climb = new Climb();
+		runClimb = new RunClimb(climb);
+		climb.setDefaultCommand(runClimb);
 		// autonDrive = new AutonDrive(driveTrain);
 
 		simpleAuto = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
