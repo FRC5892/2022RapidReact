@@ -13,11 +13,9 @@ import frc.robot.subsystems.Shooter.Flywheel;
 
 public class Shoot extends CommandBase {
 	private Flywheel flywheel;
-	private boolean finished;
 	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
-	private boolean shoot;
 
 	/** Creates a new AimAndShoot. */
 	public Shoot(Flywheel f, Accumulator a, Tower tw, Kicker k) {
@@ -35,7 +33,7 @@ public class Shoot extends CommandBase {
 	public void initialize() {
 		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
 		flywheel.enable();
-		shoot = false;
+		System.out.println("Shooting start");
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -64,6 +62,8 @@ public class Shoot extends CommandBase {
 				tower.stopMotors();
 			}
 		}
+
+
 	}
 
 	// Called once the command ends or is interrupted.
@@ -73,12 +73,13 @@ public class Shoot extends CommandBase {
 		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
-		shoot = false;
+
+		System.out.println("Shooting stop");
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return finished;
+		return false;
 	}
 }
