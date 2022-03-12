@@ -19,7 +19,7 @@ import frc.robot.Constants;
 public class Hood extends PIDSubsystem {
 	private AnalogInput potentiometer = new AnalogInput(Constants.HOOD_POTENTIOMETER_PORT);
 
-	public CANSparkMax turretMotor(int motorID, boolean inverted) {
+	public CANSparkMax hoodMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
 		// sparkMax.restoreFactoryDefaults();
 		// this motor needs to be programmed with rev hardware client so that the limit switches work properly
@@ -30,7 +30,7 @@ public class Hood extends PIDSubsystem {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = turretMotor(Constants.HOOD_MOTOR_ID, false);
+	private CANSparkMax motor = hoodMotor(Constants.HOOD_MOTOR_ID, false);
 	// weird rev API issue where limit
 	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
 	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
