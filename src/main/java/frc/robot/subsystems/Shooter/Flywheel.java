@@ -40,6 +40,7 @@ public class Flywheel extends PIDSubsystem {
 				new PIDController(Constants.FLYWHEEL_PID_CONSTANTS[0], Constants.FLYWHEEL_PID_CONSTANTS[1],
 						Constants.FLYWHEEL_PID_CONSTANTS[2]));
 		this.disable();
+		this.m_controller.setTolerance(100);
 	}
 
 	public void setMotors(double speed) {
@@ -67,6 +68,7 @@ public class Flywheel extends PIDSubsystem {
 		// Use the output here
 		motors.set(output);
 		SmartDashboard.putNumber("Flywheel Velocity", getVelocity());
+		SmartDashboard.putBoolean("Flywheel At Setpoint", atSetpoint());
 
 	}
 
