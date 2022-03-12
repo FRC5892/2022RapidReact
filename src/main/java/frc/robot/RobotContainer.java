@@ -17,6 +17,7 @@ import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.commands.RunKickerTest;
 import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.BallLoadingCrap.RunAccumulator;
 import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
@@ -31,7 +32,7 @@ import frc.robot.subsystems.Shooter.Flywheel;
 import frc.robot.subsystems.Shooter.Hood;
 import frc.robot.subsystems.Shooter.Turret;
 import frc.robot.subsystems.Shooter.TurretVision;
-import frc.robot.commands.autonomous.ComplexAuto;
+import frc.robot.commands.autonomous.SimpleAuton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -72,13 +73,15 @@ public class RobotContainer {
 
 	private OutputFlywheelEncoder outputFlywheelEncoder;
 
-	private ComplexAuto complexAuto;
+	private SimpleAuton complexAuto;
 
 	private RunKicker runKicker;
 
 	private RunTower runTower;
 
 	private Compressor compressor;
+
+    private Shoot shoot;
 	
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
@@ -119,7 +122,8 @@ public class RobotContainer {
 
 		runKickerTest = new RunKickerTest(kicker);
 
-		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
+		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+        shoot = new Shoot(flywheel, accumulator, tower, kicker);
 		runKickerAndTower = new RunKickerandTower(kicker, tower);
 
 		// autonDrive = new AutonDrive(driveTrain);
@@ -145,7 +149,7 @@ public class RobotContainer {
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
-		OperatorInput.aimAndShootToggle.toggleWhenPressed(aimAndShoot); 
+		OperatorInput.aimAndShootToggle.toggleWhenPressed(shoot); 
 		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 	}
 
