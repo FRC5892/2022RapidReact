@@ -24,8 +24,8 @@ public class Climb extends SubsystemBase {
 		return sparkMax;
 	}
 
-  private CANSparkMax leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], false);
-  private CANSparkMax rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], true);
+  private CANSparkMax leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], true);
+  private CANSparkMax rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], false);
 
   private DoubleSolenoid brakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.CLIMB_BRAKE_SOLENOID_PORTS[0], Constants.CLIMB_BRAKE_SOLENOID_PORTS[1]);
 
