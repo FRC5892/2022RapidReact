@@ -40,8 +40,8 @@ public class Hood extends PIDSubsystem {
 		super(
 				// The PIDController used by the subsystem
 				new PIDController(Constants.HOOD_PID[0], Constants.HOOD_PID[1], Constants.HOOD_PID[2]));
-		topLimit.enableLimitSwitch(false);
-		bottomLimit.enableLimitSwitch(false);
+		topLimit.enableLimitSwitch(true);
+		bottomLimit.enableLimitSwitch(true);
 		SmartDashboard.putNumber("Hood P", Constants.HOOD_PID[0]);
 		SmartDashboard.putNumber("Hood I", Constants.HOOD_PID[1]);
 		SmartDashboard.putNumber("Hood D", Constants.HOOD_PID[2]);
