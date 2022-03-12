@@ -77,8 +77,8 @@ public class Hood extends PIDSubsystem {
 		// System.out.println("Running");
 		// }
 		// inverted because revlib won't do its job
-		if (Math.abs(output) > 0.5) {
-			motor.set(.5);
+		if (Math.abs(output) >= 0.1) {
+			motor.set(.1);
 		}
 		else {
 			motor.set(output);
