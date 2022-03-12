@@ -85,14 +85,14 @@ public class RobotContainer {
 
 		compressor = new Compressor(1, PneumaticsModuleType.REVPH);
 		compressor.enableDigital();
-		
+
 		driveTrain = new DriveTrain();
 		driveWithJoysticks = new DriveWithJoysticks(driveTrain);
 		driveTrain.setDefaultCommand(driveWithJoysticks);
 
 		flywheel = new Flywheel();
-		outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
-		flywheel.setDefaultCommand(outputFlywheelEncoder);
+		// outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
+		// flywheel.setDefaultCommand(outputFlywheelEncoder);
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
@@ -145,6 +145,7 @@ public class RobotContainer {
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.aimAndShootToggle.toggleWhenPressed(aimAndShoot); 
 		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 	}
 
