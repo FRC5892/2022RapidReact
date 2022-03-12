@@ -73,7 +73,7 @@ public class RobotContainer {
 
 	private OutputFlywheelEncoder outputFlywheelEncoder;
 
-	private SimpleAuton complexAuto;
+	private SimpleAuton simpleAuton;
 
 	private RunKicker runKicker;
 
@@ -128,7 +128,7 @@ public class RobotContainer {
 
 		// autonDrive = new AutonDrive(driveTrain);
 
-		// complexAuto = new ComplexAuto();
+		simpleAuton = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 
 
 
@@ -159,8 +159,7 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		// return complexAuto;
-		return null;
+		return simpleAuton;
 
 	}
 }
