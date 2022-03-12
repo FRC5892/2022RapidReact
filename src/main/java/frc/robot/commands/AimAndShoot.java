@@ -45,6 +45,7 @@ public class AimAndShoot extends CommandBase {
 	@Override
 	public void initialize() {
 		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
+		flywheel.enable();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
