@@ -92,6 +92,7 @@ public class Hood extends PIDSubsystem {
 		this.m_controller.setI(SmartDashboard.getNumber("Hood I", 0));
 		this.m_controller.setD(SmartDashboard.getNumber("Hood D", 0));
 		this.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
+		SmartDashboard.putNumber("Hood Motor Commanded", motor.get());
 	}
 
 	@Override
