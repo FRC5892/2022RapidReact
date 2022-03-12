@@ -34,7 +34,7 @@ public final class Constants {
 	public static final int[] FLYWHEEL_ENCODER_PORTS = new int[] { 4, 5 };
 	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1 / .4;
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 9, 10 };
-	public static final double FLYWHEEL_SHOOTING_SPEED = 5000;
+	public static final double FLYWHEEL_SHOOTING_SPEED = 2100;
 	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00125 / .4, 0.002 / .4, 0 / .4 };
 
 	public static final int TURRET_POTENTIOMETER = 6;
