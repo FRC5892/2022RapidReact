@@ -77,17 +77,17 @@ public class Hood extends PIDSubsystem {
 		// System.out.println("Running");
 		// }
 		// inverted because revlib won't do its job
-		if (Math.abs(output) > 0.125) {
-			motor.set(.125);
+		if (Math.abs(output) > 0.5) {
+			motor.set(.5);
 		}
 		else {
-			// motor.set(output/8);
 			motor.set(output);
 		}
 		SmartDashboard.putBoolean("Hood Top Limit", topLimit.isPressed());
 		SmartDashboard.putBoolean("Hood Bottom Limit", bottomLimit.isPressed());
 		SmartDashboard.putNumber("Hood Pot Voltage", potentiometer.getVoltage());
 		SmartDashboard.putNumber("Hood Angle", getAngle());
+		SmartDashboard.putNumber("Hood Set Setpoint", setpoint);
 		this.m_controller.setP(SmartDashboard.getNumber("Hood P", 0));
 		this.m_controller.setI(SmartDashboard.getNumber("Hood I", 0));
 		this.m_controller.setD(SmartDashboard.getNumber("Hood D", 0));

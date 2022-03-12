@@ -50,11 +50,11 @@ public class AimAndShoot extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (turretVision.hasTargets()) {
+		if (/*turretVision.hasTargets()*/true) {
 			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
-			hood.setSetpoint(
-					PolynomialFunction.polynomailFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
-			if (hood.atSetpoint() /* && turret.atSetpoint() */ && flywheel.atSetpoint()) {
+			// hood.setSetpoint(
+			// 		PolynomialFunction.polynomailFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
+			if (/*hood.atSetpoint()*/ /* && turret.atSetpoint() */ && flywheel.atSetpoint()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
 			}
 			else {
@@ -81,12 +81,13 @@ public class AimAndShoot extends CommandBase {
 			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 		}
 		else if (kicker.hasBall()) {
+			kicker.stopMotors();
 			accumulator.stopMotors();
 			tower.stopMotors();
 		}
-		if (kicker.hasBall() && !turretVision.hasTargets()) {
-			kicker.stopMotors();
-		}
+		// if (kicker.hasBall() && !turretVision.hasTargets()) {
+		// 	kicker.stopMotors();
+		// }
 
 	}
 

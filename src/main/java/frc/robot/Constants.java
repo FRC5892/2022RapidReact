@@ -64,7 +64,7 @@ public final class Constants {
 	public static final double ACCUMULATOR_SPEED = 1;
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
 	public static final int KICKER_SENSOR_PORT = 9;
-	public static final double KICKER_SPEED = .3;
+	public static final double KICKER_SPEED = .5;
 
 	public static final String LIMELIGHT_NAME = "limelight";
 	public static final double TOWER_SPEED = .75;
