@@ -151,7 +151,7 @@ public class RobotContainer {
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
-		OperatorInput.aimAndShootToggle.toggleWhenPressed(shoot);
+		OperatorInput.aimAndShootToggle.whileHeld(shoot);
 		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 
 		OperatorInput.corunFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
@@ -161,7 +161,7 @@ public class RobotContainer {
 		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.coholdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
-		OperatorInput.coaimAndShootToggle.toggleWhenPressed(shoot);
+		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
 	}
 
 	/**
