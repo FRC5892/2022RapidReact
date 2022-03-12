@@ -19,6 +19,7 @@ import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.timedShoot;
 import frc.robot.commands.BallLoadingCrap.RunAccumulator;
 import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
 import frc.robot.commands.BallLoadingCrap.RunKicker;
@@ -73,7 +74,7 @@ public class RobotContainer {
 
 	private OutputFlywheelEncoder outputFlywheelEncoder;
 
-	private SimpleAuton simpleAuton;
+	private SimpleAuton simpleAuto;
 
 	private RunKicker runKicker;
 
@@ -81,8 +82,10 @@ public class RobotContainer {
 
 	private Compressor compressor;
 
-    private Shoot shoot;
-	
+	private Shoot shoot;
+
+	private timedShoot TimedShoot;
+
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 
@@ -123,14 +126,14 @@ public class RobotContainer {
 		runKickerTest = new RunKickerTest(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
-        shoot = new Shoot(flywheel, accumulator, tower, kicker);
+		shoot = new Shoot(flywheel, accumulator, tower, kicker);
 		runKickerAndTower = new RunKickerandTower(kicker, tower);
+		TimedShoot = new timedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
 		// autonDrive = new AutonDrive(driveTrain);
 
-		simpleAuton = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
-
-
+		simpleAuto = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain,
+				Constants.AUTONOMOUS_SHOOT_TIMER);
 
 		// Configure the button bindingsz
 		configureButtonBindings();
@@ -149,7 +152,7 @@ public class RobotContainer {
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
-		OperatorInput.aimAndShootToggle.toggleWhenPressed(shoot); 
+		OperatorInput.aimAndShootToggle.toggleWhenPressed(shoot);
 		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 	}
 
@@ -159,7 +162,8 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		return simpleAuton;
+		return simpleAuto;
+		// return null;
 
 	}
 }

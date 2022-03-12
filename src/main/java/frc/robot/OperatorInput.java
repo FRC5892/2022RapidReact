@@ -22,6 +22,7 @@ public class OperatorInput {
 	public static JoystickButton holdRunKickerTest = new JoystickButton(driverJoystick,
 			XboxController.Button.kBack.value);
 	public static JoystickButton runKickerAndTower = new JoystickButton(driverJoystick, XboxController.Button.kA.value);
-	public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick, XboxController.Button.kRightBumper.value);
+	public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick,
+			XboxController.Button.kRightBumper.value);
 
 }
