@@ -51,16 +51,17 @@ public final class Constants {
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
 	public static final int KICKER_SENSOR_PORT = 9;
 	public static final double KICKER_SPEED = .5;
-	
+
 	public static final double TOWER_SPEED = .75;
 	public static final int TOWER_MOTOR_PORT = 13;
 	public static final int TOWER_SENSOR_PORT = 8;
-	
+
 	public static final double PRELOAD_TIMEOUT = 3;
 
-	public static final double[] DRIVETRAIN_AIM_PID_CONSTANTS = new double[] {0.1, 0, 0.015};
+	public static final double[] DRIVETRAIN_AIM_PID_CONSTANTS = new double[] { 0.1, 0, 0.015 };
 	public static final String LIMELIGHT_NAME = "limelight";
 	public static final int KICKER_MOTOR_PORT = 15;
 	public static final double AUTONOMOUS_SPEED = .25;
+	public static final double AUTONOMOUS_SHOOT_TIMER = 10000;
 
 }
