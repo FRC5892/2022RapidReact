@@ -132,8 +132,7 @@ public class RobotContainer {
 
 		// autonDrive = new AutonDrive(driveTrain);
 
-		simpleAuto = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain,
-				Constants.AUTONOMOUS_SHOOT_TIMER);
+		simpleAuto = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 
 		// Configure the button bindingsz
 		configureButtonBindings();
@@ -154,6 +153,15 @@ public class RobotContainer {
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.aimAndShootToggle.toggleWhenPressed(shoot);
 		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
+
+		OperatorInput.corunFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
+		OperatorInput.cotoggleIntake.whenPressed(toggleIntake);
+		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
+		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
+		OperatorInput.coholdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.coaimAndShootToggle.toggleWhenPressed(shoot);
 	}
 
 	/**

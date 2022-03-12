@@ -61,7 +61,7 @@ public final class Constants {
 	public static final double[] DRIVETRAIN_AIM_PID_CONSTANTS = new double[] { 0.1, 0, 0.015 };
 	public static final String LIMELIGHT_NAME = "limelight";
 	public static final int KICKER_MOTOR_PORT = 15;
-	public static final double AUTONOMOUS_SPEED = .25;
-	public static final double AUTONOMOUS_SHOOT_TIMER = 10000;
+	public static final double AUTONOMOUS_SPEED = .5;
+	public static final double AUTONOMOUS_SHOOT_TIMER = 7;
 
 }

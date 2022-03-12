@@ -25,4 +25,19 @@ public class OperatorInput {
 	public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick,
 			XboxController.Button.kRightBumper.value);
 
+	public static XboxController codriverJoystick = new XboxController(1);
+	public static JoystickButton corunFlywheelFullButton = new JoystickButton(driverJoystick,
+	XboxController.Button.kY.value);
+	public static JoystickButton cotoggleIntake = new JoystickButton(driverJoystick,
+		XboxController.Button.kLeftBumper.value);
+	public static JoystickButton cotoggleIntakePosition = new JoystickButton(driverJoystick,
+		XboxController.Button.kRightBumper.value);
+	public static JoystickButton cotoggleAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
+	public static JoystickButton cotoggleRunShooterAtSetpoint = new JoystickButton(driverJoystick,
+		XboxController.Button.kStart.value);
+	public static JoystickButton coholdRunKickerTest = new JoystickButton(driverJoystick,
+		XboxController.Button.kBack.value);
+	public static JoystickButton corunKickerAndTower = new JoystickButton(driverJoystick, XboxController.Button.kA.value);
+	public static JoystickButton coaimAndShootToggle = new JoystickButton(driverJoystick,
+		XboxController.Button.kRightBumper.value);
 }

@@ -23,11 +23,14 @@ public class timedShoot extends CommandBase {
 	private Timer timer;
 
 	/** Creates a new AimAndShoot. */
-	public timedShoot(Flywheel f, Accumulator a, Tower tw, Kicker k, double timerValue) {
+	public timedShoot(Flywheel f, Accumulator a, Tower tw, Kicker k, double timerVal) {
 		flywheel = f;
 		accumulator = a;
 		tower = tw;
 		kicker = k;
+		timer = new Timer();
+		finished = false;
+		timerValue = timerVal;
 
 		addRequirements(flywheel, accumulator, tower, kicker);
 		// Use addRequirements() here to declare subsystem dependencies.
@@ -39,7 +42,11 @@ public class timedShoot extends CommandBase {
 		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
 		flywheel.enable();
 		shoot = false;
+		timer.reset();
 		timer.start();
+		finished = false;
+		System.out.println(finished);
+		System.out.println("Shooting start");
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -68,7 +75,10 @@ public class timedShoot extends CommandBase {
 				tower.stopMotors();
 			}
 		}
+		System.out.println(timer.get());
 		finished = (timer.get() > timerValue);
+		System.out.println(finished);
+
 	}
 
 	// Called once the command ends or is interrupted.
@@ -78,8 +88,10 @@ public class timedShoot extends CommandBase {
 		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
+		timer.stop();
 		timer.reset();
 		shoot = false;
+		System.out.println("Shooting stop");
 	}
 
 	// Returns true when the command should end.

@@ -9,6 +9,7 @@ public class AutonDrive extends CommandBase {
 	Boolean finish;
 	private double distance;
 	private boolean inverted;
+	private double initialPosition;
 
 	public AutonDrive(DriveTrain d, double dist, boolean invert) {
 		driveTrain = d;
@@ -20,11 +21,12 @@ public class AutonDrive extends CommandBase {
 	@Override
 	public void initialize() {
 		finish = false;
+		initialPosition = driveTrain.getLeftPosition();
 	}
 
 	@Override
 	public void execute() {
-		if (Math.abs(driveTrain.getLeftPosition()) <= distance) {
+		if (Math.abs(driveTrain.getLeftPosition() - initialPosition) <= distance) {
 			if (inverted) {
 				driveTrain.driveWithJoysticks(-Constants.AUTONOMOUS_SPEED, 0);
 			}
