@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -76,8 +78,14 @@ public class RobotContainer {
 
 	private RunTower runTower;
 
+	private Compressor compressor;
+	
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
+
+		compressor = new Compressor(1, PneumaticsModuleType.REVPH);
+		compressor.enableDigital();
+		
 		driveTrain = new DriveTrain();
 		driveWithJoysticks = new DriveWithJoysticks(driveTrain);
 		driveTrain.setDefaultCommand(driveWithJoysticks);
@@ -117,6 +125,9 @@ public class RobotContainer {
 		// autonDrive = new AutonDrive(driveTrain);
 
 		// complexAuto = new ComplexAuto();
+
+
+
 		// Configure the button bindingsz
 		configureButtonBindings();
 	}

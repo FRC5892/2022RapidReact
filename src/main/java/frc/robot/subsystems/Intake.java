@@ -26,25 +26,19 @@ public class Intake extends SubsystemBase {
 
 	private CANSparkMax motor = intakeMotor(Constants.INTAKE_MOTOR_PORT, false);
 
-	private DoubleSolenoid leftPrimarySolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
-			Constants.INTAKE_LEFT_PRIMARY_SOLENOID_PORTS[0], Constants.INTAKE_LEFT_PRIMARY_SOLENOID_PORTS[1]);
-	private DoubleSolenoid rightPrimarySolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
-			Constants.INTAKE_RIGHT_PRIMARY_SOLENOID_PORTS[0], Constants.INTAKE_RIGHT_PRIMARY_SOLENOID_PORTS[1]);
-	private DoubleSolenoid leftPositionSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
-			Constants.INTAKE_LEFT_POSITION_SOLENOID_PORTS[0], Constants.INTAKE_LEFT_POSITION_SOLENOID_PORTS[1]);
-	private DoubleSolenoid rightPositionSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
-			Constants.INTAKE_RIGHT_POSITION_SOLENOID_PORTS[0], Constants.INTAKE_RIGHT_POSITION_SOLENOID_PORTS[1]);
+	private DoubleSolenoid primarySolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
+			Constants.INTAKE_PRIMARY_SOLENOID_PORTS[0], Constants.INTAKE_PRIMARY_SOLENOID_PORTS[1]);
+	private DoubleSolenoid positionSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
+			Constants.INTAKE_POSITION_SOLENOID_PORTS[0], Constants.INTAKE_POSITION_SOLENOID_PORTS[1]);
 
 	/** Creates a new Intake. */
 	public Intake() {
-		leftPrimarySolenoid.set(Value.kReverse);
-		rightPrimarySolenoid.set(Value.kReverse);
-		leftPositionSolenoid.set(Value.kReverse);
-		rightPositionSolenoid.set(Value.kReverse);
+		primarySolenoid.set(Value.kReverse);
+		positionSolenoid.set(Value.kReverse);
 	}
 
 	public void setMotors(double speed) {
-		if (leftPositionSolenoid.get() == Value.kForward) {
+		if (positionSolenoid.get() == Value.kForward) {
 			motor.set(-speed);
 		}
 		else {
@@ -53,22 +47,19 @@ public class Intake extends SubsystemBase {
 	}
 
 	public void togglePrimarySolenoids() {
-		leftPrimarySolenoid.toggle();
-		rightPrimarySolenoid.toggle();
+		primarySolenoid.toggle();
 	}
 
 	public void togglePositionSolenoids() {
-		leftPositionSolenoid.toggle();
-		rightPositionSolenoid.toggle();
+		positionSolenoid.toggle();
 	}
 
 	public DoubleSolenoid.Value primarySolenoidPosition() {
-		return leftPrimarySolenoid.get();
+		return primarySolenoid.get();
 	}
 
 	public void setPositionSolenoids(DoubleSolenoid.Value value) {
-		leftPrimarySolenoid.set(value);
-		rightPrimarySolenoid.set(value);
+		primarySolenoid.set(value);
 	}
 
 	public void stopMotors() {

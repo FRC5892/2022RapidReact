@@ -54,7 +54,7 @@ public class AimAndShoot extends CommandBase {
 			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
 			// hood.setSetpoint(
 			// 		PolynomialFunction.polynomailFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
-			if (/*hood.atSetpoint()*/ /* && turret.atSetpoint() */ && flywheel.atSetpoint()) {
+			if (/*hood.atSetpoint()*/ /* && turret.atSetpoint() && */ flywheel.atSetpoint()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
 			}
 			else {

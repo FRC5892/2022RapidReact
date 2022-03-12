@@ -55,10 +55,8 @@ public final class Constants {
 
 	public static final int INTAKE_MOTOR_PORT = 7;
 	public static final double INTAKE_SPEED_MULTIPLIER = .75;
-	public static final int[] INTAKE_LEFT_PRIMARY_SOLENOID_PORTS = new int[] { 1, 2 };
-	public static final int[] INTAKE_RIGHT_PRIMARY_SOLENOID_PORTS = new int[] { 3, 4 };
-	public static final int[] INTAKE_LEFT_POSITION_SOLENOID_PORTS = new int[] { 5, 6 };
-	public static final int[] INTAKE_RIGHT_POSITION_SOLENOID_PORTS = new int[] { 7, 8 };
+	public static final int[] INTAKE_PRIMARY_SOLENOID_PORTS = new int[] { 4, 5 };
+	public static final int[] INTAKE_POSITION_SOLENOID_PORTS = new int[] { 6, 7 };
 
 	public static final int ACCUMULATOR_MOTOR_PORT = 12;
 	public static final double ACCUMULATOR_SPEED = 1;
