@@ -38,6 +38,7 @@ public class Intake extends SubsystemBase {
 	}
 
 	public void setMotors(double speed) {
+		// logic for second position actuation
 		// if (positionSolenoid.get() == Value.kForward) {
 		// 	motor.set(-speed);
 		// }
