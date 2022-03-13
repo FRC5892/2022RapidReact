@@ -29,8 +29,8 @@ public class RunKickerandTower extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		kicker.setMotors(.5);
-		tower.setMotors(.5);
+		kicker.setMotors(-.5);
+		tower.setMotors(-.5);
 	}
 
 	// Called once the command ends or is interrupted.
