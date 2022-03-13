@@ -26,18 +26,18 @@ public class OperatorInput {
 			XboxController.Button.kRightBumper.value);
 
 	public static XboxController codriverJoystick = new XboxController(1);
-	public static JoystickButton corunFlywheelFullButton = new JoystickButton(driverJoystick,
+	public static JoystickButton corunFlywheelFullButton = new JoystickButton(codriverJoystick,
 	XboxController.Button.kY.value);
-	public static JoystickButton cotoggleIntake = new JoystickButton(driverJoystick,
+	public static JoystickButton cotoggleIntake = new JoystickButton(codriverJoystick,
 		XboxController.Button.kLeftBumper.value);
-	public static JoystickButton cotoggleIntakePosition = new JoystickButton(driverJoystick,
+	public static JoystickButton cotoggleIntakePosition = new JoystickButton(codriverJoystick,
 		XboxController.Button.kRightBumper.value);
-	public static JoystickButton cotoggleAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
+	public static JoystickButton cotoggleAimAndShoot = new JoystickButton(codriverJoystick, XboxController.Button.kX.value);
 	public static JoystickButton cotoggleRunShooterAtSetpoint = new JoystickButton(driverJoystick,
 		XboxController.Button.kStart.value);
-	public static JoystickButton coholdRunKickerTest = new JoystickButton(driverJoystick,
+	public static JoystickButton coholdRunKickerTest = new JoystickButton(codriverJoystick,
 		XboxController.Button.kBack.value);
-	public static JoystickButton corunKickerAndTower = new JoystickButton(driverJoystick, XboxController.Button.kA.value);
-	public static JoystickButton coaimAndShootToggle = new JoystickButton(driverJoystick,
+	public static JoystickButton corunKickerAndTower = new JoystickButton(codriverJoystick, XboxController.Button.kA.value);
+	public static JoystickButton coaimAndShootToggle = new JoystickButton(codriverJoystick,
 		XboxController.Button.kRightBumper.value);
 }

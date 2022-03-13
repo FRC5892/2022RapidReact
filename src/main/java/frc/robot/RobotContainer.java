@@ -170,6 +170,8 @@ public class RobotContainer {
 		OperatorInput.coholdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
+		OperatorInput.corunKickerAndTower.whileHeld(runKickerAndTower);
+
 	}
 
 	/**
