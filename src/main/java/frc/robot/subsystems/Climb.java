@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -30,7 +31,9 @@ public class Climb extends SubsystemBase {
   private DoubleSolenoid brakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.CLIMB_BRAKE_SOLENOID_PORTS[0], Constants.CLIMB_BRAKE_SOLENOID_PORTS[1]);
 
   /** Creates a new Climb. */
-  public Climb() {}
+  public Climb() {
+    brakeSolenoid.set(Value.kReverse);
+  }
 
   public void lockTelescope() {
     brakeSolenoid.set(Value.kForward);
@@ -38,6 +41,10 @@ public class Climb extends SubsystemBase {
 
   public void unlockTelescope() {
     brakeSolenoid.set(Value.kReverse);
+  }
+
+  public void toggleTelescopeLock() {
+    brakeSolenoid.toggle();
   }
 
   public void driveArms(double leftSpeed, double rightSpeed) {
@@ -53,5 +60,6 @@ public class Climb extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putData("Climb SOlenoid", brakeSolenoid);
   }
 }

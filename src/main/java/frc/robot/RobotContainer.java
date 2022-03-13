@@ -161,7 +161,8 @@ public class RobotContainer {
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
 		OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
-
+		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
+		
 		OperatorInput.corunFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
 		OperatorInput.cotoggleIntake.whenPressed(toggleIntake);
 		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
@@ -170,8 +171,8 @@ public class RobotContainer {
 		OperatorInput.coholdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
-		OperatorInput.corunKickerAndTower.whileHeld(runKickerAndTower);
-
+		OperatorInput.corunKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
+		OperatorInput.cotoggleClimbTelescope.whenPressed(new InstantCommand(climb::lockTelescope, climb));
 	}
 
 	/**

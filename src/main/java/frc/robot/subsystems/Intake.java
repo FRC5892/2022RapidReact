@@ -33,8 +33,8 @@ public class Intake extends SubsystemBase {
 
 	/** Creates a new Intake. */
 	public Intake() {
-		primarySolenoid.set(Value.kReverse);
-		positionSolenoid.set(Value.kReverse);
+		// primarySolenoid.set(Value.kReverse);
+		// positionSolenoid.set(Value.kReverse);
 	}
 
 	public void setMotors(double speed) {
@@ -49,11 +49,11 @@ public class Intake extends SubsystemBase {
 	}
 
 	public void togglePrimarySolenoids() {
-		primarySolenoid.toggle();
+		// primarySolenoid.toggle();
 	}
 
 	public void togglePositionSolenoids() {
-		positionSolenoid.toggle();
+		// positionSolenoid.toggle();
 	}
 
 	public DoubleSolenoid.Value primarySolenoidPosition() {
