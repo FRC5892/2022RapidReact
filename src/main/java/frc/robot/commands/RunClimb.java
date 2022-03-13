@@ -27,7 +27,7 @@ public class RunClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climb.driveArms(OperatorInput.codriverJoystick.getLeftY(), OperatorInput.codriverJoystick.getRightY());
+    climb.driveArms(OperatorInput.codriverJoystick.getLeftY()/4, OperatorInput.codriverJoystick.getRightY()/4);
   }
 
   // Called once the command ends or is interrupted.
