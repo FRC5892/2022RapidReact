@@ -4,23 +4,29 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
+import frc.robot.commands.RunClimb;
 import frc.robot.commands.RunFlywheelFullSpeed;
 import frc.robot.commands.RunKickerTest;
 import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.timedShoot;
 import frc.robot.commands.BallLoadingCrap.RunAccumulator;
 import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
 import frc.robot.commands.BallLoadingCrap.RunKicker;
 import frc.robot.commands.BallLoadingCrap.RunTower;
 import frc.robot.subsystems.Accumulator;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Kicker;
@@ -29,7 +35,7 @@ import frc.robot.subsystems.Shooter.Flywheel;
 import frc.robot.subsystems.Shooter.Hood;
 import frc.robot.subsystems.Shooter.Turret;
 import frc.robot.subsystems.Shooter.TurretVision;
-import frc.robot.commands.autonomous.ComplexAuto;
+import frc.robot.commands.autonomous.SimpleAuton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -70,21 +76,34 @@ public class RobotContainer {
 
 	private OutputFlywheelEncoder outputFlywheelEncoder;
 
-	private ComplexAuto complexAuto;
+	private SimpleAuton simpleAuto;
 
 	private RunKicker runKicker;
 
 	private RunTower runTower;
 
+	private Compressor compressor;
+
+	private Shoot shoot;
+
+	private timedShoot TimedShoot; 
+	
+	private Climb climb;
+
+	private RunClimb runClimb;
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
+
+		compressor = new Compressor(1, PneumaticsModuleType.REVPH);
+		compressor.enableDigital();
+
 		driveTrain = new DriveTrain();
 		driveWithJoysticks = new DriveWithJoysticks(driveTrain);
 		driveTrain.setDefaultCommand(driveWithJoysticks);
 
 		flywheel = new Flywheel();
-		outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
-		flywheel.setDefaultCommand(outputFlywheelEncoder);
+		// outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
+		// flywheel.setDefaultCommand(outputFlywheelEncoder);
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
@@ -109,14 +128,20 @@ public class RobotContainer {
 		hood = new Hood();
 		turretVision = new TurretVision();
 
-		// runKickerTest = new RunKickerTest(kicker);
+		runKickerTest = new RunKickerTest(kicker);
 
-		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision);
+		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+		shoot = new Shoot(flywheel, accumulator, tower, kicker);
 		runKickerAndTower = new RunKickerandTower(kicker, tower);
+		TimedShoot = new timedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
+		climb = new Climb();
+		runClimb = new RunClimb(climb);
+		climb.setDefaultCommand(runClimb);
 		// autonDrive = new AutonDrive(driveTrain);
 
-		// complexAuto = new ComplexAuto();
+		simpleAuto = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+
 		// Configure the button bindingsz
 		configureButtonBindings();
 	}
@@ -132,9 +157,22 @@ public class RobotContainer {
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		// OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
 		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
-		// OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
+		OperatorInput.aimAndShootToggle.whileHeld(shoot);
+		OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
+		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
+		
+		OperatorInput.corunFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
+		OperatorInput.cotoggleIntake.whenPressed(toggleIntake);
+		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
+		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
+		OperatorInput.coholdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
+		OperatorInput.corunKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
+		OperatorInput.cotoggleClimbTelescope.whenPressed(new InstantCommand(climb::lockTelescope, climb));
 	}
 
 	/**
@@ -143,8 +181,9 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		// return complexAuto;
-		return null;
+		return simpleAuto;
+		// return null;
 
 	}
 }
+// SmartDashboard.putNumber("Flywheel Setpoint RPM", 0);

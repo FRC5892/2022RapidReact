@@ -7,20 +7,32 @@ import frc.robot.subsystems.DriveTrain;
 public class AutonDrive extends CommandBase {
 	DriveTrain driveTrain;
 	Boolean finish;
+	private double distance;
+	private boolean inverted;
+	private double initialPosition;
 
-	public AutonDrive(DriveTrain d) {
+	public AutonDrive(DriveTrain d, double dist, boolean invert) {
 		driveTrain = d;
+		distance = dist;
 		addRequirements(driveTrain);
+		inverted = invert;
 	}
 
 	@Override
 	public void initialize() {
 		finish = false;
+		initialPosition = driveTrain.getLeftPosition();
 	}
 
-	public void execute(double distance) {
-		if (Math.abs(driveTrain.getLeftPosition()) <= distance) {
-			driveTrain.driveWithJoysticks(-Constants.AUTONOMOUS_SPEED, 0);
+	@Override
+	public void execute() {
+		if (Math.abs(driveTrain.getLeftPosition() - initialPosition) <= distance) {
+			if (inverted) {
+				driveTrain.driveWithJoysticks(-Constants.AUTONOMOUS_SPEED, 0);
+			}
+			else {
+				driveTrain.driveWithJoysticks(Constants.AUTONOMOUS_SPEED, 0);
+			}
 		}
 		else {
 			driveTrain.stop();
