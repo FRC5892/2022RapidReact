@@ -9,10 +9,14 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
@@ -21,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
 
 public class DriveTrain extends SubsystemBase {
 	private CANSparkMax leftMotor1 = driveMotor(1, true);
@@ -36,8 +41,11 @@ public class DriveTrain extends SubsystemBase {
 
 	private MotorControllerGroup leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
+	AHRS gyro = new AHRS(SPI.Port.kMXP);//fix to correct port
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+	private DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(12));//fix 12 to distance between wheels
+	private DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(kinematics, initialPoseMeters)
 
 	// Create the simulation model of our drivetrain.
 	// https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/drivesim-tutorial/drivetrain-model.html
