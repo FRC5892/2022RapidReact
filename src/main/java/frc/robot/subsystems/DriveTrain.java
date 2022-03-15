@@ -4,16 +4,28 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
@@ -39,6 +51,18 @@ public class DriveTrain extends SubsystemBase {
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
+	PIDController leftPIDController = new PIDController(9, 0, 0);
+	PIDController rightPIDController = new PIDController(9, 0, 0);
+
+
+	AHRS gyro = new AHRS(SPI.Port.kMXP);
+
+	SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.2, 1.4);//Use SYSID TO FIND THESE VALUES
+
+	DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(12)); //change 12 to distance between wheels
+	DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading(), new Pose2d(0,0,getHeading()));
+
+	Pose2d pose;
 	// Create the simulation model of our drivetrain.
 	// https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/drivesim-tutorial/drivetrain-model.html
 	private DifferentialDrivetrainSim driveSim = new DifferentialDrivetrainSim(
@@ -71,6 +95,8 @@ public class DriveTrain extends SubsystemBase {
 		return sparkMax;
 	}
 
+
+
 	public DriveTrain() {
 		// TODO set distance per pulse and distance per rev
 		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev)
@@ -82,11 +108,46 @@ public class DriveTrain extends SubsystemBase {
 		drive.arcadeDrive(xSpeed, zRotation);
 	}
 
+	public DifferentialDriveWheelSpeeds getSpeeds(){
+		return new DifferentialDriveWheelSpeeds(
+			getLeftVelocity(),
+			getRightVelocity()
+		);
+	}
+
+	public SimpleMotorFeedforward getFeedforward(){
+		return feedforward;
+	}
+
+	public void setOutput(double leftVolts, double rightVolts){
+		leftMotors.set(leftVolts/12); //replace 12 with wheel distance
+		rightMotors.set(rightVolts/12);
+	}
+
+	public Pose2d getPose(){
+		return pose;
+	}
+
+	public DifferentialDriveKinematics getkinematics(){
+		return kinematics;
+
+	}
+
+	public PIDController getLeftPidController(){
+		return leftPIDController;
+	}
+
+	public PIDController getRightPidController(){
+		return rightPIDController;
+	}
+
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
 		SmartDashboard.putNumber("Left Encoder", getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", getRightPosition());
+		pose = odometry.update(getHeading(), getSpeeds().leftMetersPerSecond, getSpeeds().rightMetersPerSecond);
+
 	}
 
 	@Override
@@ -108,6 +169,10 @@ public class DriveTrain extends SubsystemBase {
 		drive.stopMotor();
 	}
 
+	public Rotation2d getHeading(){
+		return Rotation2d.fromDegrees(-gyro.getAngle());
+	}
+
 	public double getLeftPosition() {
 		return leftEncoder.get() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
@@ -116,11 +181,11 @@ public class DriveTrain extends SubsystemBase {
 		return rightEncoder.get() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
 
-	public double getLeftRate() {
+	public double getLeftVelocity() {
 		return leftEncoder.getRate() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
 
-	public double getRightRate() {
+	public double getRightVelocity() {
 		return rightEncoder.getRate() * Constants.ENCODER_CONVERSION_FACTOR;
 	}
 
