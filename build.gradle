@@ -3,7 +3,7 @@ import edu.wpi.first.gradlerio.deploy.roborio.RoboRIO
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2022.4.1"
-    id 'com.diffplug.spotless' version '6.1.2'
+    // id 'com.diffplug.spotless' version '6.1.2'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -89,39 +89,39 @@ deployArtifact.jarTask = jar
 wpi.java.configureExecutableTasks(jar)
 wpi.java.configureTestTasks(test)
 
-spotless {
-    java {
-        target fileTree('.') {
-            include '**/*.java'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        toggleOffOn()
-        eclipse().configFile('formatter.xml')
-        removeUnusedImports()
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    groovyGradle {
-        target fileTree('.') {
-            include '**/*.gradle'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        greclipse()
-        indentWithSpaces(4)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    format 'misc', {
-        target fileTree('.') {
-            include '**/*.md', '**/.gitignore'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        trimTrailingWhitespace()
-        indentWithSpaces(2)
-        endWithNewline()
-    }
-}
+// spotless {
+//     java {
+//         target fileTree('.') {
+//             include '**/*.java'
+//             exclude '**/build/**', '**/build-*/**'
+//         }
+//         toggleOffOn()
+//         eclipse().configFile('formatter.xml')
+//         removeUnusedImports()
+//         trimTrailingWhitespace()
+//         endWithNewline()
+//     }
+//     groovyGradle {
+//         target fileTree('.') {
+//             include '**/*.gradle'
+//             exclude '**/build/**', '**/build-*/**'
+//         }
+//         greclipse()
+//         indentWithSpaces(4)
+//         trimTrailingWhitespace()
+//         endWithNewline()
+//     }
+//     format 'misc', {
+//         target fileTree('.') {
+//             include '**/*.md', '**/.gitignore'
+//             exclude '**/build/**', '**/build-*/**'
+//         }
+//         trimTrailingWhitespace()
+//         indentWithSpaces(2)
+//         endWithNewline()
+//     }
+// }
 
-afterEvaluate {
-    tasks.getByName('spotlessCheck').dependsOn(tasks.getByName('spotlessApply'))
-}
+// afterEvaluate {
+//     tasks.getByName('spotlessCheck').dependsOn(tasks.getByName('spotlessApply'))
+// }
