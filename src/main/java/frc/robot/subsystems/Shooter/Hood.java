@@ -30,7 +30,7 @@ public class Hood extends PIDSubsystem {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = hoodMotor(Constants.HOOD_MOTOR_ID, false);
+	private CANSparkMax motor = hoodMotor(Constants.HOOD_MOTOR_ID, true);
 	// weird rev API issue where limit
 	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
 	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
@@ -82,16 +82,17 @@ public class Hood extends PIDSubsystem {
 			motor.stopMotor();
 		}
 		else {
-			if (output > 0.1) {
-				motor.set(0.1);
+			if (output > 0.15) {
+				motor.set(0.15);
 			}
-			else if (output < -0.1) {
-				motor.set(-0.1);
+			else if (output < -0.15) {
+				motor.set(-0.15);
 			}
 			else {
 				motor.set(output);
 			}
 		}
+		// PID Tuning Stuff
 		SmartDashboard.putBoolean("Hood Top Limit", topLimit.isPressed());
 		SmartDashboard.putBoolean("Hood Bottom Limit", bottomLimit.isPressed());
 		SmartDashboard.putNumber("Hood Pot Voltage", potentiometer.getVoltage());
