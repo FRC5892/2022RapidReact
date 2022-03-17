@@ -6,6 +6,7 @@ package frc.robot.subsystems.Shooter;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -21,9 +22,9 @@ public class TurretVision extends SubsystemBase {
 	}
 
 	public double distanceFromTarget() {
-		return (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT) / Math.tan(Units.radiansToDegrees(
+		return (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT) / Math.tan(
 				NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0)
-						+ Constants.TURRETVISION_CAMERA_PITCH));
+						+ Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH));
 	}
 
 	public double xAngle() {
@@ -32,6 +33,7 @@ public class TurretVision extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		SmartDashboard.putNumber("Target Distance", distanceFromTarget());
 		// This method will be called once per scheduler run
 	}
 }
