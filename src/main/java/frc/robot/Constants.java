@@ -43,8 +43,7 @@ public final class Constants {
 
 	public static final int INTAKE_MOTOR_PORT = 7;
 	public static final double INTAKE_SPEED_MULTIPLIER = .75;
-	public static final int[] INTAKE_PRIMARY_SOLENOID_PORTS = new int[] { 1, 2 };
-	public static final int[] INTAKE_POSITION_SOLENOID_PORTS = new int[] { 7, 8 };
+	public static final int[] INTAKE_PISTON_SOLENOID_PORTS = new int[] { 7, 6 };
 
 	public static final int ACCUMULATOR_MOTOR_PORT = 12;
 	public static final double ACCUMULATOR_SPEED = 1;
@@ -65,5 +64,5 @@ public final class Constants {
 	public static final double AUTONOMOUS_SHOOT_TIMER = 7;
 
 	public static final int[] CLIMB_MOTOR_PORTS = new int[] {19,20};
-	public static final int[] CLIMB_BRAKE_SOLENOID_PORTS = new int[] {6,4};
+	public static final int[] CLIMB_BRAKE_SOLENOID_PORTS = new int[] { 0, 1 };
 }

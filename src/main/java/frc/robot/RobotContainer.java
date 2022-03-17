@@ -19,7 +19,6 @@ import frc.robot.commands.RunKickerTest;
 import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.timedShoot;
 import frc.robot.commands.BallLoadingCrap.RunAccumulator;
 import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
@@ -57,8 +56,6 @@ public class RobotContainer {
 
 	private RunIntakeRollers runIntakeRollers;
 
-	private ToggleIntake toggleIntake;
-
 	private Accumulator accumulator;
 
 	private RunAccumulator runAccumulator;
@@ -94,7 +91,7 @@ public class RobotContainer {
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 
-		compressor = new Compressor(1, PneumaticsModuleType.REVPH);
+		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
 		compressor.enableDigital();
 
 		driveTrain = new DriveTrain();
@@ -122,7 +119,6 @@ public class RobotContainer {
 		intake = new Intake();
 		runIntakeRollers = new RunIntakeRollers(intake);
 		intake.setDefaultCommand(runIntakeRollers);
-		toggleIntake = new ToggleIntake(intake);
 
 		turret = new Turret();
 		hood = new Hood();
@@ -153,23 +149,19 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		OperatorInput.runFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
-		OperatorInput.toggleIntake.whenPressed(toggleIntake);
-		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.toggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
-		OperatorInput.toggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
 		OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
 		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
 		
 		OperatorInput.corunFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
-		OperatorInput.cotoggleIntake.whenPressed(toggleIntake);
-		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
+		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.coholdRunKickerTest.whileHeld(runKickerTest);
-		OperatorInput.cotoggleIntakePosition.whenPressed(new InstantCommand(intake::togglePositionSolenoids, intake));
 		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
 		OperatorInput.corunKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
 		OperatorInput.cotoggleClimbTelescope.whenPressed(new InstantCommand(climb::lockTelescope, climb));
