@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.accumulator.Kicker;
 import frc.robot.subsystems.accumulator.Tower;
 
-public class RunKickerandTower extends CommandBase {
+public class ReverseKickerAndTower extends CommandBase {
 	private Kicker kicker;
 	private Tower tower;
 
 	/** Creates a new RunKickerandTower. */
-	public RunKickerandTower(Kicker k, Tower t) {
+	public ReverseKickerAndTower(Kicker k, Tower t) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		kicker = k;
 		tower = t;

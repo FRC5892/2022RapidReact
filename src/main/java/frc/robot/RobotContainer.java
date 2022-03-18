@@ -31,7 +31,7 @@ import frc.robot.commands.shooting.AimAndShoot;
 import frc.robot.commands.shooting.RunFlywheel;
 import frc.robot.commands.shooting.RunFlywheelFullSpeed;
 import frc.robot.commands.shooting.RunKickerTest;
-import frc.robot.commands.shooting.RunKickerandTower;
+import frc.robot.commands.shooting.ReverseKickerAndTower;
 import frc.robot.commands.shooting.Shoot;
 import frc.robot.commands.shooting.TimedShoot;
 import frc.robot.commands.tuning.FlywheelTuning;
@@ -67,8 +67,8 @@ public class RobotContainer {
 	private AimAndShoot aimAndShoot;
 	private TurretVision turretVision;
 
-	private RunFlywheel runShooterAtSetpoint;
-	private RunKickerandTower runKickerAndTower;
+	private RunFlywheel runFlywheel;
+	private ReverseKickerAndTower reverseKickerAndTower;
 	private RunKickerTest runKickerTest;
 
 	private SimpleAuton simpleAuto;
@@ -102,7 +102,7 @@ public class RobotContainer {
 		flywheelTuning = new FlywheelTuning(flywheel);
 		// flywheel.setDefaultCommand(flywheelTuning);
 		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
-		runShooterAtSetpoint = new RunFlywheel(flywheel);
+		runFlywheel = new RunFlywheel(flywheel);
 
 		tower = new Tower();
 		kicker = new Kicker();
@@ -128,7 +128,7 @@ public class RobotContainer {
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		shoot = new Shoot(flywheel, accumulator, tower, kicker);
-		runKickerAndTower = new RunKickerandTower(kicker, tower);
+		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
 		climb = new Climb();
@@ -151,16 +151,16 @@ public class RobotContainer {
 		OperatorInput.runFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
 		OperatorInput.toggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
-		OperatorInput.holdRunFlywheel.whileHeld(runShooterAtSetpoint);
+		OperatorInput.holdRunFlywheel.whileHeld(runFlywheel);
 		OperatorInput.holdRunKicker.whileHeld(runKickerTest);
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
-		OperatorInput.reverseKickerAndTower.whileHeld(runKickerAndTower);
+		OperatorInput.reverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
 		
 		OperatorInput.corunFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
-		OperatorInput.coholdRunFlywheel.whileHeld(runShooterAtSetpoint);
+		OperatorInput.coholdRunFlywheel.whileHeld(runFlywheel);
 		OperatorInput.coholdRunKicker.whileHeld(runKickerTest);
 		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
 		OperatorInput.coReverseKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
