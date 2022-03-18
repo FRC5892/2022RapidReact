@@ -2,19 +2,19 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.timedShoot;
-import frc.robot.subsystems.Accumulator;
+import frc.robot.commands.shooting.TimedShoot;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Kicker;
-import frc.robot.subsystems.Tower;
-import frc.robot.subsystems.Shooter.Flywheel;
-import frc.robot.subsystems.Shooter.Hood;
-import frc.robot.subsystems.Shooter.Turret;
-import frc.robot.subsystems.Shooter.TurretVision;
+import frc.robot.subsystems.accumulator.Accumulator;
+import frc.robot.subsystems.accumulator.Kicker;
+import frc.robot.subsystems.accumulator.Tower;
+import frc.robot.subsystems.shooter.Flywheel;
+import frc.robot.subsystems.shooter.Hood;
+import frc.robot.subsystems.shooter.Turret;
+import frc.robot.subsystems.shooter.TurretVision;
 
 public class SimpleAuton extends SequentialCommandGroup {
 
 	public SimpleAuton(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv, DriveTrain dt) {
-		addCommands(new timedShoot(f, a, tw, k, Constants.AUTONOMOUS_SHOOT_TIMER), new AutonDrive(dt, 3, false));
+		addCommands(new TimedShoot(f, a, tw, k, Constants.AUTONOMOUS_SHOOT_TIMER), new AutonDrive(dt, 3, false));
 	}
 }

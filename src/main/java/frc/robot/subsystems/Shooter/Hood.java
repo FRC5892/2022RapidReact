@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.Shooter;
+package frc.robot.subsystems.shooter;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxLimitSwitch;
@@ -54,9 +54,7 @@ public class Hood extends PIDSubsystem {
 	}
 
 	public double getAngle() {
-		// TODO set conversion factor
 		return potentiometer.getVoltage() * (-4.87912) + 50.7509;
-		// return motor.getEncoder().getPosition() * 1 + 1;
 	}
 
 	public boolean atSetpoint() {
@@ -85,14 +83,14 @@ public class Hood extends PIDSubsystem {
 		}
 		SmartDashboard.putBoolean("Hood Top Limit", topLimit.isPressed());
 		SmartDashboard.putBoolean("Hood Bottom Limit", bottomLimit.isPressed());
-		SmartDashboard.putNumber("Hood Pot Voltage", potentiometer.getVoltage());
 		SmartDashboard.putNumber("Hood Angle", getAngle());
 		SmartDashboard.putNumber("Hood Set Setpoint", setpoint);
-		this.m_controller.setP(SmartDashboard.getNumber("Hood P", 0));
-		this.m_controller.setI(SmartDashboard.getNumber("Hood I", 0));
-		this.m_controller.setD(SmartDashboard.getNumber("Hood D", 0));
-		this.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
-		SmartDashboard.putNumber("Hood Motor Commanded", motor.get());
+		// SmartDashboard.putNumber("Hood Pot Voltage", potentiometer.getVoltage());
+		// this.m_controller.setP(SmartDashboard.getNumber("Hood P", 0));
+		// this.m_controller.setI(SmartDashboard.getNumber("Hood I", 0));
+		// this.m_controller.setD(SmartDashboard.getNumber("Hood D", 0));
+		// this.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
+		// SmartDashboard.putNumber("Hood Motor Commanded", motor.get());
 	}
 
 	@Override

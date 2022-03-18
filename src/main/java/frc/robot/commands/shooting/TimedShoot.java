@@ -2,27 +2,35 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.shooting;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Accumulator;
-import frc.robot.subsystems.Kicker;
-import frc.robot.subsystems.Tower;
-import frc.robot.subsystems.Shooter.Flywheel;
+import frc.robot.subsystems.accumulator.Accumulator;
+import frc.robot.subsystems.accumulator.Kicker;
+import frc.robot.subsystems.accumulator.Tower;
+import frc.robot.subsystems.shooter.Flywheel;
 
-public class Shoot extends CommandBase {
+public class TimedShoot extends CommandBase {
 	private Flywheel flywheel;
+	private boolean finished;
 	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
+	private boolean shoot;
+	private double timerValue;
+	private Timer timer;
 
 	/** Creates a new AimAndShoot. */
-	public Shoot(Flywheel f, Accumulator a, Tower tw, Kicker k) {
+	public TimedShoot(Flywheel f, Accumulator a, Tower tw, Kicker k, double timerVal) {
 		flywheel = f;
 		accumulator = a;
 		tower = tw;
 		kicker = k;
+		timer = new Timer();
+		finished = false;
+		timerValue = timerVal;
 
 		addRequirements(flywheel, accumulator, tower, kicker);
 		// Use addRequirements() here to declare subsystem dependencies.
@@ -33,6 +41,11 @@ public class Shoot extends CommandBase {
 	public void initialize() {
 		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
 		flywheel.enable();
+		shoot = false;
+		timer.reset();
+		timer.start();
+		finished = false;
+		System.out.println(finished);
 		System.out.println("Shooting start");
 	}
 
@@ -62,7 +75,9 @@ public class Shoot extends CommandBase {
 				tower.stopMotors();
 			}
 		}
-
+		System.out.println(timer.get());
+		finished = (timer.get() > timerValue);
+		System.out.println(finished);
 
 	}
 
@@ -73,13 +88,15 @@ public class Shoot extends CommandBase {
 		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
-
+		timer.stop();
+		timer.reset();
+		shoot = false;
 		System.out.println("Shooting stop");
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return finished;
 	}
 }
