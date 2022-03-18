@@ -3,6 +3,7 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Kicker;
 
 public class AutonDrive extends CommandBase {
 	DriveTrain driveTrain;
@@ -10,11 +11,13 @@ public class AutonDrive extends CommandBase {
 	private double distance;
 	private boolean inverted;
 	private double initialPosition;
+	private Kicker kicker;
 
-	public AutonDrive(DriveTrain d, double dist, boolean invert) {
+	public AutonDrive(DriveTrain d, double dist, boolean invert, Kicker k) {
 		driveTrain = d;
 		distance = dist;
-		addRequirements(driveTrain);
+		kicker = k;
+		addRequirements(driveTrain, kicker);
 		inverted = invert;
 	}
 
@@ -22,6 +25,7 @@ public class AutonDrive extends CommandBase {
 	public void initialize() {
 		finish = false;
 		initialPosition = driveTrain.getLeftPosition();
+		kicker.setMotors(Constants.KICKER_SPEED);
 	}
 
 	@Override
@@ -43,6 +47,7 @@ public class AutonDrive extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		driveTrain.stop();
+		kicker.stopMotors();
 		System.out.println("Stopping AutonDrive");
 	}
 

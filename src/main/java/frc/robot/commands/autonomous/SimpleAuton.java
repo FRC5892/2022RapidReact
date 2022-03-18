@@ -15,6 +15,6 @@ import frc.robot.subsystems.Shooter.TurretVision;
 public class SimpleAuton extends SequentialCommandGroup {
 
 	public SimpleAuton(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv, DriveTrain dt) {
-		addCommands(new timedShoot(f, a, tw, k, Constants.AUTONOMOUS_SHOOT_TIMER), new AutonDrive(dt, 3, false));
+		addCommands(new timedShoot(f, a, tw, k, Constants.AUTONOMOUS_SHOOT_TIMER), new AutonDrive(dt, 3, false, k));
 	}
 }
