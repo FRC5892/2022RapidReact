@@ -32,28 +32,28 @@ public final class Constants {
 	public static final double TURRET_POTENTIOMETER_CONVERSION_FACTOR = 1;
 	public static final int TURRET_MOTOR_ID = 16;
 	public static final double TURRET_SCAN_SPEED = 0.3;
-	public static final double TURRETVISION_CAMERA_HEIGHT = 0;
-	public static final double TURRETVISION_CAMERA_PITCH = 0;
-	public static final double GOAL_HEIGHT = 0;
+	public static final double TURRETVISION_CAMERA_HEIGHT = 33;
+	public static final double TURRETVISION_CAMERA_PITCH = 54;
+	public static final double GOAL_HEIGHT = 104;
 
 	public static final int HOOD_POTENTIOMETER_PORT = 0;
 	public static final double HOOD_ENCODER_CONVERSION_FACTOR = 1;
 	public static final int HOOD_MOTOR_ID = 8;
-	public static final double[] HOOD_PID = new double[] { 0, 0, 0 };
+	public static final double[] HOOD_PID = new double[] { 0.1, 0, 0 };
 
 	public static final int INTAKE_MOTOR_PORT = 7;
-	public static final double INTAKE_SPEED_MULTIPLIER = .75;
+	public static final double INTAKE_SPEED_MULTIPLIER = 1;
 	public static final int[] INTAKE_PISTON_SOLENOID_PORTS = new int[] { 7, 6 };
 
 	public static final int ACCUMULATOR_MOTOR_PORT = 12;
 	public static final double ACCUMULATOR_SPEED = 1;
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
-	public static final int KICKER_SENSOR_PORT = 9;
+	public static final int KICKER_SENSOR_PORT = 8;
 	public static final double KICKER_SPEED = .25;
 
 	public static final double TOWER_SPEED = .5;
 	public static final int TOWER_MOTOR_PORT = 13;
-	public static final int TOWER_SENSOR_PORT = 8;
+	public static final int TOWER_SENSOR_PORT = 9;
 
 	public static final double PRELOAD_TIMEOUT = 3;
 
