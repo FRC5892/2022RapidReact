@@ -5,8 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Kicker;
-import frc.robot.subsystems.Tower;
+import frc.robot.subsystems.serializer.Kicker;
+import frc.robot.subsystems.serializer.Tower;
 
 public class RunKickerandTower extends CommandBase {
 	private Kicker kicker;
