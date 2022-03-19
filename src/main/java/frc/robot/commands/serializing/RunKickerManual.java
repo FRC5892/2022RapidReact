@@ -6,25 +6,23 @@ package frc.robot.commands.serializing;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.serializer.Kicker;
-import frc.robot.subsystems.serializer.Tower;
 
-public class RunKickerandTower extends CommandBase {
+public class RunKickerManual extends CommandBase {
 	private Kicker kicker;
-	private Tower tower;
 
-	/** Creates a new RunKickerandTower. */
-	public RunKickerandTower(Kicker k, Tower t) {
-		// Use addRequirements() here to declare subsystem dependencies.
+	/** Creates a new RunKickerTest. */
+	public RunKickerManual(Kicker k) {
 		kicker = k;
-		tower = t;
-		addRequirements(kicker, tower);
+		// Use addRequirements() here to declare subsystem dependencies.
+		addRequirements(kicker);
+		// SmartDashboard.putNumber("Kicker Set Speed", 0);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		kicker.setMotors(-.5);
-		tower.setMotors(-.5);
+		// default
+		kicker.setMotors(0.5);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -36,7 +34,6 @@ public class RunKickerandTower extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		kicker.stopMotors();
-		tower.stopMotors();
 	}
 
 	// Returns true when the command should end.
