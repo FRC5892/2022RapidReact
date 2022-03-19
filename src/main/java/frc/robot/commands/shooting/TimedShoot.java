@@ -12,7 +12,7 @@ import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
 import frc.robot.subsystems.shooter.Flywheel;
 
-public class timedShoot extends CommandBase {
+public class TimedShoot extends CommandBase {
 	private Flywheel flywheel;
 	private boolean finished;
 	private Accumulator accumulator;
@@ -23,7 +23,7 @@ public class timedShoot extends CommandBase {
 	private Timer timer;
 
 	/** Creates a new AimAndShoot. */
-	public timedShoot(Flywheel f, Accumulator a, Tower tw, Kicker k, double timerVal) {
+	public TimedShoot(Flywheel f, Accumulator a, Tower tw, Kicker k, double timerVal) {
 		flywheel = f;
 		accumulator = a;
 		tower = tw;

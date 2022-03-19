@@ -28,14 +28,13 @@ import frc.robot.commands.autonomous.SimpleAuton;
 import frc.robot.commands.serializing.RunAccumulator;
 import frc.robot.commands.serializing.RunIntakeRollers;
 import frc.robot.commands.serializing.RunKicker;
-import frc.robot.commands.serializing.RunKickerTest;
-import frc.robot.commands.serializing.RunKickerandTower;
+import frc.robot.commands.serializing.RunKickerManual;
+import frc.robot.commands.serializing.ReverseKickerAndTower;
 import frc.robot.commands.serializing.RunTower;
 import frc.robot.commands.shooting.AimAndShoot;
-import frc.robot.commands.shooting.RunFlywheelFullSpeed;
 import frc.robot.commands.shooting.RunShooterAtSetpoint;
 import frc.robot.commands.shooting.Shoot;
-import frc.robot.commands.shooting.timedShoot;
+import frc.robot.commands.shooting.TimedShoot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -50,8 +49,6 @@ public class RobotContainer {
 	private DriveTrain driveTrain;
 
 	private Flywheel flywheel;
-
-	private RunFlywheelFullSpeed runFlywheelFullSpeed;
 
 	private Intake intake;
 
@@ -69,8 +66,8 @@ public class RobotContainer {
 	private TurretVision turretVision;
 
 	private RunShooterAtSetpoint runShooterAtSetpoint;
-	private RunKickerandTower runKickerAndTower;
-	private RunKickerTest runKickerTest;
+	private ReverseKickerAndTower reverseKickerAndTower;
+	private RunKickerManual runKickerManual;
 
 	private OutputFlywheelEncoder outputFlywheelEncoder;
 
@@ -84,7 +81,7 @@ public class RobotContainer {
 
 	private Shoot shoot;
 
-	private timedShoot TimedShoot; 
+	private TimedShoot TimedShoot; 
 	
 	private Climb climb;
 
@@ -103,7 +100,6 @@ public class RobotContainer {
 		// outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
 		// flywheel.setDefaultCommand(outputFlywheelEncoder);
 		flywheel.setDefaultCommand(new RunCommand(() -> flywheel.setSetpoint(1500), flywheel));
-		runFlywheelFullSpeed = new RunFlywheelFullSpeed(flywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
 		tower = new Tower();
@@ -126,12 +122,12 @@ public class RobotContainer {
 		hood = new Hood();
 		turretVision = new TurretVision();
 
-		runKickerTest = new RunKickerTest(kicker);
+		runKickerManual = new RunKickerManual(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		shoot = new Shoot(flywheel, accumulator, tower, kicker);
-		runKickerAndTower = new RunKickerandTower(kicker, tower);
-		TimedShoot = new timedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
+		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
+		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
 		climb = new Climb();
 		runClimb = new RunClimb(climb);
@@ -150,20 +146,18 @@ public class RobotContainer {
 	 * and then passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
-		OperatorInput.runFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
 		OperatorInput.toggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		OperatorInput.holdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
-		OperatorInput.runKickerAndTower.whileHeld(runKickerAndTower);
+		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
 		
-		OperatorInput.corunFlywheelFullButton.whileHeld(runFlywheelFullSpeed);
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		OperatorInput.coholdRunKickerTest.whileHeld(runKickerTest);
+		OperatorInput.coholdRunKickerManual.whileHeld(runKickerManual);
 		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
 		OperatorInput.corunKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
 		OperatorInput.cotoggleClimbTelescope.whenPressed(new InstantCommand(climb::lockTelescope, climb));
