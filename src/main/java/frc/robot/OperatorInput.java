@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 /** Add your docs here. */
 public class OperatorInput {
 	public static XboxController driverJoystick = new XboxController(0);
-	public static JoystickButton runFlywheelFullButton = new JoystickButton(driverJoystick,
-			XboxController.Button.kY.value);
 	public static JoystickButton toggleIntakePistons = new JoystickButton(driverJoystick,
 			XboxController.Button.kLeftBumper.value);
 	public static JoystickButton toggleAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
@@ -26,8 +24,6 @@ public class OperatorInput {
 
 
 	public static XboxController codriverJoystick = new XboxController(1);
-	public static JoystickButton corunFlywheelFullButton = new JoystickButton(codriverJoystick,
-	XboxController.Button.kY.value);
 	public static JoystickButton cotoggleIntakePistons = new JoystickButton(codriverJoystick,
 		XboxController.Button.kLeftBumper.value);
 	public static JoystickButton cotoggleAimAndShoot = new JoystickButton(codriverJoystick, XboxController.Button.kX.value);
