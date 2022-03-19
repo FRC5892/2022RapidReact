@@ -86,6 +86,8 @@ public class RobotContainer {
 	private Climb climb;
 
 	private RunClimb runClimb;
+
+	private Shoot longShot;
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 
@@ -125,7 +127,8 @@ public class RobotContainer {
 		runKickerManual = new RunKickerManual(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
-		shoot = new Shoot(flywheel, accumulator, tower, kicker);
+		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED, 0d);
+		longShot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED, Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
@@ -151,6 +154,7 @@ public class RobotContainer {
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
+		OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
 		

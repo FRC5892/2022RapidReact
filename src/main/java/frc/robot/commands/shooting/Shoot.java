@@ -6,6 +6,7 @@ package frc.robot.commands.shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.serializer.Accumulator;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
@@ -16,24 +17,30 @@ public class Shoot extends CommandBase {
 	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
+	private Hood hood;
+	private Double speed;
+	private Double angle;
 
 	/** Creates a new AimAndShoot. */
-	public Shoot(Flywheel f, Accumulator a, Tower tw, Kicker k) {
+	public Shoot(Flywheel f, Accumulator a, Tower tw, Kicker k, Hood h, Double s, Double ag) {
 		flywheel = f;
 		accumulator = a;
 		tower = tw;
 		kicker = k;
+		hood = h;
+		speed = s;
+		angle = ag;
 
-		addRequirements(flywheel, accumulator, tower, kicker);
+		addRequirements(flywheel, accumulator, tower, kicker, hood);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
+		flywheel.setSetpoint(speed);
 		flywheel.enable();
-		System.out.println("Shooting start");
+		hood.setSetpoint(angle);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -73,8 +80,7 @@ public class Shoot extends CommandBase {
 		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
-
-		System.out.println("Shooting stop");
+		hood.stop();
 	}
 
 	// Returns true when the command should end.
