@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunClimb;
@@ -149,7 +150,7 @@ public class RobotContainer {
 		OperatorInput.toggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
+		OperatorInput.holdRunKickerManual.whileHeld(new StartEndCommand(() -> kicker.setMotors(Constants.KICKER_SPEED), () -> kicker.stopMotors(), kicker));
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
@@ -157,7 +158,7 @@ public class RobotContainer {
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		OperatorInput.coholdRunKickerManual.whileHeld(runKickerManual);
+		OperatorInput.coholdRunKickerManual.whileHeld(new StartEndCommand(() -> kicker.setMotors(Constants.KICKER_SPEED), () -> kicker.stopMotors(), kicker));
 		OperatorInput.coaimAndShootToggle.whileHeld(shoot);
 		OperatorInput.corunKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
 		OperatorInput.cotoggleClimbTelescope.whenPressed(new InstantCommand(climb::lockTelescope, climb));
