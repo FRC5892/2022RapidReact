@@ -127,7 +127,7 @@ public class RobotContainer {
 		runKickerManual = new RunKickerManual(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
-		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED, 0d);
+		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED, 27.5);
 		longShot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED, Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);

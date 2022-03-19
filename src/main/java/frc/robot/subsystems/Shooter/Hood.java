@@ -47,6 +47,7 @@ public class Hood extends PIDSubsystem {
 		SmartDashboard.putNumber("Hood D", Constants.HOOD_PID[2]);
 		SmartDashboard.putNumber("Hood Setpoint", 0);
 		this.enable();
+		this.m_controller.setTolerance(.5);
 	}
 
 	public void stop() {
@@ -98,10 +99,10 @@ public class Hood extends PIDSubsystem {
 		SmartDashboard.putNumber("Hood Pot Voltage", potentiometer.getVoltage());
 		SmartDashboard.putNumber("Hood Angle", getAngle());
 		SmartDashboard.putNumber("Hood Set Setpoint", setpoint);
-		this.m_controller.setP(SmartDashboard.getNumber("Hood P", 0));
-		this.m_controller.setI(SmartDashboard.getNumber("Hood I", 0));
-		this.m_controller.setD(SmartDashboard.getNumber("Hood D", 0));
-		this.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
+		// this.m_controller.setP(SmartDashboard.getNumber("Hood P", 0));
+		// this.m_controller.setI(SmartDashboard.getNumber("Hood I", 0));
+		// this.m_controller.setD(SmartDashboard.getNumber("Hood D", 0));
+		// this.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
 		SmartDashboard.putNumber("Hood Motor Commanded", motor.get());
 	}
 

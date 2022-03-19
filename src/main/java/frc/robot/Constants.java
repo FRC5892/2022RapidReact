@@ -30,8 +30,8 @@ public final class Constants {
 	public static final double FLYWHEEL_SHOOTING_SPEED = 2100;
 	// public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00125 / .4, 0.002 / .4, 0 / .4 };
 	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00155, 0.00013, 0 };
-    public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 3200;
-	public static final double FLYWHEEL_LONG_SHOOTING_ANGLE = 36;
+    public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 2500;
+	public static final double FLYWHEEL_LONG_SHOOTING_ANGLE = 40;
 
 
 	public static final int TURRET_POTENTIOMETER = 6;

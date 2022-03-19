@@ -41,12 +41,13 @@ public class Shoot extends CommandBase {
 		flywheel.setSetpoint(speed);
 		flywheel.enable();
 		hood.setSetpoint(angle);
+		hood.enable();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (flywheel.atSetpoint()) {
+		if (flywheel.atSetpoint() && hood.atSetpoint()) {
 			kicker.setMotors(Constants.KICKER_SPEED);
 			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 		}
