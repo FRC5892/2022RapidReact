@@ -2,27 +2,29 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ballLoadingCrap;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.serializer.Kicker;
+import frc.robot.subsystems.serializer.Tower;
 
-public class RunKickerTest extends CommandBase {
+public class RunKickerandTower extends CommandBase {
 	private Kicker kicker;
+	private Tower tower;
 
-	/** Creates a new RunKickerTest. */
-	public RunKickerTest(Kicker k) {
-		kicker = k;
+	/** Creates a new RunKickerandTower. */
+	public RunKickerandTower(Kicker k, Tower t) {
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(kicker);
-		// SmartDashboard.putNumber("Kicker Set Speed", 0);
+		kicker = k;
+		tower = t;
+		addRequirements(kicker, tower);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		// default
-		kicker.setMotors(0.5);
+		kicker.setMotors(-.5);
+		tower.setMotors(-.5);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +36,7 @@ public class RunKickerTest extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		kicker.stopMotors();
+		tower.stopMotors();
 	}
 
 	// Returns true when the command should end.

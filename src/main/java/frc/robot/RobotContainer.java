@@ -16,8 +16,6 @@ import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunClimb;
 import frc.robot.commands.RunFlywheelFullSpeed;
-import frc.robot.commands.RunKickerTest;
-import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.timedShoot;
@@ -35,6 +33,8 @@ import frc.robot.commands.autonomous.SimpleAuton;
 import frc.robot.commands.ballLoadingCrap.RunAccumulator;
 import frc.robot.commands.ballLoadingCrap.RunIntakeRollers;
 import frc.robot.commands.ballLoadingCrap.RunKicker;
+import frc.robot.commands.ballLoadingCrap.RunKickerTest;
+import frc.robot.commands.ballLoadingCrap.RunKickerandTower;
 import frc.robot.commands.ballLoadingCrap.RunTower;
 
 /**
