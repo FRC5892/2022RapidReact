@@ -7,10 +7,10 @@ import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Kicker;
 import frc.robot.subsystems.Tower;
-import frc.robot.subsystems.Shooter.Flywheel;
-import frc.robot.subsystems.Shooter.Hood;
-import frc.robot.subsystems.Shooter.Turret;
-import frc.robot.subsystems.Shooter.TurretVision;
+import frc.robot.subsystems.shooter.Flywheel;
+import frc.robot.subsystems.shooter.Hood;
+import frc.robot.subsystems.shooter.Turret;
+import frc.robot.subsystems.shooter.TurretVision;
 
 public class SimpleAuton extends SequentialCommandGroup {
 

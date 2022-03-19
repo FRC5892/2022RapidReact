@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.Kicker;
 import frc.robot.subsystems.Tower;
-import frc.robot.subsystems.Shooter.Flywheel;
+import frc.robot.subsystems.shooter.Flywheel;
 
 public class timedShoot extends CommandBase {
 	private Flywheel flywheel;

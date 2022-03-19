@@ -21,21 +21,21 @@ import frc.robot.commands.RunKickerandTower;
 import frc.robot.commands.RunShooterAtSetpoint;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.timedShoot;
-import frc.robot.commands.BallLoadingCrap.RunAccumulator;
-import frc.robot.commands.BallLoadingCrap.RunIntakeRollers;
-import frc.robot.commands.BallLoadingCrap.RunKicker;
-import frc.robot.commands.BallLoadingCrap.RunTower;
 import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Kicker;
 import frc.robot.subsystems.Tower;
-import frc.robot.subsystems.Shooter.Flywheel;
-import frc.robot.subsystems.Shooter.Hood;
-import frc.robot.subsystems.Shooter.Turret;
-import frc.robot.subsystems.Shooter.TurretVision;
+import frc.robot.subsystems.shooter.Flywheel;
+import frc.robot.subsystems.shooter.Hood;
+import frc.robot.subsystems.shooter.Turret;
+import frc.robot.subsystems.shooter.TurretVision;
 import frc.robot.commands.autonomous.SimpleAuton;
+import frc.robot.commands.ballLoadingCrap.RunAccumulator;
+import frc.robot.commands.ballLoadingCrap.RunIntakeRollers;
+import frc.robot.commands.ballLoadingCrap.RunKicker;
+import frc.robot.commands.ballLoadingCrap.RunTower;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
