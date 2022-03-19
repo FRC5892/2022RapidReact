@@ -3,7 +3,7 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Kicker;
+import frc.robot.subsystems.serializer.Kicker;
 
 public class AutonDrive extends CommandBase {
 	DriveTrain driveTrain;

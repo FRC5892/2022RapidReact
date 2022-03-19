@@ -2,20 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.shooting;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PolynomialFunction;
-import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Kicker;
-import frc.robot.subsystems.Tower;
-import frc.robot.subsystems.Shooter.Flywheel;
-import frc.robot.subsystems.Shooter.Hood;
-import frc.robot.subsystems.Shooter.Turret;
-import frc.robot.subsystems.Shooter.TurretVision;
+import frc.robot.subsystems.serializer.Accumulator;
+import frc.robot.subsystems.serializer.Kicker;
+import frc.robot.subsystems.serializer.Tower;
+import frc.robot.subsystems.shooter.Flywheel;
+import frc.robot.subsystems.shooter.Hood;
+import frc.robot.subsystems.shooter.Turret;
+import frc.robot.subsystems.shooter.TurretVision;
 
 public class AimAndShoot extends CommandBase {
 	private Flywheel flywheel;

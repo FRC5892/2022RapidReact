@@ -2,27 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.BallLoadingCrap;
+package frc.robot.commands.serializing;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.OperatorInput;
-import frc.robot.subsystems.Kicker;
-import frc.robot.subsystems.Tower;
+import frc.robot.subsystems.serializer.Intake;
 
-public class RunTower extends CommandBase {
-	private Kicker kicker;
-	private Timer timer;
-	private Tower tower;
+public class RunIntakeRollers extends CommandBase {
+	private Intake intake;
 
-	/** Creates a new RunAccumulator. */
-	public RunTower(Kicker k, Tower t) {
-		kicker = k;
-		tower = t;
+	/** Creates a new RunIntakeRollers. */
+	public RunIntakeRollers(Intake i) {
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(tower);
-		timer = new Timer();
+		intake = i;
+		addRequirements(intake);
 	}
 
 	// Called when the command is initially scheduled.
@@ -34,23 +28,23 @@ public class RunTower extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
-			// intake
-			timer.reset();
-			timer.start();
-			tower.setMotors(Constants.TOWER_SPEED);
+		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
+			// outake
+			intake.setMotors(OperatorInput.driverJoystick.getLeftTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
 		}
-		if (timer.get() > Constants.PRELOAD_TIMEOUT || (kicker.hasBall() && tower.hasBall())) {
-			tower.stopMotors();
-			timer.stop();
+		else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+			// intake
+			intake.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
+		}
+		else {
+			intake.stopMotors();
 		}
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		tower.stopMotors();
-		timer.stop();
+		intake.stopMotors();
 	}
 
 	// Returns true when the command should end.

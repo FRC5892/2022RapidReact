@@ -2,41 +2,37 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Kicker;
-import frc.robot.subsystems.Tower;
+import frc.robot.subsystems.shooter.Flywheel;
 
-public class RunKickerandTower extends CommandBase {
-	private Kicker kicker;
-	private Tower tower;
+public class RunFlywheelFullSpeed extends CommandBase {
+	private Flywheel flywheel;
 
-	/** Creates a new RunKickerandTower. */
-	public RunKickerandTower(Kicker k, Tower t) {
+	/** Creates a new runFlywheelFullSpeed. */
+	public RunFlywheelFullSpeed(Flywheel f) {
+		flywheel = f;
+		addRequirements(flywheel);
 		// Use addRequirements() here to declare subsystem dependencies.
-		kicker = k;
-		tower = t;
-		addRequirements(kicker, tower);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		kicker.setMotors(-.5);
-		tower.setMotors(-.5);
+		flywheel.setMotors(1);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		// default
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		kicker.stopMotors();
-		tower.stopMotors();
+		flywheel.stop();
 	}
 
 	// Returns true when the command should end.
