@@ -34,7 +34,7 @@ import frc.robot.commands.serializing.RunTower;
 import frc.robot.commands.shooting.AimAndShoot;
 import frc.robot.commands.shooting.RunShooterAtSetpoint;
 import frc.robot.commands.shooting.Shoot;
-import frc.robot.commands.shooting.timedShoot;
+import frc.robot.commands.shooting.TimedShoot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -81,7 +81,7 @@ public class RobotContainer {
 
 	private Shoot shoot;
 
-	private timedShoot TimedShoot; 
+	private TimedShoot TimedShoot; 
 	
 	private Climb climb;
 
@@ -127,7 +127,7 @@ public class RobotContainer {
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		shoot = new Shoot(flywheel, accumulator, tower, kicker);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
-		TimedShoot = new timedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
+		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
 		climb = new Climb();
 		runClimb = new RunClimb(climb);
