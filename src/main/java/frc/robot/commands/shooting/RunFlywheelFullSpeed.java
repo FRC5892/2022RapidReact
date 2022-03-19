@@ -2,28 +2,25 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.shooter.Flywheel;
 
-public class RunShooterAtSetpoint extends CommandBase {
+public class RunFlywheelFullSpeed extends CommandBase {
 	private Flywheel flywheel;
 
-	/** Creates a new RunShooterAtSetpoint. */
-	public RunShooterAtSetpoint(Flywheel f) {
-		// Use addRequirements() here to declare subsystem dependencies.
+	/** Creates a new runFlywheelFullSpeed. */
+	public RunFlywheelFullSpeed(Flywheel f) {
 		flywheel = f;
 		addRequirements(flywheel);
-		// SmartDashboard.putNumber("Flywheel Setpoint RPM", 0);
+		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
-		flywheel.enable();
+		flywheel.setMotors(1);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

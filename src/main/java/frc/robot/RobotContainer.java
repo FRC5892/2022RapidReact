@@ -11,14 +11,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunClimb;
-import frc.robot.commands.RunFlywheelFullSpeed;
-import frc.robot.commands.RunShooterAtSetpoint;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.timedShoot;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.serializer.Accumulator;
@@ -36,6 +31,11 @@ import frc.robot.commands.ballLoadingCrap.RunKicker;
 import frc.robot.commands.ballLoadingCrap.RunKickerTest;
 import frc.robot.commands.ballLoadingCrap.RunKickerandTower;
 import frc.robot.commands.ballLoadingCrap.RunTower;
+import frc.robot.commands.shooting.AimAndShoot;
+import frc.robot.commands.shooting.RunFlywheelFullSpeed;
+import frc.robot.commands.shooting.RunShooterAtSetpoint;
+import frc.robot.commands.shooting.Shoot;
+import frc.robot.commands.shooting.timedShoot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very

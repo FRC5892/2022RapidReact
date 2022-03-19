@@ -2,7 +2,7 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.timedShoot;
+import frc.robot.commands.shooting.timedShoot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.serializer.Accumulator;
 import frc.robot.subsystems.serializer.Kicker;
