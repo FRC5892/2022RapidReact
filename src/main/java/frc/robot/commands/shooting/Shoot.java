@@ -48,7 +48,7 @@ public class Shoot extends CommandBase {
 	@Override
 	public void execute() {
 		if (flywheel.atSetpoint() && hood.atSetpoint()) {
-			kicker.setMotors(Constants.KICKER_SPEED);
+			kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
 			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 		}
 		else {
