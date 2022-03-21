@@ -32,6 +32,7 @@ import frc.robot.commands.serializing.RunKickerManual;
 import frc.robot.commands.serializing.ReverseKickerAndTower;
 import frc.robot.commands.serializing.RunTower;
 import frc.robot.commands.shooting.AimAndShoot;
+import frc.robot.commands.shooting.PrespoolFlywheel;
 import frc.robot.commands.shooting.RunShooterAtSetpoint;
 import frc.robot.commands.shooting.Shoot;
 import frc.robot.commands.shooting.TimedShoot;
@@ -86,7 +87,11 @@ public class RobotContainer {
 	private Climb climb;
 
 	private RunClimb runClimb;
+
+	private Shoot longShot;
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
+
+	private PrespoolFlywheel prespoolFlywheel;
 	public RobotContainer() {
 
 		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
@@ -99,7 +104,8 @@ public class RobotContainer {
 		flywheel = new Flywheel();
 		// outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
 		// flywheel.setDefaultCommand(outputFlywheelEncoder);
-		flywheel.setDefaultCommand(new RunCommand(() -> flywheel.setSetpoint(1500), flywheel));
+		prespoolFlywheel = new PrespoolFlywheel(flywheel);
+		flywheel.setDefaultCommand(prespoolFlywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
 		tower = new Tower();
@@ -125,7 +131,8 @@ public class RobotContainer {
 		runKickerManual = new RunKickerManual(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
-		shoot = new Shoot(flywheel, accumulator, tower, kicker);
+		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED, Constants.FLYWHEEL_SHOOTING_ANGLE);
+		longShot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED, Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
@@ -151,6 +158,7 @@ public class RobotContainer {
 		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
+		OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
 		

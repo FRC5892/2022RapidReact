@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.sql.Struct;
+
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -26,8 +28,10 @@ public final class Constants {
 	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1 / .4;
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 9, 10 };
 	public static final double FLYWHEEL_SHOOTING_SPEED = 2100;
-	// public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00125 / .4, 0.002 / .4, 0 / .4 };
+	public static final double FLYWHEEL_SHOOTING_ANGLE = 27.5;
 	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00155, 0.00013, 0 };
+    public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 2700;
+	public static final double FLYWHEEL_LONG_SHOOTING_ANGLE = 40;
 
 
 	public static final int TURRET_POTENTIOMETER = 6;
@@ -52,6 +56,9 @@ public final class Constants {
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
 	public static final int KICKER_SENSOR_PORT = 8;
 	public static final double KICKER_SPEED = .25;
+	public static final double KICKER_SHOOT_SPEED = .5;
+	// public static final double KICKER_SHOOT_SPEED = .25;
+
 
 	public static final double TOWER_SPEED = .5;
 	public static final int TOWER_MOTOR_PORT = 13;
