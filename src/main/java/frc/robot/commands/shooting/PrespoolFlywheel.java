@@ -8,35 +8,36 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.shooter.Flywheel;
 
 public class PrespoolFlywheel extends CommandBase {
-  private Flywheel flywheel;
+	private Flywheel flywheel;
 
-  /** Creates a new PrespoolFlywheel. */
-  public PrespoolFlywheel(Flywheel f) {
-    flywheel = f;
-    addRequirements(flywheel);
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+	/** Creates a new PrespoolFlywheel. */
+	public PrespoolFlywheel(Flywheel f) {
+		flywheel = f;
+		addRequirements(flywheel);
+		// Use addRequirements() here to declare subsystem dependencies.
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    flywheel.enable();
-    flywheel.setSetpoint(1500);
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		flywheel.enable();
+		flywheel.setSetpoint(1500);
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    flywheel.stop();
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+		flywheel.stop();
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }

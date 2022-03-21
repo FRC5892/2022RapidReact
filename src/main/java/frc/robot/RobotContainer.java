@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunClimb;
@@ -82,8 +81,8 @@ public class RobotContainer {
 
 	private Shoot shoot;
 
-	private TimedShoot TimedShoot; 
-	
+	private TimedShoot TimedShoot;
+
 	private Climb climb;
 
 	private RunClimb runClimb;
@@ -92,6 +91,7 @@ public class RobotContainer {
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 
 	private PrespoolFlywheel prespoolFlywheel;
+
 	public RobotContainer() {
 
 		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
@@ -131,8 +131,10 @@ public class RobotContainer {
 		runKickerManual = new RunKickerManual(kicker);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
-		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED, Constants.FLYWHEEL_SHOOTING_ANGLE);
-		longShot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED, Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
+		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED,
+				Constants.FLYWHEEL_SHOOTING_ANGLE);
+		longShot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED,
+				Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 
@@ -161,7 +163,7 @@ public class RobotContainer {
 		OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
-		
+
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);

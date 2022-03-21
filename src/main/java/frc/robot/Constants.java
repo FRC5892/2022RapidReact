@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.sql.Struct;
-
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -30,9 +28,8 @@ public final class Constants {
 	public static final double FLYWHEEL_SHOOTING_SPEED = 2100;
 	public static final double FLYWHEEL_SHOOTING_ANGLE = 27.5;
 	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00155, 0.00013, 0 };
-    public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 2700;
+	public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 2700;
 	public static final double FLYWHEEL_LONG_SHOOTING_ANGLE = 40;
-
 
 	public static final int TURRET_POTENTIOMETER = 6;
 	public static final double TURRET_POTENTIOMETER_CONVERSION_FACTOR = 1;
@@ -59,7 +56,6 @@ public final class Constants {
 	public static final double KICKER_SHOOT_SPEED = .5;
 	// public static final double KICKER_SHOOT_SPEED = .25;
 
-
 	public static final double TOWER_SPEED = .5;
 	public static final int TOWER_MOTOR_PORT = 13;
 	public static final int TOWER_SENSOR_PORT = 9;
@@ -72,6 +68,6 @@ public final class Constants {
 	public static final double AUTONOMOUS_SPEED = .5;
 	public static final double AUTONOMOUS_SHOOT_TIMER = 7;
 
-	public static final int[] CLIMB_MOTOR_PORTS = new int[] {19,20};
+	public static final int[] CLIMB_MOTOR_PORTS = new int[] { 19, 20 };
 	public static final int[] CLIMB_BRAKE_SOLENOID_PORTS = new int[] { 0, 1 };
 }

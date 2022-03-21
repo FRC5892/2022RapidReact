@@ -22,8 +22,8 @@ public class TurretVision extends SubsystemBase {
 	}
 
 	public double distanceFromTarget() {
-		return (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT) / Math.tan(
-				NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0)
+		return (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT) / Math
+				.tan(NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0)
 						+ Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH));
 	}
 
