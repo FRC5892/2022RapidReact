@@ -4,12 +4,22 @@
 
 package frc.robot;
 
+import java.util.Arrays;
+
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunClimb;
@@ -178,9 +188,34 @@ public class RobotContainer {
 	 *
 	 * @return the command to run in autonomous
 	 */
-	public Command getAutonomousCommand() {
-		return simpleAuto;
-		// return null;
+  public Command getAutonomousCommand() {
+    TrajectoryConfig config = new TrajectoryConfig(
+        Units.feetToMeters(2.0), Units.feetToMeters(2.0));
+    config.setKinematics(driveTrain.getKinematics());
 
-	}
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+        Arrays.asList(new Pose2d(), new Pose2d(1.0, 0, new Rotation2d()),
+            new Pose2d(2.3, 1.2, Rotation2d.fromDegrees(90.0))),
+        config
+    );
+
+    RamseteCommand command = new RamseteCommand(
+        trajectory,
+        driveTrain::getPose,
+        new RamseteController(2, .7),
+        driveTrain.getFeedforward(),
+        driveTrain.getKinematics(),
+        driveTrain::getSpeeds,
+        driveTrain.getLeftPIDController(),
+        driveTrain.getRightPIDController(),
+        driveTrain::setOutputVolts,
+        driveTrain
+    );
+
+    return command.andThen(() -> driveTrain.setOutputVolts(0, 0));
+  }
+
+  public void reset() {
+    driveTrain.reset();
+  }
 }

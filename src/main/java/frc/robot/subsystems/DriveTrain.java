@@ -4,15 +4,24 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
@@ -30,9 +39,24 @@ public class DriveTrain extends SubsystemBase {
 	private CANSparkMax rightMotor2 = driveMotor(5, false);
 	private CANSparkMax rightMotor3 = driveMotor(6, false);
 
+	private static final double kGearRatio = 4.444;
+    private static final double kWheelRadiusInches = 120;
+
 	// TODO evaluate connecting to spark maxes, make sparkmax sim work
 	private Encoder leftEncoder = new Encoder(0, 1, true);
 	private Encoder rightEncoder = new Encoder(2, 3, false);
+
+	AHRS gyro = new AHRS(SPI.Port.kMXP);
+
+  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(28));
+  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
+
+  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
+
+  PIDController leftPIDController = new PIDController(2.95, 0, 0);
+  PIDController rightPIDController = new PIDController(2.95, 0, 0);
+
+  Pose2d pose = new Pose2d();
 
 	private MotorControllerGroup leftMotors = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
@@ -76,6 +100,7 @@ public class DriveTrain extends SubsystemBase {
 		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev)
 		// rightEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev)
 		SmartDashboard.putData(field);
+		gyro.reset();
 	}
 
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
@@ -87,6 +112,7 @@ public class DriveTrain extends SubsystemBase {
 		// This method will be called once per scheduler run
 		SmartDashboard.putNumber("Left Encoder", getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", getRightPosition());
+		pose = odometry.update(getHeading(), getLeftRate(), getRightRate());
 	}
 
 	@Override
@@ -102,6 +128,47 @@ public class DriveTrain extends SubsystemBase {
 		field.setRobotPose(driveSim.getPose());
 
 	}
+
+	public Rotation2d getHeading() {
+		return Rotation2d.fromDegrees(-gyro.getAngle());
+	  }
+	
+	  public DifferentialDriveWheelSpeeds getSpeeds() {
+		return new DifferentialDriveWheelSpeeds(
+			getLeftPosition() / kGearRatio * 2 * Math.PI * Units.inchesToMeters(kWheelRadiusInches) / 60,
+			getRightPosition() / kGearRatio * 2 * Math.PI * Units.inchesToMeters(kWheelRadiusInches) / 60
+		);
+	  }
+	
+	  public DifferentialDriveKinematics getKinematics() {
+		return kinematics;
+	  }
+	
+	  public Pose2d getPose() {
+		return pose;
+	  }
+	
+	  public SimpleMotorFeedforward getFeedforward() {
+		return feedforward;
+	  }
+
+	  public void setOutputVolts(double leftVolts, double rightVolts) {
+		leftMotors.set(leftVolts / 12);
+		rightMotors.set(rightVolts / 12);
+	  }
+	
+	  public void reset() {
+		odometry.resetPosition(new Pose2d(), getHeading());
+	  }
+
+	  public PIDController getLeftPIDController() {
+		return leftPIDController;
+	  }
+	
+	  public PIDController getRightPIDController() {
+		return rightPIDController;
+	  }
+	  
 
 	// @Override
 	public void stop() {
