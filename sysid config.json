@@ -1,11 +1,11 @@
 {
-  "counts per rotation": 1.0,
+  "counts per rotation": 4096.0,
   "encoder type": "roboRIO quadrature",
   "encoding": true,
   "gearing denominator": 1.0,
   "gearing numerator": 1.0,
   "gyro": "ADXRS450",
-  "gyro ctor": "kOnboardCS0",
+  "gyro ctor": "SPI (Onboard CS0)",
   "is drivetrain": true,
   "motor controllers": [
     "SPARK MAX (Brushless)",
