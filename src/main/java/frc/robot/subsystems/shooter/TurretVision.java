@@ -22,9 +22,14 @@ public class TurretVision extends SubsystemBase {
 	}
 
 	public double distanceFromTarget() {
-		return (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT) / Math
-				.tan(NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0)
-						+ Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH));
+		double height = (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT);
+		double limelightPitch = NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0);
+		double angle = Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH + limelightPitch);
+
+		return (height)/Math.tan(angle);
+
+		// return height / Math
+		// 		.tan(Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH) + NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0));
 	}
 
 	public double xAngle() {

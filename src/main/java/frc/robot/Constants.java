@@ -35,8 +35,8 @@ public final class Constants {
 	public static final double TURRET_POTENTIOMETER_CONVERSION_FACTOR = 1;
 	public static final int TURRET_MOTOR_ID = 16;
 	public static final double TURRET_SCAN_SPEED = 0.3;
-	public static final double TURRETVISION_CAMERA_HEIGHT = 33;
-	public static final double TURRETVISION_CAMERA_PITCH = 54;
+	public static final double TURRETVISION_CAMERA_HEIGHT = 32+15/16;
+	public static final double TURRETVISION_CAMERA_PITCH = 35;
 	public static final double GOAL_HEIGHT = 104;
 
 	public static final int HOOD_POTENTIOMETER_PORT = 0;
