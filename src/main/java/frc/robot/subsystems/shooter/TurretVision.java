@@ -14,11 +14,13 @@ import frc.robot.Constants;
 
 public class TurretVision extends SubsystemBase {
 	NetworkTableEntry targets;
+	NetworkTableEntry horizontalOffsetAngle;
 
 	/** Creates a new TurretVision. */
 	public TurretVision() {
 		NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME);
 		targets = limelightTable.getEntry("tv");
+		horizontalOffsetAngle = limelightTable.getEntry("tx");
 	}
 
 	public boolean hasTargets() {
@@ -37,7 +39,7 @@ public class TurretVision extends SubsystemBase {
 	}
 
 	public double xAngle() {
-		return NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("tx").getDouble(0);
+		return horizontalOffsetAngle.getDouble(0);
 	}
 
 	@Override
