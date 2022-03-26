@@ -5,20 +5,24 @@
 package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class TurretVision extends SubsystemBase {
+	NetworkTableEntry targets;
 
 	/** Creates a new TurretVision. */
 	public TurretVision() {
-		// template
+		NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME);
+		targets = limelightTable.getEntry("tv");
 	}
 
 	public boolean hasTargets() {
-		return NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("tv").getDouble(0) == 0d;
+		return targets.getDouble(0) > 0;
 	}
 
 	public double distanceFromTarget() {
