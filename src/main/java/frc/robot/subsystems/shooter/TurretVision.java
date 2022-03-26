@@ -13,14 +13,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class TurretVision extends SubsystemBase {
+	double heightFromLimelightToGoal;
 	NetworkTableEntry targets;
 	NetworkTableEntry horizontalOffsetAngle;
+	NetworkTableEntry verticalOffsetAngle;
 
 	/** Creates a new TurretVision. */
 	public TurretVision() {
 		NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME);
 		targets = limelightTable.getEntry("tv");
 		horizontalOffsetAngle = limelightTable.getEntry("tx");
+		verticalOffsetAngle = limelightTable.getEntry("ty");
+		heightFromLimelightToGoal = Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT;
 	}
 
 	public boolean hasTargets() {
@@ -28,14 +32,8 @@ public class TurretVision extends SubsystemBase {
 	}
 
 	public double distanceFromTarget() {
-		double height = (Constants.GOAL_HEIGHT - Constants.TURRETVISION_CAMERA_HEIGHT);
-		double limelightPitch = NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0);
-		double angle = Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH + limelightPitch);
-
-		return (height)/Math.tan(angle);
-
-		// return height / Math
-		// 		.tan(Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH) + NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("ty").getDouble(0));
+		double radians = Units.degreesToRadians(Constants.TURRETVISION_CAMERA_PITCH + verticalOffsetAngle.getDouble(0));
+		return heightFromLimelightToGoal * Math.tan(radians);
 	}
 
 	public double xAngle() {
