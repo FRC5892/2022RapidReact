@@ -61,7 +61,7 @@ public class AimAndShoot extends CommandBase {
 		if (turretVision.hasTargets()) {
 			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
 			hood.setSetpoint(
-					PolynomialFunction.polynomailFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
+					PolynomialFunction.polynomialFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
 			driveTrain.driveWithJoysticks(0, driveTrainPIDController.calculate(turretVision.xAngle(), 0));
 			if (hood.atSetpoint() /* && turret.atSetpoint() */ && flywheel.atSetpoint()) {
 				// shoot

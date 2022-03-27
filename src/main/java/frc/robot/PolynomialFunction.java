@@ -10,12 +10,12 @@ package frc.robot;
  *
  * @author Micah Guttman
  * @param x
- *            This is the value that will be plugged in to the polynomail
+ *            This is the value that will be plugged in to the polynomial
  * @param coefficients
  *            This is the array of coefficients that will be used to construct the polynomial
  */
 public class PolynomialFunction {
-	public static double polynomailFunction(double x, double[] coefficients) {
+	public static double polynomialFunction(double x, double[] coefficients) {
 		double value = 0;
 		int i = 0;
 		for (double coefficient : coefficients) {
