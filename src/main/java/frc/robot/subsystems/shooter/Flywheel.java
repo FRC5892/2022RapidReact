@@ -6,71 +6,72 @@ package frc.robot.subsystems.shooter;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Flywheel extends PIDSubsystem {
+public class Flywheel extends SubsystemBase {
+  /** Creates a new FlywheelNew. */
+  public CANSparkMax FlywheelMotor(int motorID, boolean inverted) {
+    CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
+    sparkMax.restoreFactoryDefaults();
+    sparkMax.setInverted(inverted);
+    sparkMax.setIdleMode(IdleMode.kCoast);
+    sparkMax.burnFlash();
+    return sparkMax;
+  }
 
-	// private Encoder encoder = new Encoder(Constants.FLYWHEEL_ENCODER_PORTS[0], Constants.FLYWHEEL_ENCODER_PORTS[1]);
+  private CANSparkMax leftMotor = FlywheelMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
+  private CANSparkMax rightMotor = FlywheelMotor(Constants.FLYWHEEL_MOTOR_IDS[1], true);
+  private RelativeEncoder neoEncoder = leftMotor.getEncoder();
+  private SparkMaxPIDController pidController = leftMotor.getPIDController();
+  private double setPoint;
 
-	public CANSparkMax shooterMotor(int motorID, boolean inverted) {
-		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
-		sparkMax.restoreFactoryDefaults();
-		sparkMax.setInverted(inverted);
-		sparkMax.setIdleMode(IdleMode.kCoast);
-		sparkMax.burnFlash();
-		return sparkMax;
-	}
+  public Flywheel() {
+    rightMotor.follow(leftMotor, false);
+    pidController.setP(Constants.FLYWHEEL_SPARKMAX_PID[0]);
+    pidController.setI(Constants.FLYWHEEL_SPARKMAX_PID[1]);
+    pidController.setD(Constants.FLYWHEEL_SPARKMAX_PID[2]);
+    neoEncoder.setVelocityConversionFactor(Constants.FLYWHEEL_ENCODER_CONVERSION_FACTOR);
 
-	private CANSparkMax leftMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
-	private CANSparkMax rightMotor = shooterMotor(Constants.FLYWHEEL_MOTOR_IDS[1], true);
-	private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);
-	private RelativeEncoder neoEncoder = leftMotor.getEncoder();
+    SmartDashboard.putNumber("Flywheel P", Constants.FLYWHEEL_SPARKMAX_PID[0]);
+		SmartDashboard.putNumber("Flywheel I", Constants.FLYWHEEL_SPARKMAX_PID[1]);
+		SmartDashboard.putNumber("Flywheel D", Constants.FLYWHEEL_SPARKMAX_PID[2]);
+  }
 
-	/** Creates a new Shooter. */
-	public Flywheel() {
-		super(
-				// The PIDController used by the subsystem
-				new PIDController(Constants.FLYWHEEL_PID_CONSTANTS[0], Constants.FLYWHEEL_PID_CONSTANTS[1],
-						Constants.FLYWHEEL_PID_CONSTANTS[2]));
-		this.disable();
-		this.m_controller.setTolerance(100);
-	}
+  public void stop() {
+    leftMotor.stopMotor();
+    rightMotor.stopMotor();
+  }
 
-	public void setMotors(double speed) {
-		motors.set(speed);
-	}
+  public double getVelocity() {
+    return neoEncoder.getVelocity();
+  }
 
-	public void stop() {
-		this.disable();
-	}
-
-	public double getVelocity() {
-		return neoEncoder.getVelocity() * Constants.FLYWHEEL_ENCODER_CONVERSION_FACTOR;
+  public void setSetpoint(double setpoint) {
+    setPoint = setpoint;
+		pidController.setReference(setpoint, ControlType.kVelocity);
 	}
 
 	public boolean atSetpoint() {
-		return this.m_controller.atSetpoint();
+		return (Math.abs(setPoint - getVelocity()) <= 50);
 	}
 
-	@Override
-	public void useOutput(double output, double setpoint) {
-		// Use the output here
-		motors.set(output);
-		SmartDashboard.putNumber("Flywheel Velocity", getVelocity());
-		SmartDashboard.putBoolean("Flywheel At Setpoint", atSetpoint());
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("Flywheel RPM", getVelocity());
+		SmartDashboard.putBoolean("Flywheel At Setpoint", this.atSetpoint());
+    SmartDashboard.putNumber("Flywheel Setpoint", setPoint);
 
-	}
-
-	@Override
-	public double getMeasurement() {
-		// Return the process variable measurement here
-		return getVelocity();
-	}
+		pidController.setP(SmartDashboard.getNumber("Flywheel P", Constants.FLYWHEEL_SPARKMAX_PID[0]));
+		pidController.setI(SmartDashboard.getNumber("Flywheel I", Constants.FLYWHEEL_SPARKMAX_PID[1]));
+		pidController.setD(SmartDashboard.getNumber("Flywheel D", Constants.FLYWHEEL_SPARKMAX_PID[2]));
+    
+    // This method will be called once per scheduler run
+  }
 }
