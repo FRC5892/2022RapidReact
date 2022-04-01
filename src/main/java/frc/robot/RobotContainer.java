@@ -31,6 +31,7 @@ import frc.robot.commands.serializing.RunKickerManual;
 import frc.robot.commands.serializing.ReverseKickerAndTower;
 import frc.robot.commands.serializing.RunTower;
 import frc.robot.commands.shooting.AimAndShoot;
+import frc.robot.commands.shooting.FlywheelHoodTuningShoot;
 import frc.robot.commands.shooting.PrespoolFlywheel;
 import frc.robot.commands.shooting.RunShooterAtSetpoint;
 import frc.robot.commands.shooting.Shoot;
@@ -92,6 +93,8 @@ public class RobotContainer {
 
 	private PrespoolFlywheel prespoolFlywheel;
 
+	private FlywheelHoodTuningShoot flywheelHoodTuningShoot;
+
 	public RobotContainer() {
 
 		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
@@ -137,6 +140,7 @@ public class RobotContainer {
 				Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
+		flywheelHoodTuningShoot = new FlywheelHoodTuningShoot(flywheel, accumulator, tower, kicker, hood);
 
 		climb = new Climb();
 		runClimb = new RunClimb(climb);
@@ -162,7 +166,7 @@ public class RobotContainer {
 		OperatorInput.aimAndShootToggle.whileHeld(shoot);
 		OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
-		// OperatorInput.toggleClimbTelescope.whenPressed(new InstantCommand(climb::toggleTelescopeLock, climb));
+		OperatorInput.holdFlywheelTuning.whileHeld(flywheelHoodTuningShoot);
 
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);

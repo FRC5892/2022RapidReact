@@ -22,8 +22,8 @@ public class OperatorInput {
 			XboxController.Button.kA.value);
 	public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick,
 			XboxController.Button.kRightBumper.value);
-	// public static JoystickButton toggleClimbTelescope = new JoystickButton(driverJoystick,
-	// XboxController.Button.kB.value);
+	public static JoystickButton holdFlywheelTuning = new JoystickButton(driverJoystick,
+			XboxController.Button.kB.value);
 
 	public static XboxController codriverJoystick = new XboxController(1);
 	public static JoystickButton cotoggleIntakePistons = new JoystickButton(codriverJoystick,
