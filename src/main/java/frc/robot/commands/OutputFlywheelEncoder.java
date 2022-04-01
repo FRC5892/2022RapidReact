@@ -29,7 +29,6 @@ public class OutputFlywheelEncoder extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		SmartDashboard.putNumber("Flywheel Position", flywheel.getPosition());
 		SmartDashboard.putNumber("Flywheel Velocity", flywheel.getVelocity());
 
 	}

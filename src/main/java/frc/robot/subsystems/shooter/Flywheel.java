@@ -55,10 +55,6 @@ public class Flywheel extends PIDSubsystem {
 		return neoEncoder.getVelocity() * Constants.FLYWHEEL_ENCODER_CONVERSION_FACTOR;
 	}
 
-	public double getPosition() {
-		return neoEncoder.getPosition() * Constants.FLYWHEEL_ENCODER_CONVERSION_FACTOR;
-	}
-
 	public boolean atSetpoint() {
 		return this.m_controller.atSetpoint();
 	}
