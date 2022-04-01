@@ -46,7 +46,6 @@ public class FlywheelHoodTuningShoot extends CommandBase {
 		// flywheel.getController().setI(SmartDashboard.getNumber("Flywheel I", 0));
 		// flywheel.getController().setD(SmartDashboard.getNumber("Flywheel D", 0));
 
-		flywheel.enable();
 		hood.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
 		hood.enable();
 	}
