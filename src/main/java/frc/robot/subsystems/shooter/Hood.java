@@ -56,7 +56,7 @@ public class Hood extends PIDSubsystem {
 
 	public double getAngle() {
 		// TODO set conversion factor
-		return potentiometer.getVoltage() * (-4.87912) + 50.7509;
+		return potentiometer.getVoltage() * (-29.778396161) + 136.918776899;
 		// return motor.getEncoder().getPosition() * 1 + 1;
 	}
 
@@ -99,6 +99,7 @@ public class Hood extends PIDSubsystem {
 		SmartDashboard.putNumber("Hood Pot Voltage", potentiometer.getVoltage());
 		SmartDashboard.putNumber("Hood Angle", getAngle());
 		SmartDashboard.putNumber("Hood Set Setpoint", setpoint);
+		SmartDashboard.putBoolean("Hood At Setpoint", this.atSetpoint());
 		// this.m_controller.setP(SmartDashboard.getNumber("Hood P", 0));
 		// this.m_controller.setI(SmartDashboard.getNumber("Hood I", 0));
 		// this.m_controller.setD(SmartDashboard.getNumber("Hood D", 0));
