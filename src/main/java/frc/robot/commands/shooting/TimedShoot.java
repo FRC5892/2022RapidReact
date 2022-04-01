@@ -40,7 +40,6 @@ public class TimedShoot extends CommandBase {
 	@Override
 	public void initialize() {
 		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
-		flywheel.enable();
 		shoot = false;
 		timer.reset();
 		timer.start();
