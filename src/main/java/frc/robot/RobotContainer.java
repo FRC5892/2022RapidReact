@@ -107,8 +107,8 @@ public class RobotContainer {
 		flywheel = new Flywheel();
 		// outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
 		// flywheel.setDefaultCommand(outputFlywheelEncoder);
-		prespoolFlywheel = new PrespoolFlywheel(flywheel);
-		flywheel.setDefaultCommand(prespoolFlywheel);
+		// prespoolFlywheel = new PrespoolFlywheel(flywheel);
+		// flywheel.setDefaultCommand(prespoolFlywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
 		tower = new Tower();
