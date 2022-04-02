@@ -21,7 +21,7 @@ public class PrespoolFlywheel extends CommandBase {
 	@Override
 	public void initialize() {
 		flywheel.enable();
-		flywheel.setSetpoint(1500);
+		flywheel.setSetpoint(2100);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

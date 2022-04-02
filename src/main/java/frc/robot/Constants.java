@@ -27,7 +27,7 @@ public final class Constants {
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 9, 10 };
 	public static final double FLYWHEEL_SHOOTING_SPEED = 2100;
 	public static final double FLYWHEEL_SHOOTING_ANGLE = 27.5;
-	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.00155, 0.00013, 0 };
+	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.0018, 0.0002, 0 };
 	public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 2700;
 	public static final double FLYWHEEL_LONG_SHOOTING_ANGLE = 40;
 

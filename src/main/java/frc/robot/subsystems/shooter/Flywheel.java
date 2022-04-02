@@ -40,7 +40,7 @@ public class Flywheel extends PIDSubsystem {
 				new PIDController(Constants.FLYWHEEL_PID_CONSTANTS[0], Constants.FLYWHEEL_PID_CONSTANTS[1],
 						Constants.FLYWHEEL_PID_CONSTANTS[2]));
 		this.disable();
-		this.m_controller.setTolerance(100);
+		this.m_controller.setTolerance(50);
 	}
 
 	public void setMotors(double speed) {

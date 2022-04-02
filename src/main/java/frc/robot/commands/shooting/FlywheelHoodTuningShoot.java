@@ -32,28 +32,28 @@ public class FlywheelHoodTuningShoot extends CommandBase {
 		// Use addRequirements() here to declare subsystem dependencies.
 		SmartDashboard.putNumber("Flywheel Setpoint", 0);
 		SmartDashboard.putNumber("Hood Setpoint", 0);
-		// SmartDashboard.putNumber("Flywheel P", flywheel.getController().getP());
-		// SmartDashboard.putNumber("Flywheel I", flywheel.getController().getI());
-		// SmartDashboard.putNumber("Flywheel D", flywheel.getController().getD());
+		SmartDashboard.putNumber("Flywheel P", flywheel.getController().getP());
+		SmartDashboard.putNumber("Flywheel I", flywheel.getController().getI());
+		SmartDashboard.putNumber("Flywheel D", flywheel.getController().getD());
 
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		flywheel.setSetpoint(SmartDashboard.getNumber("Flywheel Setpoint", 0));
-		// flywheel.getController().setP(SmartDashboard.getNumber("Flywheel P", 0));
-		// flywheel.getController().setI(SmartDashboard.getNumber("Flywheel I", 0));
-		// flywheel.getController().setD(SmartDashboard.getNumber("Flywheel D", 0));
-
+		
 		flywheel.enable();
-		hood.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
 		hood.enable();
 	}
-
+	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		flywheel.setSetpoint(SmartDashboard.getNumber("Flywheel Setpoint", 0));
+		flywheel.getController().setP(SmartDashboard.getNumber("Flywheel P", 0));
+		flywheel.getController().setI(SmartDashboard.getNumber("Flywheel I", 0));
+		flywheel.getController().setD(SmartDashboard.getNumber("Flywheel D", 0));
+		hood.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
 		if (flywheel.atSetpoint() && hood.atSetpoint()) {
 			kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
 			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
