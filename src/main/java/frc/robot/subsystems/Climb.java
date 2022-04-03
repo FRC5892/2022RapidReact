@@ -17,7 +17,7 @@ import frc.robot.Constants;
 
 public class Climb extends SubsystemBase {
 	private CANSparkMax climbMotor(int motorID, boolean inverted) {
-		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushless);
+		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushed);
 		// sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
@@ -28,29 +28,21 @@ public class Climb extends SubsystemBase {
 	private CANSparkMax leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], true);
 	private CANSparkMax rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], false);
 
-	private DoubleSolenoid brakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-			Constants.CLIMB_BRAKE_SOLENOID_PORTS[0], Constants.CLIMB_BRAKE_SOLENOID_PORTS[1]);
+	private DoubleSolenoid actuationSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+			Constants.CLIMB_ACTUATION_SOLENOID_PORTS[0], Constants.CLIMB_ACTUATION_SOLENOID_PORTS[1]);
 
 	/** Creates a new Climb. */
 	public Climb() {
-		brakeSolenoid.set(Value.kReverse);
-	}
-
-	public void lockTelescope() {
-		brakeSolenoid.set(Value.kForward);
-	}
-
-	public void unlockTelescope() {
-		brakeSolenoid.set(Value.kReverse);
-	}
-
-	public void toggleTelescopeLock() {
-		brakeSolenoid.toggle();
+		actuationSolenoid.set(Value.kReverse);
 	}
 
 	public void driveArms(double leftSpeed, double rightSpeed) {
 		leftMotor.set(leftSpeed);
 		rightMotor.set(rightSpeed);
+	}
+
+	public void togglePistons(){
+		actuationSolenoid.toggle();
 	}
 
 	public void stopMotors() {
@@ -61,6 +53,6 @@ public class Climb extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
-		SmartDashboard.putData("Climb SOlenoid", brakeSolenoid);
+		SmartDashboard.putData("Climb Solenoid", actuationSolenoid);
 	}
 }

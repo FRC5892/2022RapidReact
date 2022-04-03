@@ -37,7 +37,7 @@ public class OperatorInput {
 			XboxController.Button.kBack.value);
 	public static JoystickButton corunKickerAndTower = new JoystickButton(codriverJoystick,
 			XboxController.Button.kA.value);
-	public static JoystickButton coaimAndShootToggle = new JoystickButton(codriverJoystick,
+	public static JoystickButton cotoggleClimbPistons = new JoystickButton(codriverJoystick,
 			XboxController.Button.kRightBumper.value);
 	public static JoystickButton cotoggleClimbTelescope = new JoystickButton(codriverJoystick,
 			XboxController.Button.kB.value);

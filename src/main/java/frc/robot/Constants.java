@@ -69,5 +69,5 @@ public final class Constants {
 	public static final double AUTONOMOUS_SHOOT_TIMER = 7;
 
 	public static final int[] CLIMB_MOTOR_PORTS = new int[] { 19, 20 };
-	public static final int[] CLIMB_BRAKE_SOLENOID_PORTS = new int[] { 0, 1 };
+	public static final int[] CLIMB_ACTUATION_SOLENOID_PORTS = new int[] { 0, 1 };
 }
