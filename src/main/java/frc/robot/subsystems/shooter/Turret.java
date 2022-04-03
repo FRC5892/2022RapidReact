@@ -28,15 +28,18 @@ public class Turret extends PIDSubsystem {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = turretMotor(Constants.TURRET_MOTOR_ID, false);
-	private SparkMaxLimitSwitch leftLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
-	private SparkMaxLimitSwitch rightLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
+	private CANSparkMax motor;
+	private SparkMaxLimitSwitch leftLimit;
+	private SparkMaxLimitSwitch rightLimit;
 
 	/** Creates a new Hood. */
 	public Turret() {
 		super(
 				// The PIDController used by the subsystem
 				new PIDController(0, 0, 0));
+		motor = turretMotor(Constants.TURRET_MOTOR_ID, false);
+		leftLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
+		rightLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
 		leftLimit.enableLimitSwitch(true);
 		rightLimit.enableLimitSwitch(true);
 		SmartDashboard.putData("Turret PID", this.m_controller);

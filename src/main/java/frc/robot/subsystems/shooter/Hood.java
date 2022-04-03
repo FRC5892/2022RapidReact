@@ -30,24 +30,27 @@ public class Hood extends PIDSubsystem {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = hoodMotor(Constants.HOOD_MOTOR_ID, true);
+	private CANSparkMax motor;
 	// weird rev API issue where limit
-	private SparkMaxLimitSwitch topLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
-	private SparkMaxLimitSwitch bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
+	private SparkMaxLimitSwitch topLimit;
+	private SparkMaxLimitSwitch bottomLimit;
 
 	/** Creates a new Hood. */
 	public Hood() {
 		super(
 				// The PIDController used by the subsystem
 				new PIDController(Constants.HOOD_PID[0], Constants.HOOD_PID[1], Constants.HOOD_PID[2]));
+		motor = hoodMotor(Constants.HOOD_MOTOR_ID, true);
+		topLimit = motor.getForwardLimitSwitch(Type.kNormallyClosed);
+		bottomLimit = motor.getReverseLimitSwitch(Type.kNormallyClosed);
 		topLimit.enableLimitSwitch(true);
 		bottomLimit.enableLimitSwitch(true);
+		this.enable();
+		this.m_controller.setTolerance(.5);
 		SmartDashboard.putNumber("Hood P", Constants.HOOD_PID[0]);
 		SmartDashboard.putNumber("Hood I", Constants.HOOD_PID[1]);
 		SmartDashboard.putNumber("Hood D", Constants.HOOD_PID[2]);
 		SmartDashboard.putNumber("Hood Setpoint", 0);
-		this.enable();
-		this.m_controller.setTolerance(.5);
 	}
 
 	public void stop() {

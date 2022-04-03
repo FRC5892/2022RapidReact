@@ -25,14 +25,19 @@ public class Climb extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], true);
-	private CANSparkMax rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], false);
-
-	private DoubleSolenoid brakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-			Constants.CLIMB_BRAKE_SOLENOID_PORTS[0], Constants.CLIMB_BRAKE_SOLENOID_PORTS[1]);
+	private CANSparkMax leftMotor;
+	private CANSparkMax rightMotor;
+	private DoubleSolenoid brakeSolenoid;
 
 	/** Creates a new Climb. */
 	public Climb() {
+		leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], true);
+		rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], false);
+		brakeSolenoid = new DoubleSolenoid(
+			PneumaticsModuleType.CTREPCM,
+			Constants.CLIMB_BRAKE_SOLENOID_PORTS[0],
+			Constants.CLIMB_BRAKE_SOLENOID_PORTS[1]
+		);
 		brakeSolenoid.set(Value.kReverse);
 	}
 

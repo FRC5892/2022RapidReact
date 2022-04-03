@@ -21,11 +21,11 @@ public class Accumulator extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = accumulatorMotor(Constants.ACCUMULATOR_MOTOR_PORT, false);
+	private CANSparkMax motor;
 
 	/** Creates a new Accumulator. */
 	public Accumulator() {
-		// template
+		motor = accumulatorMotor(Constants.ACCUMULATOR_MOTOR_PORT, false);
 	}
 
 	public void setMotors(Double speed) {

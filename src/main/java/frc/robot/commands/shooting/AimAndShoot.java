@@ -29,8 +29,7 @@ public class AimAndShoot extends CommandBase {
 	private Tower tower;
 	private Kicker kicker;
 	private DriveTrain driveTrain;
-	private PIDController driveTrainPIDController = new PIDController(Constants.DRIVETRAIN_AIM_PID_CONSTANTS[0],
-			Constants.DRIVETRAIN_AIM_PID_CONSTANTS[1], Constants.DRIVETRAIN_AIM_PID_CONSTANTS[2]);
+	private PIDController driveTrainPIDController;
 
 	/** Creates a new AimAndShoot. */
 	public AimAndShoot(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv,
@@ -43,6 +42,9 @@ public class AimAndShoot extends CommandBase {
 		kicker = k;
 		turretVision = tv;
 		driveTrain = dt;
+
+		driveTrainPIDController = new PIDController(Constants.DRIVETRAIN_AIM_PID_CONSTANTS[0],
+			Constants.DRIVETRAIN_AIM_PID_CONSTANTS[1], Constants.DRIVETRAIN_AIM_PID_CONSTANTS[2]);
 
 		addRequirements(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		// Use addRequirements() here to declare subsystem dependencies.

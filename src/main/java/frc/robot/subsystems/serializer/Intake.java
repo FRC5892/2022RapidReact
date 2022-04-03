@@ -24,12 +24,17 @@ public class Intake extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax motor = motor(Constants.INTAKE_MOTOR_PORT, false);
-	private DoubleSolenoid pistons = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-			Constants.INTAKE_PISTON_SOLENOID_PORTS[0], Constants.INTAKE_PISTON_SOLENOID_PORTS[1]);
+	private CANSparkMax motor;
+	private DoubleSolenoid pistons;
 
 	/** Creates a new Intake. */
 	public Intake() {
+		motor = motor(Constants.INTAKE_MOTOR_PORT, false);
+		pistons = new DoubleSolenoid(
+			PneumaticsModuleType.CTREPCM,
+			Constants.INTAKE_PISTON_SOLENOID_PORTS[0], 
+			Constants.INTAKE_PISTON_SOLENOID_PORTS[1]
+		);
 		pistons.set(Value.kReverse);
 	}
 

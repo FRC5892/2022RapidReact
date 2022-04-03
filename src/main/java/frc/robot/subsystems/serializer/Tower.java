@@ -23,12 +23,13 @@ public class Tower extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax towerMotors = towerMotor(Constants.TOWER_MOTOR_PORT, false);
-	private DigitalInput ballSensor = new DigitalInput(Constants.TOWER_SENSOR_PORT);
+	private CANSparkMax towerMotors;
+	private DigitalInput ballSensor;
 
 	/** Creates a new Tower. */
 	public Tower() {
-		// template
+		towerMotors = towerMotor(Constants.TOWER_MOTOR_PORT, false);
+		ballSensor = new DigitalInput(Constants.TOWER_SENSOR_PORT);
 	}
 
 	public void setMotors(double speed) {

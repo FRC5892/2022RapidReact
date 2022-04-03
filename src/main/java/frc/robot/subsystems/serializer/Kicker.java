@@ -23,13 +23,13 @@ public class Kicker extends SubsystemBase {
 		return sparkMax;
 	}
 
-	private CANSparkMax kickerMotors = kickerMotor(Constants.KICKER_MOTOR_PORT, false);
-
-	private DigitalInput kickerSensor = new DigitalInput(Constants.KICKER_SENSOR_PORT);
+	private CANSparkMax kickerMotors;
+	private DigitalInput kickerSensor;
 
 	/** Creates a new Kicker. */
 	public Kicker() {
-		// default
+		kickerMotors = kickerMotor(Constants.KICKER_MOTOR_PORT, false);
+		kickerSensor = new DigitalInput(Constants.KICKER_SENSOR_PORT);
 	}
 
 	public void setMotors(double speed) {
