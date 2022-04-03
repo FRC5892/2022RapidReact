@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,7 +23,6 @@ public class Flywheel extends SubsystemBase {
     sparkMax.restoreFactoryDefaults();
     sparkMax.setInverted(inverted);
     sparkMax.setIdleMode(IdleMode.kCoast);
-    // sparkMax.burnFlash();
     return sparkMax;
   }
 
@@ -31,6 +31,7 @@ public class Flywheel extends SubsystemBase {
   private RelativeEncoder neoEncoderLeft;
   private SparkMaxPIDController pidController;
   private double setPoint;
+  private SimpleMotorFeedforward feedforward;
 
   public Flywheel() {
 	leftMotor = FlywheelMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
@@ -38,15 +39,17 @@ public class Flywheel extends SubsystemBase {
 	neoEncoderLeft = leftMotor.getEncoder();
 	neoEncoderLeft.setVelocityConversionFactor(36d/48d);
 	pidController = leftMotor.getPIDController();
-	pidController.setP(Constants.FLYWHEEL_SPARKMAX_PID[0]);
-    pidController.setI(Constants.FLYWHEEL_SPARKMAX_PID[1]);
-    pidController.setD(Constants.FLYWHEEL_SPARKMAX_PID[2]);
+	pidController.setP(Constants.FLYWHEEL_SPARKMAX_PIDF[0]);
+    pidController.setI(Constants.FLYWHEEL_SPARKMAX_PIDF[1]);
+    pidController.setD(Constants.FLYWHEEL_SPARKMAX_PIDF[2]);
+	pidController.setFF(Constants.FLYWHEEL_SPARKMAX_PIDF[3]);
+	pidController.setOutputRange(0, 1);
 	leftMotor.burnFlash();
     rightMotor.follow(leftMotor, true);
-	//rightMotor.burnFlash();
-    SmartDashboard.putNumber("Flywheel P", Constants.FLYWHEEL_SPARKMAX_PID[0]);
-	SmartDashboard.putNumber("Flywheel I", Constants.FLYWHEEL_SPARKMAX_PID[1]);
-	SmartDashboard.putNumber("Flywheel D", Constants.FLYWHEEL_SPARKMAX_PID[2]);
+    SmartDashboard.putNumber("Flywheel P", Constants.FLYWHEEL_SPARKMAX_PIDF[0]);
+	SmartDashboard.putNumber("Flywheel I", Constants.FLYWHEEL_SPARKMAX_PIDF[1]);
+	SmartDashboard.putNumber("Flywheel D", Constants.FLYWHEEL_SPARKMAX_PIDF[2]);
+
   }
 
   public void stop() {

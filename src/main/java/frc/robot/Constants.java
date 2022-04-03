@@ -26,10 +26,8 @@ public final class Constants {
 	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1 / .4;
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 9, 10 };
 	public static final double FLYWHEEL_SHOOTING_SPEED = 2100;
-	public static final double FLYWHEEL_SHOOTING_ANGLE = 27.5; 
-	public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.000155, 0, 0 };
-	// public static final double[] FLYWHEEL_PID_CONSTANTS = new double[] { 0.0001538*60, 0, 0 };
-    public static final double[] FLYWHEEL_SPARKMAX_PID = new double[] { 0.000155, 0.000013, 0 };
+	public static final double FLYWHEEL_SHOOTING_ANGLE = 27.5;
+    public static final double[] FLYWHEEL_SPARKMAX_PIDF = new double[] { 0.00105, 5.5E-7, 1E-7, 0.00001 };
 
 	public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 2700;
 	public static final double FLYWHEEL_LONG_SHOOTING_ANGLE = 40;

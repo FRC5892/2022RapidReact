@@ -21,7 +21,7 @@ public class Climb extends SubsystemBase {
 		// sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
-		sparkMax.burnFlash();
+		
 		return sparkMax;
 	}
 
