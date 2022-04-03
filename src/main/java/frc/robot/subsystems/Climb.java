@@ -36,18 +36,6 @@ public class Climb extends SubsystemBase {
 		brakeSolenoid.set(Value.kReverse);
 	}
 
-	public void lockTelescope() {
-		brakeSolenoid.set(Value.kForward);
-	}
-
-	public void unlockTelescope() {
-		brakeSolenoid.set(Value.kReverse);
-	}
-
-	public void toggleTelescopeLock() {
-		brakeSolenoid.toggle();
-	}
-
 	public void driveArms(double leftSpeed, double rightSpeed) {
 		leftMotor.set(leftSpeed);
 		rightMotor.set(rightSpeed);
@@ -61,6 +49,6 @@ public class Climb extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
-		SmartDashboard.putData("Climb SOlenoid", brakeSolenoid);
+		SmartDashboard.putData("Climb Solenoid", brakeSolenoid);
 	}
 }
