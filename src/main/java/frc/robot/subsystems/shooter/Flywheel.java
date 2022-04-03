@@ -31,7 +31,6 @@ public class Flywheel extends SubsystemBase {
   private RelativeEncoder neoEncoderLeft;
   private SparkMaxPIDController pidController;
   private double setPoint;
-  private SimpleMotorFeedforward feedforward;
 
   public Flywheel() {
 	leftMotor = FlywheelMotor(Constants.FLYWHEEL_MOTOR_IDS[0], false);
