@@ -20,7 +20,6 @@ public class PrespoolFlywheel extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		flywheel.enable();
 		flywheel.setSetpoint(2100);
 	}
 

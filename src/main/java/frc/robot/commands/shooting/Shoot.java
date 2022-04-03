@@ -39,7 +39,6 @@ public class Shoot extends CommandBase {
 	@Override
 	public void initialize() {
 		flywheel.setSetpoint(speed);
-		flywheel.enable();
 		hood.setSetpoint(angle);
 		hood.enable();
 	}

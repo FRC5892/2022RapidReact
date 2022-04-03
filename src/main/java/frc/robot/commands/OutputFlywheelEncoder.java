@@ -22,7 +22,7 @@ public class OutputFlywheelEncoder extends CommandBase {
 	@Override
 	public void initialize() {
 		// flywheel.setMotors(.2);
-		flywheel.disable();
+		flywheel.stop();
 		// flywheel.setSetpoint(100);
 	}
 
