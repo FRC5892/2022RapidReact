@@ -32,10 +32,10 @@ public class AutonDrive extends CommandBase {
 	public void execute() {
 		if (Math.abs(driveTrain.getLeftPosition() - initialPosition) <= distance) {
 			if (inverted) {
-				driveTrain.driveWithJoysticks(-Constants.AUTONOMOUS_SPEED, 0);
+				driveTrain.arcadeDrive(-Constants.AUTONOMOUS_SPEED, 0);
 			}
 			else {
-				driveTrain.driveWithJoysticks(Constants.AUTONOMOUS_SPEED, 0);
+				driveTrain.arcadeDrive(Constants.AUTONOMOUS_SPEED, 0);
 			}
 		}
 		else {

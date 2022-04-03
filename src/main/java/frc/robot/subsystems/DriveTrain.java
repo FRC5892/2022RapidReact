@@ -79,7 +79,11 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
-		drive.arcadeDrive(xSpeed, zRotation);
+		drive.arcadeDrive(xSpeed, zRotation, true);
+	}
+
+	public void arcadeDrive(double xSpeed, double zRotation) {
+		drive.arcadeDrive(xSpeed, zRotation, false);
 	}
 
 	@Override
