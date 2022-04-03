@@ -172,7 +172,7 @@ public class RobotContainer {
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
 		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
 		OperatorInput.coholdRunKickerManual.whileHeld(runKickerManual);
-		OperatorInput.cotoggleClimbPistons.toggleWhenPressed(new InstantCommand(climb::));
+		OperatorInput.cotoggleClimbPistons.toggleWhenPressed(new InstantCommand(climb::togglePistons, climb));
 		//OperatorInput.corunKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
 		//OperatorInput.cotoggleClimbTelescope.whenPressed(new InstantCommand(climb::lockTelescope, climb));
 	}
