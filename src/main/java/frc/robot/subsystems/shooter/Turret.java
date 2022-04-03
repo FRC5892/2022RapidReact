@@ -24,7 +24,7 @@ public class Turret extends PIDSubsystem {
 		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
-		sparkMax.burnFlash();
+		
 		return sparkMax;
 	}
 

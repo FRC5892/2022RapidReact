@@ -26,7 +26,7 @@ public class Hood extends PIDSubsystem {
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
 		sparkMax.setSmartCurrentLimit(15);
-		sparkMax.burnFlash();
+		
 		return sparkMax;
 	}
 
