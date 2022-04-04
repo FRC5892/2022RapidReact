@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -18,14 +19,14 @@ import frc.robot.Constants;
 public class Climb extends SubsystemBase {
 	private CANSparkMax climbMotor(int motorID, boolean inverted) {
 		CANSparkMax sparkMax = new CANSparkMax(motorID, MotorType.kBrushed);
-		// sparkMax.restoreFactoryDefaults();
+		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
-		
+		sparkMax.getEncoder(Type.kNoSensor, 0);
 		return sparkMax;
 	}
 
-	private CANSparkMax leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], true);
+	private CANSparkMax leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], false);
 	private CANSparkMax rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], false);
 
 	private DoubleSolenoid actuationSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
