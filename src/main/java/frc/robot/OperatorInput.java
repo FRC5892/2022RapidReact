@@ -41,5 +41,5 @@ public class OperatorInput {
 			XboxController.Button.kRightBumper.value);
 	public static JoystickButton cotoggleClimbTelescope = new JoystickButton(codriverJoystick,
 			XboxController.Button.kB.value);
-    public static Object cotoggleClimbPistonsReversed = new JoystickButton(codriverJoystick, XboxController.Button.kY.value);
+    //public static Object cotoggleClimbPistonsReversed = new JoystickButton(codriverJoystick, XboxController.Button.kY.value);
 }

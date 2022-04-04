@@ -30,6 +30,8 @@ public class Climb extends SubsystemBase {
 	private CANSparkMax rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], false);
 	private DoubleSolenoid actuationSolenoid;
 
+	boolean actuated = false;
+
 	
 	/** Creates a new Climb. */
 	public Climb() {
@@ -44,7 +46,14 @@ public class Climb extends SubsystemBase {
 	}
 
 	public void togglePistons(){
-		actuationSolenoid.toggle();
+		if (actuated){
+			actuationSolenoid.set(Value.kForward);
+			actuated = false;
+		}
+		else{
+			actuationSolenoid.set(Value.kReverse);
+			actuated=true;
+		}
 	}
 
 	public void pistonForward() {
