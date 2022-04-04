@@ -67,7 +67,7 @@ public class Flywheel extends SubsystemBase {
 	}
 
 	public boolean atSetpoint() {
-		return (Math.abs(setPoint - neoEncoderLeft.getVelocity()) <= 50);
+		return (Math.abs(setPoint - neoEncoderLeft.getVelocity()) <= 30);
 	}
 
   @Override
