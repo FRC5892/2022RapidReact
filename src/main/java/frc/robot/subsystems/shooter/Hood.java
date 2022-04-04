@@ -66,33 +66,16 @@ public class Hood extends PIDSubsystem {
 
 	@Override
 	public void useOutput(double output, double setpoint) {
-		// Use the output here
-		// if (!topLimit.isPressed() && output > 0) {
-		// motor.set(output);
-		// }
-		// else if (bottomLimit.isPressed() && output < 0) {
-		// motor.set(output);
-		// }
-		// else if (!output == 0) {
-		// motor.set(output);
-		// System.out.println("Running");
-		// }
-		// inverted because revlib won't do its job
-
-		if (getAngle() > 40 && output > 0) {
-			motor.stopMotor();
+		if (output > 0.15) {
+			motor.set(0.15);
+		}
+		else if (output < -0.15) {
+			motor.set(-0.15);
 		}
 		else {
-			if (output > 0.15) {
-				motor.set(0.15);
-			}
-			else if (output < -0.15) {
-				motor.set(-0.15);
-			}
-			else {
-				motor.set(output);
-			}
+			motor.set(output);
 		}
+
 		// PID Tuning Stuff
 		SmartDashboard.putBoolean("Hood Top Limit", topLimit.isPressed());
 		SmartDashboard.putBoolean("Hood Bottom Limit", bottomLimit.isPressed());
