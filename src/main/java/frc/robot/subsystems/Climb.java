@@ -22,18 +22,19 @@ public class Climb extends SubsystemBase {
 		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
-		sparkMax.getEncoder(Type.kNoSensor, 0);
+		sparkMax.getEncoder(Type.kNoSensor, 1);
 		return sparkMax;
 	}
 
 	private CANSparkMax leftMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[0], false);
 	private CANSparkMax rightMotor = climbMotor(Constants.CLIMB_MOTOR_PORTS[1], false);
+	private DoubleSolenoid actuationSolenoid;
 
-	private DoubleSolenoid actuationSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-			Constants.CLIMB_ACTUATION_SOLENOID_PORTS[0], Constants.CLIMB_ACTUATION_SOLENOID_PORTS[1]);
-
+	
 	/** Creates a new Climb. */
 	public Climb() {
+		actuationSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+				Constants.CLIMB_ACTUATION_SOLENOID_PORTS[0], Constants.CLIMB_ACTUATION_SOLENOID_PORTS[1]);
 		actuationSolenoid.set(Value.kReverse);
 	}
 
@@ -44,6 +45,14 @@ public class Climb extends SubsystemBase {
 
 	public void togglePistons(){
 		actuationSolenoid.toggle();
+	}
+
+	public void pistonForward() {
+		actuationSolenoid.set(Value.kForward);
+	}
+
+	public void pistonReverse() {
+		actuationSolenoid.set(Value.kReverse);
 	}
 
 	public void stopMotors() {
