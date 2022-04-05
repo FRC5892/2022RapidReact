@@ -47,11 +47,11 @@ public class Climb extends SubsystemBase {
 
 	public void togglePistons(){
 		if (actuated){
-			actuationSolenoid.set(Value.kForward);
+			actuationSolenoid.set(Value.kReverse);
 			actuated = false;
 		}
 		else{
-			actuationSolenoid.set(Value.kReverse);
+			actuationSolenoid.set(Value.kForward);
 			actuated=true;
 		}
 	}
