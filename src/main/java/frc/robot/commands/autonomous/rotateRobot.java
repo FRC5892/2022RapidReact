@@ -25,7 +25,7 @@ public class RotateRobot extends CommandBase {
   private Rotation2d gangle;
   /** Creates a new rotateRobot. */
   public RotateRobot(DriveTrain d, double ang) {
-    gyro = new AnalogGyro(1);
+    AHRS gyro = new AHRS(SPI.Port.kMXP);
     driveTrain = d;
     //inverted = invert;
     addRequirements(driveTrain);
@@ -46,11 +46,11 @@ public class RotateRobot extends CommandBase {
   @Override
   public void execute() {
     driveTrain.arcadeDrive(0, 0.1);
-    gangle = Rotation2d.fromDegrees(gyro.getAngle());
-    System.out.println(gangle);
-    if(gangle == Rotation2d.fromDegrees(180)){
+    gyroangle = gyro.getAngle());
+    if(gyroangle == 180){
       finish = true;
     }
+    System.out.println(gangle);
   }
 
   // Called once the command ends or is interrupted.
