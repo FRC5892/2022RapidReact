@@ -63,7 +63,7 @@ public final class Constants {
 
 	public static final double PRELOAD_TIMEOUT = 3;
 
-	public static final double[] DRIVETRAIN_AIM_PID_CONSTANTS = new double[] { 0.1, 0, 0.015 };
+	public static final double[] DRIVETRAIN_AIM_PID_CONSTANTS = new double[] { 0.03, 0.05, 0.002 };
 	public static final String LIMELIGHT_NAME = "limelight";
 	public static final int KICKER_MOTOR_PORT = 15;
 	public static final double AUTONOMOUS_SPEED = .5;
