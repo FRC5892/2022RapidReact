@@ -67,7 +67,7 @@ public final class Constants {
 	public static final String LIMELIGHT_NAME = "limelight";
 	public static final int KICKER_MOTOR_PORT = 15;
 	public static final double AUTONOMOUS_SPEED = .5;
-	public static final double AUTONOMOUS_SHOOT_TIMER = 7;
+	public static final double AUTONOMOUS_SHOOT_TIMER = 5;
 
 	public static final int[] CLIMB_MOTOR_PORTS = new int[] { 19, 20 };
 	public static final int[] CLIMB_ACTUATION_SOLENOID_PORTS = new int[] { 0, 1 };
