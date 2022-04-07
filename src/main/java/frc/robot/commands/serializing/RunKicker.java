@@ -28,6 +28,7 @@ public class RunKicker extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		System.out.println("running kicker");
 		// default
 	}
 
@@ -35,6 +36,7 @@ public class RunKicker extends CommandBase {
 	@Override
 	public void execute() {
 		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+			System.out.println("Trigger hit");
 			// intake
 			timer.reset();
 			timer.start();
@@ -44,12 +46,14 @@ public class RunKicker extends CommandBase {
 			kicker.stopMotors();
 			timer.stop();
 		}
+		System.out.println(timer.get());
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		kicker.stopMotors();
+		System.out.println("Kicker ended");
 	}
 
 	// Returns true when the command should end.
