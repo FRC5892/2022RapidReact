@@ -12,10 +12,10 @@ public class OperatorInput {
 	public static XboxController driverJoystick = new XboxController(0);
 	public static JoystickButton toggleIntakePistons = new JoystickButton(driverJoystick,
 			XboxController.Button.kLeftBumper.value);
-	public static JoystickButton toggleAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
+	//public static JoystickButton toggleAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
 	public static JoystickButton holdLongShot = new JoystickButton(driverJoystick, XboxController.Button.kY.value);
 	public static JoystickButton toggleRunShooterAtSetpoint = new JoystickButton(driverJoystick,
-			XboxController.Button.kStart.value);
+			XboxController.Button.kY.value);
 	public static JoystickButton holdRunKickerManual = new JoystickButton(driverJoystick,
 			XboxController.Button.kBack.value);
 	public static JoystickButton holdReverseKickerAndTower = new JoystickButton(driverJoystick,
@@ -25,7 +25,7 @@ public class OperatorInput {
 	public static JoystickButton holdFlywheelTuning = new JoystickButton(driverJoystick,
 			XboxController.Button.kB.value);
 	public static JoystickButton holdPointDriveTrain = new JoystickButton(driverJoystick, XboxController.Button.kRightStick.value);
-	public static JoystickButton holdAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kLeftStick.value);
+	public static JoystickButton holdAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kRightBumper.value);
 
 	public static XboxController codriverJoystick = new XboxController(1);
 	public static JoystickButton cotoggleIntakePistons = new JoystickButton(codriverJoystick,
