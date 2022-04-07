@@ -150,7 +150,7 @@ public class RobotContainer {
 		climb.setDefaultCommand(runClimb);
 		// autonDrive = new AutonDrive(driveTrain);
 
-		simpleAuto = new AutonSetup1(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain, rotateRobot);
+		simpleAuto = new AutonSetup1(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain, intake);
 
 		// Configure the button bindingsz
 		configureButtonBindings();

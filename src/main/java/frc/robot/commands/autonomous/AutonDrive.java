@@ -16,18 +16,15 @@ public class AutonDrive extends CommandBase {
 	private double initialPosition;
 	private Kicker kicker;
 	private Intake intake;
-	private Tower tower;
-	private Timer timer;
-
+	
 	public AutonDrive(DriveTrain d, double dist, boolean invert, Kicker k, Intake i, Tower t) {
 		driveTrain = d;
 		distance = dist;
 		kicker = k;
 		intake = i;
-		tower = t;
 		addRequirements(driveTrain, kicker, intake);
 		inverted = invert;
-		timer = new Timer();
+		new Timer();
 	}
 
 	@Override
@@ -41,7 +38,7 @@ public class AutonDrive extends CommandBase {
 	public void execute() {
 		if (Math.abs(driveTrain.getLeftPosition() - initialPosition) <= distance) {
 			if (inverted) {
-				driveTrain.arcadeDrive(-Constants.AUTONOMOUS_SPEED, 0);
+				driveTrain.arcadeDrive(Constants.AUTONOMOUS_SPEED, 0);
 				intake.setMotors(Constants.INTAKE_SPEED_MULTIPLIER);
 
 			}
@@ -53,6 +50,8 @@ public class AutonDrive extends CommandBase {
 			driveTrain.stop();
 			finish = true;
 		}
+
+		
 	}
 
 	@Override
