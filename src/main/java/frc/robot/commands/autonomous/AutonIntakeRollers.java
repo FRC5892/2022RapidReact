@@ -14,7 +14,7 @@ public class AutonIntakeRollers extends CommandBase {
   /** Creates a new AutonIntakeRollers. */
   public AutonIntakeRollers(Intake i) {
     intake = i;
-    addRequirements(intake);
+    //addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,7 +27,7 @@ public class AutonIntakeRollers extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setMotors(Constants.INTAKE_SPEED_MULTIPLIER);
+    intake.setMotors(-Constants.INTAKE_SPEED_MULTIPLIER);
   }
 
   // Called once the command ends or is interrupted.

@@ -18,7 +18,7 @@ public class AutonRunKicker extends CommandBase {
     kicker = k;
 		timer = new Timer();
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(kicker);
+		//addRequirements(kicker);
   }
 
   // Called when the command is initially scheduled.

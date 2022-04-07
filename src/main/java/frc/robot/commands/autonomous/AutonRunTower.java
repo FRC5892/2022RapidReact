@@ -19,7 +19,7 @@ public class AutonRunTower extends CommandBase {
     kicker = k;
 		tower = t;
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(tower);
+		//addRequirements(tower);
 		timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
   }

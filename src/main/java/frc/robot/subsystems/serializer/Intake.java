@@ -41,6 +41,10 @@ public class Intake extends SubsystemBase {
 		pistons.toggle();
 	}
 
+	public void openPistons() {
+		pistons.set(Value.kForward);
+	}
+
 	public void setPistons(DoubleSolenoid.Value value) {
 		pistons.set(value);
 	}
