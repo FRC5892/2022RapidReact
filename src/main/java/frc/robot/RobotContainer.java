@@ -24,7 +24,7 @@ import frc.robot.subsystems.shooter.Flywheel;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
-import frc.robot.commands.autonomous.SimpleAuton;
+import frc.robot.commands.autonomous.AutonSetup1;
 import frc.robot.commands.serializing.RunAccumulator;
 import frc.robot.commands.serializing.RunIntakeRollers;
 import frc.robot.commands.serializing.RunKicker;
@@ -73,7 +73,7 @@ public class RobotContainer {
 
 	private OutputFlywheelEncoder outputFlywheelEncoder;
 
-	private SimpleAuton simpleAuto;
+	private AutonSetup1 simpleAuto;
 
 	private RunKicker runKicker;
 
@@ -151,7 +151,7 @@ public class RobotContainer {
 		climb.setDefaultCommand(runClimb);
 		// autonDrive = new AutonDrive(driveTrain);
 
-		simpleAuto = new SimpleAuton(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+		simpleAuto = new AutonSetup1(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain, intake);
 
 		// Configure the button bindingsz
 		configureButtonBindings();

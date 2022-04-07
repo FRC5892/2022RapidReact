@@ -23,5 +23,6 @@ public class AutonSetup1 extends SequentialCommandGroup {
 		//addCommands(new RotateRobot(dt, 177));
 	}
 }
+
 //new TimedShoot(f, a, tw, k, Constants.AUTONOMOUS_SHOOT_TIMER)
 //new AutonDrive(dt, 1, false, k)

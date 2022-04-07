@@ -25,7 +25,7 @@ public class AutonDriveAndIntake extends ParallelDeadlineGroup {
   DriveTrain dt, Intake i) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new AutonDrive(dt, Constants.AUTON_DISTANCE, false, k, i, tw));
+    super(new AutonDrive(dt, Constants.AUTON_DISTANCE, false, k));
     addCommands(new AutonIntakeRollers(i), new AutonRunAccumulator(a), new AutonRunTower(k, tw), new AutonRunKicker(k, tw));
     
     // addCommands(new FooCommand(), new BarCommand());
