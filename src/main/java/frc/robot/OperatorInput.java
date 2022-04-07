@@ -20,8 +20,8 @@ public class OperatorInput {
 			XboxController.Button.kBack.value);
 	public static JoystickButton holdReverseKickerAndTower = new JoystickButton(driverJoystick,
 			XboxController.Button.kA.value);
-	public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick,
-			XboxController.Button.kRightBumper.value);
+	// public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick,
+	// 		XboxController.Button.kRightBumper.value);
 	public static JoystickButton holdFlywheelTuning = new JoystickButton(driverJoystick,
 			XboxController.Button.kB.value);
 	//public static JoystickButton holdPointDriveTrain = new JoystickButton(driverJoystick, XboxController.Button.kRightStick.value);
