@@ -22,6 +22,8 @@ public class OperatorInput {
 			XboxController.Button.kA.value);
 	public static JoystickButton shortshoot = new JoystickButton(driverJoystick,
 			XboxController.Button.kY.value);
+	// public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick,
+	// 		XboxController.Button.kRightBumper.value);
 	public static JoystickButton holdFlywheelTuning = new JoystickButton(driverJoystick,
 			XboxController.Button.kB.value);
 	//public static JoystickButton holdPointDriveTrain = new JoystickButton(driverJoystick, XboxController.Button.kRightStick.value);

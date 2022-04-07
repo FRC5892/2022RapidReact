@@ -170,6 +170,7 @@ public class RobotContainer {
 		//OperatorInput.toggleRunShooterAtSetpoint.whileHeld(shoot);
 		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
 		OperatorInput.shortshoot.whenPressed(shoot);
+		// OperatorInput.aimAndShootToggle.whileHeld(shoot);
 		OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		OperatorInput.holdFlywheelTuning.whileHeld(flywheelHoodTuningShoot);
