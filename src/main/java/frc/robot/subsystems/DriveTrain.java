@@ -66,7 +66,7 @@ public class DriveTrain extends SubsystemBase {
 		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
-		sparkMax.setSmartCurrentLimit(60);
+		sparkMax.setSmartCurrentLimit(50);
 		
 		return sparkMax;
 	}
