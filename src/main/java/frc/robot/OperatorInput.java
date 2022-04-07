@@ -24,7 +24,7 @@ public class OperatorInput {
 			XboxController.Button.kRightBumper.value);
 	public static JoystickButton holdFlywheelTuning = new JoystickButton(driverJoystick,
 			XboxController.Button.kB.value);
-	public static JoystickButton holdPointDriveTrain = new JoystickButton(driverJoystick, XboxController.Button.kRightStick.value);
+	//public static JoystickButton holdPointDriveTrain = new JoystickButton(driverJoystick, XboxController.Button.kRightStick.value);
 	public static JoystickButton holdAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kRightBumper.value);
 
 	public static XboxController codriverJoystick = new XboxController(1);

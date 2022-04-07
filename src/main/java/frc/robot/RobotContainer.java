@@ -171,7 +171,7 @@ public class RobotContainer {
 		OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		OperatorInput.holdFlywheelTuning.whileHeld(flywheelHoodTuningShoot);
-		OperatorInput.holdPointDriveTrain.whileHeld(aimDriveTrain);
+		//OperatorInput.holdPointDriveTrain.whileHeld(aimDriveTrain);
 		OperatorInput.holdAimAndShoot.whileHeld(aimAndShoot);
 
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
