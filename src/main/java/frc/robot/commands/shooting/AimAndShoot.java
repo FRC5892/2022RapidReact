@@ -5,6 +5,7 @@
 package frc.robot.commands.shooting;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PolynomialFunction;
@@ -16,6 +17,7 @@ import frc.robot.subsystems.shooter.Flywheel;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
+import frc.robot.commands.shooting.LinearInterpolation;
 
 public class AimAndShoot extends CommandBase {
 	private Flywheel flywheel;
@@ -23,14 +25,19 @@ public class AimAndShoot extends CommandBase {
 	private Hood hood;
 	private TurretVision turretVision;
 	private boolean finished;
-	private boolean reverse;
-	private double[] hoodRangingCoefficients = new double[] { 1, 2, 3 };
+	private double[] hoodRangingCoefficients = new double[] { .00000000000001, .00000000000001, .00000000000001 };
+	private double[] flywheelRangingCoefficients = new double[] { .00000000000001, .00000000000001, .00000000000001 };
 	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
 	private DriveTrain driveTrain;
 	private PIDController driveTrainPIDController = new PIDController(Constants.DRIVETRAIN_AIM_PID_CONSTANTS[0],
 			Constants.DRIVETRAIN_AIM_PID_CONSTANTS[1], Constants.DRIVETRAIN_AIM_PID_CONSTANTS[2]);
+
+	private boolean shootWhenReady;
+	private double[] xCoords;
+	private double[] shooterYCoords;
+	private double[] hoodYCoords;
 
 	/** Creates a new AimAndShoot. */
 	public AimAndShoot(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv,
@@ -43,7 +50,7 @@ public class AimAndShoot extends CommandBase {
 		kicker = k;
 		turretVision = tv;
 		driveTrain = dt;
-
+		driveTrainPIDController.setTolerance(.25);
 		addRequirements(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
@@ -51,41 +58,62 @@ public class AimAndShoot extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
+		shootWhenReady = false;
 	}
-
+	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		if (turretVision.hasTargets()) {
 			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
-			hood.setSetpoint(
-					PolynomialFunction.polynomailFunction(turretVision.distanceFromTarget(), hoodRangingCoefficients));
-			driveTrain.arcadeDrive(0, driveTrainPIDController.calculate(turretVision.xAngle(), 0));
-			if (hood.atSetpoint() /* && turret.atSetpoint() */ && flywheel.atSetpoint()) {
-				// shoot
+			xCoords = new double[] {0,71,74,78,81.5,84,85.7,90,94,98,102.5,106.2,111,115,120,124,128,133,137,141.5,147,151,154,159,164.5,170,175,180,184,188,192,195,200,204,208,211,215.7,221,225,228};
+			shooterYCoords = new double[] {2150,2150,2180,2180,2180,2180,2230,2280,2280,2310,2335,2355,2375,2400,2430,2450,2470,2470,2485,2505,2570,2570,2600,2600,2640,2670,2650,2690,2670,2710,2710,2710,2710,2750,2770,2800,2820,2840,2840,2850};
+			hoodYCoords = new double[] {32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,34,34,35,35,35,36,36,37,37,37,37,37,38,38};
+
+			if (shootWhenReady) {
+				if (hood.atSetpoint() && flywheel.atSetpoint() /*&& turret.atSetpoint()*/) {
+					// shoot
+					kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
+					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+				}
+			} else {
+				driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), -3));
+
+				if (driveTrainPIDController.atSetpoint()) {
+					driveTrain.stop();
+					flywheel.setSetpoint(LinearInterpolation.calculate(xCoords, shooterYCoords,  turretVision.distanceFromTarget()));
+					hood.setSetpoint((double) LinearInterpolation.calculate(xCoords, hoodYCoords,  turretVision.distanceFromTarget()));
+					hood.enable();
+					shootWhenReady = true;
+				}
+			}
+		}
+
+		// preload balls
+		if (!shootWhenReady) {
+			if (!kicker.hasBall()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
+				tower.setMotors(Constants.TOWER_SPEED);
 				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 			}
-			else {
-				// preload balls
-				if (!kicker.hasBall()) {
-					kicker.setMotors(Constants.KICKER_SPEED);
-					tower.setMotors(Constants.TOWER_SPEED);
-					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
-				}
-				else if (!tower.hasBall()) {
-					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
-					tower.setMotors(Constants.TOWER_SPEED);
-				}
-				if (kicker.hasBall()) {
-					kicker.stopMotors();
-				}
-				if (kicker.hasBall() && tower.hasBall()) {
-					kicker.stopMotors();
+			else if (!tower.hasBall()) {
+				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+				tower.setMotors(Constants.TOWER_SPEED);
+			}
+
+			if (kicker.hasBall()) {
+				kicker.stopMotors();
+
+				if (tower.hasBall()) {
 					accumulator.stopMotors();
 					tower.stopMotors();
 				}
+			} 
+			
+			else {
+				kicker.setMotors(Constants.KICKER_SPEED);
+				tower.setMotors(Constants.TOWER_SPEED);
+				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 			}
 		}
 		// else {
@@ -115,6 +143,7 @@ public class AimAndShoot extends CommandBase {
 		tower.stopMotors();
 		kicker.stopMotors();
 		driveTrain.stop();
+		System.out.println("Stopping");
 	}
 
 	// Returns true when the command should end.
