@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.AimDriveTrain;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunClimb;
@@ -95,6 +96,8 @@ public class RobotContainer {
 
 	private FlywheelHoodTuningShoot flywheelHoodTuningShoot;
 
+    private AimDriveTrain aimDriveTrain;
+
 	public RobotContainer() {
 
 		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
@@ -107,8 +110,8 @@ public class RobotContainer {
 		flywheel = new Flywheel();
 		// outputFlywheelEncoder = new OutputFlywheelEncoder(flywheel);
 		// flywheel.setDefaultCommand(outputFlywheelEncoder);
-		// prespoolFlywheel = new PrespoolFlywheel(flywheel);
-		// flywheel.setDefaultCommand(prespoolFlywheel);
+		prespoolFlywheel = new PrespoolFlywheel(flywheel);
+		flywheel.setDefaultCommand(prespoolFlywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
 
 		tower = new Tower();
@@ -141,6 +144,7 @@ public class RobotContainer {
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 		flywheelHoodTuningShoot = new FlywheelHoodTuningShoot(flywheel, accumulator, tower, kicker, hood);
+		aimDriveTrain = new AimDriveTrain(driveTrain, turretVision);
 
 		climb = new Climb();
 		runClimb = new RunClimb(climb);
@@ -167,6 +171,8 @@ public class RobotContainer {
 		OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		OperatorInput.holdFlywheelTuning.whileHeld(flywheelHoodTuningShoot);
+		OperatorInput.holdPointDriveTrain.whileHeld(aimDriveTrain);
+		OperatorInput.holdAimAndShoot.whileHeld(aimAndShoot);
 
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
