@@ -43,7 +43,7 @@ public class AimAndShoot extends CommandBase {
 		kicker = k;
 		turretVision = tv;
 		driveTrain = dt;
-
+		driveTrainPIDController.setTolerance(.25);
 		addRequirements(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
