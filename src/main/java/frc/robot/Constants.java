@@ -52,7 +52,7 @@ public final class Constants {
 	public static final int ACCUMULATOR_MOTOR_PORT = 12;
 	public static final double ACCUMULATOR_SPEED = 1;
 	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
-	public static final int KICKER_SENSOR_PORT = 8;
+	public static final int KICKER_SENSOR_PORT = 7;
 	public static final double KICKER_SPEED = .25;
 	public static final double KICKER_SHOOT_SPEED = 1;
 	// public static final double KICKER_SHOOT_SPEED = .25;
