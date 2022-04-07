@@ -24,9 +24,6 @@ public class AimAndShoot extends CommandBase {
 	private Turret turret;
 	private Hood hood;
 	private TurretVision turretVision;
-	private boolean finished;
-	private double[] hoodRangingCoefficients = new double[] { .00000000000001, .00000000000001, .00000000000001 };
-	private double[] flywheelRangingCoefficients = new double[] { .00000000000001, .00000000000001, .00000000000001 };
 	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
@@ -38,6 +35,7 @@ public class AimAndShoot extends CommandBase {
 	private double[] xCoords;
 	private double[] shooterYCoords;
 	private double[] hoodYCoords;
+	private boolean shooting;
 
 	/** Creates a new AimAndShoot. */
 	public AimAndShoot(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv,
@@ -58,7 +56,11 @@ public class AimAndShoot extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		shooting = false;
 		shootWhenReady = false;
+		xCoords = new double[] {0,71,74,78,81.5,84,85.7,90,94,98,102.5,106.2,111,115,120,124,128,133,137,141.5,147,151,154,159,164.5,170,175,180,184,188,192,195,200,204,208,211,215.7,221,225,228};
+		shooterYCoords = new double[] {2160,2160,2190,2190,2190,2190,2240,2290,2290,2320,2345,2365,2385,2410,2440,2460,2480,2480,2495,2515,2580,2580,2610,2610,2650,2680,2660,2700,2680,2720,2720,2720,2720,2760,2780,2810,2830,2850,2850,2860};
+		hoodYCoords = new double[] {32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,34,34,35,35,35,36,36,37,37,37,37,37,38,38};
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -66,14 +68,13 @@ public class AimAndShoot extends CommandBase {
 	public void execute() {
 		if (turretVision.hasTargets()) {
 			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
-			xCoords = new double[] {0,71,74,78,81.5,84,85.7,90,94,98,102.5,106.2,111,115,120,124,128,133,137,141.5,147,151,154,159,164.5,170,175,180,184,188,192,195,200,204,208,211,215.7,221,225,228};
-			shooterYCoords = new double[] {2160,2160,2190,2190,2190,2190,2240,2290,2290,2320,2345,2365,2385,2410,2440,2460,2480,2480,2495,2515,2580,2580,2610,2610,2650,2680,2660,2700,2680,2720,2720,2720,2720,2760,2780,2810,2830,2850,2850,2860};
-			hoodYCoords = new double[] {32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,34,34,35,35,35,36,36,37,37,37,37,37,38,38};
 
 			if (shootWhenReady) {
 				if (hood.atSetpoint() && flywheel.atSetpoint() /*&& turret.atSetpoint()*/) {
+					shooting = true;
 					// shoot
 					kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
+					tower.setMotors(Constants.TOWER_SPEED);
 					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 				}
 			} else {
@@ -89,66 +90,44 @@ public class AimAndShoot extends CommandBase {
 			}
 		}
 
-		// preload balls
-		if (!shootWhenReady) {
-			if (!kicker.hasBall()) {
-				kicker.setMotors(Constants.KICKER_SPEED);
-				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
-			}
-			else if (!tower.hasBall()) {
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
-				tower.setMotors(Constants.TOWER_SPEED);
-			}
+		if (shooting) return;
 
-			if (kicker.hasBall()) {
-				kicker.stopMotors();
-
-				if (tower.hasBall()) {
-					accumulator.stopMotors();
-					tower.stopMotors();
-				}
-			} 
-			
-			else {
-				kicker.setMotors(Constants.KICKER_SPEED);
-				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
-			}
+		// preload balls		
+		if (!tower.hasBall()) {
+			tower.setMotors(Constants.TOWER_SPEED);
+			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 		}
-		// else {
-		// if (turret.atLeftLimit()) {
-		// reverse = true;
-		// }
-		// else if (turret.atRightLimit()) {
-		// reverse = false;
-		// }
-		// if (reverse) {
-		// turret.setMotor(-(Constants.TURRET_SCAN_SPEED));
-		// }
-		// else {
-		// turret.setMotor(Constants.TURRET_SCAN_SPEED);
-		// }
-		// }
 
+		if (kicker.hasBall()) {
+			kicker.stopMotors();
+
+			if (tower.hasBall()) {
+				tower.stopMotors();
+				accumulator.stopMotors();
+			}
+		} else {
+			kicker.setMotors(Constants.KICKER_SPEED);
+			tower.setMotors(Constants.TOWER_SPEED);
+			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+		}
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		flywheel.stop();
-		// turret.stop();
-		hood.stop();
-		accumulator.stopMotors();
-		tower.stopMotors();
-		kicker.stopMotors();
 		driveTrain.stop();
+		flywheel.stop();
+		hood.stop();
+		// turret.stop();
+		kicker.stopMotors();
+		tower.stopMotors();
+		accumulator.stopMotors();
 		System.out.println("Stopping");
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return finished;
+		return false;
 	}
 }
