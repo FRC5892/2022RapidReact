@@ -167,7 +167,7 @@ public class RobotContainer {
 	private void configureButtonBindings() {
 		OperatorInput.toggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		//OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
-		OperatorInput.toggleRunShooterAtSetpoint.whileHeld(shoot);
+		//OperatorInput.toggleRunShooterAtSetpoint.whileHeld(shoot);
 		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
 		OperatorInput.shortshoot.whenPressed(shoot);
 		OperatorInput.holdLongShot.whileHeld(longShot);
