@@ -13,7 +13,7 @@ public class OperatorInput {
 	public static JoystickButton toggleIntakePistons = new JoystickButton(driverJoystick,
 			XboxController.Button.kLeftBumper.value);
 	//public static JoystickButton toggleAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
-	public static JoystickButton holdLongShot = new JoystickButton(driverJoystick, XboxController.Button.kY.value);
+	//public static JoystickButton holdLongShot = new JoystickButton(driverJoystick, XboxController.Button.kY.value);
 	//public static JoystickButton toggleRunShooterAtSetpoint = new JoystickButton(driverJoystick,
 	//		XboxController.Button.kY.value);
 	public static JoystickButton holdRunKickerManual = new JoystickButton(driverJoystick,
