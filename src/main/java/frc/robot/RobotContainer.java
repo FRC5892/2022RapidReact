@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AimDriveTrain;
 import frc.robot.commands.DriveWithJoysticks;
@@ -34,9 +36,11 @@ import frc.robot.commands.serializing.ReverseKickerAndTower;
 import frc.robot.commands.serializing.RunTower;
 import frc.robot.commands.shooting.AimAndShoot;
 import frc.robot.commands.shooting.FlywheelHoodTuningShoot;
+import frc.robot.commands.shooting.LaunchPadShot;
 import frc.robot.commands.shooting.PrespoolFlywheel;
 import frc.robot.commands.shooting.RunShooterAtSetpoint;
 import frc.robot.commands.shooting.Shoot;
+import frc.robot.commands.shooting.TapeShot;
 import frc.robot.commands.shooting.TimedShoot;
 
 /**
@@ -100,6 +104,10 @@ public class RobotContainer {
 	private RotateRobot rotateRobot;
     private AimDriveTrain aimDriveTrain;
 
+	private LaunchPadShot launchpadShot;
+
+	private TapeShot tapeshot;
+
 	public RobotContainer() {
 
 		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
@@ -138,6 +146,9 @@ public class RobotContainer {
 
 		runKickerManual = new RunKickerManual(kicker);
 
+		launchpadShot = new LaunchPadShot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+		tapeshot = new TapeShot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED,
 				Constants.FLYWHEEL_SHOOTING_ANGLE);
@@ -152,6 +163,7 @@ public class RobotContainer {
 		runClimb = new RunClimb(climb);
 		climb.setDefaultCommand(runClimb);
 		// autonDrive = new AutonDrive(driveTrain);
+		SmartDashboard.putData(CommandScheduler.getInstance());
 
 		simpleAuto = new AutonSetup1(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain, intake);
 
@@ -169,13 +181,13 @@ public class RobotContainer {
 		//OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
 		//OperatorInput.toggleRunShooterAtSetpoint.whileHeld(shoot);
 		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
-		OperatorInput.shortshoot.whenPressed(shoot);
+		OperatorInput.shootFromSafe.whenPressed(launchpadShot);
 		// OperatorInput.aimAndShootToggle.whileHeld(shoot);
 		//OperatorInput.holdLongShot.whileHeld(longShot);
 		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
 		OperatorInput.holdFlywheelTuning.whileHeld(flywheelHoodTuningShoot);
 		//OperatorInput.holdPointDriveTrain.whileHeld(aimDriveTrain);
-		OperatorInput.holdAimAndShoot.whileHeld(aimAndShoot);
+		OperatorInput.shootFromTape.whileHeld(tapeshot);
 
 		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
 		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
