@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.serializer;
 
+import edu.wpi.first.wpilibj.Timer;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -27,10 +29,12 @@ public class Intake extends SubsystemBase {
 	private CANSparkMax motor = motor(Constants.INTAKE_MOTOR_PORT, false);
 	private DoubleSolenoid pistons = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
 			Constants.INTAKE_PISTON_SOLENOID_PORTS[0], Constants.INTAKE_PISTON_SOLENOID_PORTS[1]);
-
+	private Timer timer;
 	/** Creates a new Intake. */
 	public Intake() {
 		pistons.set(Value.kReverse);
+		timer = new Timer();
+		timer.reset();
 	}
 
 	public void setMotors(double speed) {
@@ -42,7 +46,17 @@ public class Intake extends SubsystemBase {
 	}
 
 	public void openPistons() {
-		pistons.set(Value.kForward);
+			pistons.set(Value.kForward);
+		
+	}
+
+	public void closePistonsdelayed() {
+		timer.start();
+		if (timer.get() > Constants.AUTONINTAKEWAIT){
+
+		pistons.set(Value.kReverse);
+		timer.stop();
+		}
 	}
 
 	public void setPistons(DoubleSolenoid.Value value) {
