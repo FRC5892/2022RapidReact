@@ -18,7 +18,7 @@ public class TurretVision extends SubsystemBase {
 	}
 
 	public boolean hasTargets() {
-		return NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("tv").getDouble(0) == 0d;
+		return NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_NAME).getEntry("tv").getDouble(0) > 0;
 	}
 
 	public double distanceFromTarget() {
