@@ -38,7 +38,6 @@ public class AimAndShoot extends CommandBase {
 	private double[] xCoords;
 	private double[] shooterYCoords;
 	private double[] hoodYCoords;
-	private boolean readyToShoot;
 
 	/** Creates a new AimAndShoot. */
 	public AimAndShoot(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv,
@@ -60,7 +59,6 @@ public class AimAndShoot extends CommandBase {
 	@Override
 	public void initialize() {
 		shootWhenReady = false;
-		readyToShoot = false;
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -69,13 +67,12 @@ public class AimAndShoot extends CommandBase {
 		if (turretVision.hasTargets()) {
 			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
 			xCoords = new double[] {71,74,78,81.5,84,85.7,90,94,98,102.5,106.2,111,115,120,124,128,133,137,141.5,147,151,154,159,164.5,170,175,180,184,188,192,195,200,204,208,211,215.7,221,225,228};
-			shooterYCoords = new double[] {2150,2180,2180,2180,2180,2230,2280,2280,2310,2330,2350,2360,2380,2410,2430,2450,2450,2450,2470,2540,2540,2570,2570,2610,2640,2610,2650,2630,2670,2670,2670,2670,2700,2730,2760,2780,2800,2800,2810};
+			shooterYCoords = new double[] {2150,2180,2180,2180,2180,2230,2280,2280,2310,2335,2355,2375,2400,2430,2450,2470,2470,2485,2505,2570,2570,2600,2600,2640,2670,2650,2690,2670,2710,2710,2710,2710,2750,2770,2800,2820,2840,2840,2850};
 			hoodYCoords = new double[] {32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,34,34,35,35,35,36,36,37,37,37,37,37,38,38};
 
 			if (shootWhenReady) {
 				if (hood.atSetpoint() && flywheel.atSetpoint() /*&& turret.atSetpoint()*/) {
 					// shoot
-					readyToShoot = true;
 					kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
 					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 				}
@@ -84,7 +81,7 @@ public class AimAndShoot extends CommandBase {
 
 				if (driveTrainPIDController.atSetpoint()) {
 					driveTrain.stop();
-					flywheel.setSetpoint(LinearInterpolation.calculate(xCoords, shooterYCoords,  turretVision.distanceFromTarget()+20));
+					flywheel.setSetpoint(LinearInterpolation.calculate(xCoords, shooterYCoords,  turretVision.distanceFromTarget()));
 					hood.setSetpoint((double) LinearInterpolation.calculate(xCoords, hoodYCoords,  turretVision.distanceFromTarget()));
 					hood.enable();
 					shootWhenReady = true;

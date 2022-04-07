@@ -7,7 +7,7 @@ package frc.robot.commands.shooting;
 /** Add your docs here. */
 public class LinearInterpolation {
     public static double calculate(double[] xCoords, double[] yCoords, double value) {
-        int index = xCoords.length-1;
+        int index = 2;
 
         for (int i = 0; i < xCoords.length; i++) {
             if (xCoords[i] > value) {
