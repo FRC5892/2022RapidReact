@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class RotateRobot extends CommandBase {
+public class RotateRobot2 extends CommandBase {
   private double gyroangle;
   DriveTrain driveTrain;
   Boolean finish;
@@ -22,7 +22,7 @@ public class RotateRobot extends CommandBase {
   Rotation2d heading;
   ADXRS450_Gyro gyro;
   /** Creates a new rotateRobot. */
-  public RotateRobot(DriveTrain d, double ang) {
+  public RotateRobot2(DriveTrain d, double ang) {
     gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
     driveTrain = d;
     //inverted = invert;
