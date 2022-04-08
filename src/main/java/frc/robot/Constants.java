@@ -25,7 +25,7 @@ public final class Constants {
 	public static final int[] FLYWHEEL_ENCODER_PORTS = new int[] { 4, 5 };
 	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1 / .4;
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 9, 10 };
-	public static final double FLYWHEEL_SHOOTING_SPEED = 2100;
+	public static final double FLYWHEEL_SHOOTING_SPEED = 2345;
 	public static final double FLYWHEEL_SHOOTING_ANGLE = 29;
     public static final double[] FLYWHEEL_SPARKMAX_PIDF = new double[] { 0.00105, 8E-7, 0.000002, 0.00001 };
 

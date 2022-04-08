@@ -52,6 +52,9 @@ public class TapeShot extends CommandBase {
 	@Override
 	public void initialize() {
 		shootWhenReady = false;
+		flywheel.setSetpoint(2345);
+		hood.setSetpoint(32);
+		hood.enable();
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -69,9 +72,6 @@ public class TapeShot extends CommandBase {
 
 				if (driveTrainPIDController.atSetpoint()) {
 					driveTrain.stop();
-					flywheel.setSetpoint(2345);
-					hood.setSetpoint(32);
-					hood.enable();
 					shootWhenReady = true;
 				}
 			}

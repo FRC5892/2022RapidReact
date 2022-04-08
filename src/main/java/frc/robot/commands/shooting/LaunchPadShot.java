@@ -53,6 +53,9 @@ public class LaunchPadShot extends CommandBase {
 	@Override
 	public void initialize() {
 		shootWhenReady = false;
+		flywheel.setSetpoint(2780);
+		hood.setSetpoint(40);
+		hood.enable();
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -70,9 +73,6 @@ public class LaunchPadShot extends CommandBase {
 
 				if (driveTrainPIDController.atSetpoint()) {
 					driveTrain.stop();
-					flywheel.setSetpoint(2810);
-					hood.setSetpoint(37);
-					hood.enable();
 					shootWhenReady = true;
 				}
 			}
