@@ -51,7 +51,7 @@ public class Flywheel extends SubsystemBase {
 
   }
 
-  public void stop() {
+  public void stopMotors() {
     leftMotor.stopMotor();
     rightMotor.stopMotor();
   }

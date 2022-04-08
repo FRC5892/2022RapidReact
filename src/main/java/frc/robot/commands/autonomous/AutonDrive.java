@@ -39,14 +39,14 @@ public class AutonDrive extends CommandBase {
 			}
 		}
 		else {
-			driveTrain.stop();
+			driveTrain.stopMotors();
 			finish = true;
 		}
 	}
 
 	@Override
 	public void end(boolean interrupted) {
-		driveTrain.stop();
+		driveTrain.stopMotors();
 		kicker.stopMotors();
 		System.out.println("Stopping AutonDrive");
 	}

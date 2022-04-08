@@ -80,7 +80,7 @@ public class AimAndShoot extends CommandBase {
 				driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), -3));
 
 				if (driveTrainPIDController.atSetpoint()) {
-					driveTrain.stop();
+					driveTrain.stopMotors();
 					flywheel.setSetpoint(LinearInterpolation.calculate(xCoords, shooterYCoords,  turretVision.distanceFromTarget()));
 					hood.setSetpoint((double) LinearInterpolation.calculate(xCoords, hoodYCoords,  turretVision.distanceFromTarget()));
 					hood.enable();
@@ -136,13 +136,13 @@ public class AimAndShoot extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		flywheel.stop();
+		flywheel.stopMotors();
 		// turret.stop();
-		hood.stop();
+		hood.stopMotors();
 		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
-		driveTrain.stop();
+		driveTrain.stopMotors();
 		System.out.println("Stopping");
 	}
 

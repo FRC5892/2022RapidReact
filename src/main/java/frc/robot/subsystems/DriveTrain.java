@@ -108,7 +108,7 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 	// @Override
-	public void stop() {
+	public void stopMotors() {
 		drive.stopMotor();
 	}
 

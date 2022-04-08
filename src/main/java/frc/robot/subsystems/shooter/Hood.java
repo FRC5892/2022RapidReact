@@ -50,8 +50,9 @@ public class Hood extends PIDSubsystem {
 		this.m_controller.setTolerance(.5);
 	}
 
-	public void stop() {
+	public void stopMotors() {
 		this.disable();
+		motor.stopMotor();
 	}
 
 	public double getAngle() {
