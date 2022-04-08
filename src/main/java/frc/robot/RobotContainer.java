@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -108,11 +109,13 @@ public class RobotContainer {
 
 	private TapeShot tapeshot;
 
-	public RobotContainer() {
+	private SendableChooser autonomousChooser;
 
+	public RobotContainer() {
+		
 		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
 		compressor.enableDigital();
-
+		
 		driveTrain = new DriveTrain();
 		driveWithJoysticks = new DriveWithJoysticks(driveTrain);
 		driveTrain.setDefaultCommand(driveWithJoysticks);
@@ -123,52 +126,60 @@ public class RobotContainer {
 		prespoolFlywheel = new PrespoolFlywheel(flywheel);
 		flywheel.setDefaultCommand(prespoolFlywheel);
 		runShooterAtSetpoint = new RunShooterAtSetpoint(flywheel);
-
+		
 		tower = new Tower();
 		kicker = new Kicker();
-
+		
 		runKicker = new RunKicker(kicker, tower);
 		kicker.setDefaultCommand(runKicker);
 		runTower = new RunTower(kicker, tower);
 		tower.setDefaultCommand(runTower);
-
+		
 		accumulator = new Accumulator();
 		runAccumulator = new RunAccumulator(accumulator, kicker, tower);
 		accumulator.setDefaultCommand(runAccumulator);
-
+		
 		intake = new Intake();
 		runIntakeRollers = new RunIntakeRollers(intake);
 		intake.setDefaultCommand(runIntakeRollers);
-
+		
 		turret = new Turret();
 		hood = new Hood();
 		turretVision = new TurretVision();
-
+		
 		runKickerManual = new RunKickerManual(kicker);
-
+		
 		launchpadShot = new LaunchPadShot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		tapeshot = new TapeShot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
-
+		
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
 		shoot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED,
-				Constants.FLYWHEEL_SHOOTING_ANGLE);
+		Constants.FLYWHEEL_SHOOTING_ANGLE);
 		longShot = new Shoot(flywheel, accumulator, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED,
-				Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
+		Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		TimedShoot = new TimedShoot(flywheel, accumulator, tower, kicker, Constants.AUTONOMOUS_SHOOT_TIMER);
 		flywheelHoodTuningShoot = new FlywheelHoodTuningShoot(flywheel, accumulator, tower, kicker, hood);
 		aimDriveTrain = new AimDriveTrain(driveTrain, turretVision);
-
+		
 		climb = new Climb();
 		runClimb = new RunClimb(climb);
 		climb.setDefaultCommand(runClimb);
 		// autonDrive = new AutonDrive(driveTrain);
 		SmartDashboard.putData(CommandScheduler.getInstance());
-
+		
 		simpleAuto = new AutonSetup1(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain, intake);
-
+		
 		// Configure the button bindingsz
 		configureButtonBindings();
+
+		autonomousChooser = new SendableChooser<>();
+		autonomousChooser.setDefaultOption("Default Dumb Auton", "defaultDumbAuton");
+		autonomousChooser.addOption("None", null);
+		// autonomousChooser.addOption("Test Path", "testAutonPath");
+		// autonomousChooser.addOption("Curved Path", "curvedPath");
+		// autonomousChooser.addOption("Slalom Path", "slalomPath");
+		SmartDashboard.putData("Autonomous mode chooser", autonomousChooser);
 	}
 
 	/**
@@ -207,7 +218,19 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		return simpleAuto;
+		switch (autonomousChooser.getSelected()) {
+			case "defaultDumbAuton":
+				return new DriveAndShoot(accumulator, driveTrain, hood, kicker, limelight, shooter);
+			case "testAutonPath":
+				return new TestAutonPath(driveTrain);
+			case "curvedPath":
+				return new CurvedPath(driveTrain);
+			case "slalomPath":
+				return new Slalom(driveTrain);
+			default:
+				return null;
+			}
+		// return simpleAuto;
 		// return null;
 
 	}
