@@ -29,6 +29,8 @@ public class OperatorInput {
 	//public static JoystickButton holdPointDriveTrain = new JoystickButton(driverJoystick, XboxController.Button.kRightStick.value);
 	public static JoystickButton shootFromSafe = new JoystickButton(driverJoystick, XboxController.Button.kRightBumper.value);
 
+	public static JoystickButton aimandshootcomplex = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
+
 	public static XboxController codriverJoystick = new XboxController(1);
 	public static JoystickButton cotoggleIntakePistons = new JoystickButton(codriverJoystick,
 			XboxController.Button.kLeftBumper.value);
