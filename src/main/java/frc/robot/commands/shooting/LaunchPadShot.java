@@ -53,7 +53,7 @@ public class LaunchPadShot extends CommandBase {
 	@Override
 	public void initialize() {
 		shootWhenReady = false;
-		flywheel.setSetpoint(2780);
+		flywheel.setSetpoint(2700);
 		hood.setSetpoint(40);
 		hood.enable();
 	}
