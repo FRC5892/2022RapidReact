@@ -73,5 +73,5 @@ public final class Constants {
 	public static final int[] CLIMB_ACTUATION_SOLENOID_PORTS = new int[] { 0, 1 };
 	public static double AUTON_DISTANCE = 2; //meters
 	public static double AUTONINTAKEWAIT = 2;
-	public static double FLYWHEELIDLERPM;
+	//public static double FLYWHEELIDLERPM;
 }
