@@ -27,7 +27,7 @@ import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
 import frc.robot.commands.autonomous.AutonSetup1;
-import frc.robot.commands.autonomous.RotateRobot;
+import frc.robot.commands.autonomous.RotateRobot2;
 import frc.robot.commands.serializing.RunAccumulator;
 import frc.robot.commands.serializing.RunIntakeRollers;
 import frc.robot.commands.serializing.RunKicker;
@@ -101,7 +101,7 @@ public class RobotContainer {
 
 	private FlywheelHoodTuningShoot flywheelHoodTuningShoot;
 
-	private RotateRobot rotateRobot;
+	private RotateRobot2 rotateRobot;
     private AimDriveTrain aimDriveTrain;
 
 	private LaunchPadShot launchpadShot;
