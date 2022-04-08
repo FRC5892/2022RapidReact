@@ -13,19 +13,23 @@ public class OperatorInput {
 	public static JoystickButton toggleIntakePistons = new JoystickButton(driverJoystick,
 			XboxController.Button.kLeftBumper.value);
 	//public static JoystickButton toggleAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
-	public static JoystickButton holdLongShot = new JoystickButton(driverJoystick, XboxController.Button.kY.value);
-	public static JoystickButton toggleRunShooterAtSetpoint = new JoystickButton(driverJoystick,
-			XboxController.Button.kY.value);
+	//public static JoystickButton holdLongShot = new JoystickButton(driverJoystick, XboxController.Button.kY.value);
+	//public static JoystickButton toggleRunShooterAtSetpoint = new JoystickButton(driverJoystick,
+	//		XboxController.Button.kY.value);
 	public static JoystickButton holdRunKickerManual = new JoystickButton(driverJoystick,
 			XboxController.Button.kBack.value);
 	public static JoystickButton holdReverseKickerAndTower = new JoystickButton(driverJoystick,
 			XboxController.Button.kA.value);
+	public static JoystickButton shootFromTape = new JoystickButton(driverJoystick,
+			XboxController.Button.kRightBumper.value);
 	// public static JoystickButton aimAndShootToggle = new JoystickButton(driverJoystick,
 	// 		XboxController.Button.kRightBumper.value);
 	public static JoystickButton holdFlywheelTuning = new JoystickButton(driverJoystick,
 			XboxController.Button.kB.value);
 	//public static JoystickButton holdPointDriveTrain = new JoystickButton(driverJoystick, XboxController.Button.kRightStick.value);
-	public static JoystickButton holdAimAndShoot = new JoystickButton(driverJoystick, XboxController.Button.kRightBumper.value);
+	public static JoystickButton shootFromSafe = new JoystickButton(driverJoystick, XboxController.Button.kY.value);
+
+	public static JoystickButton aimandshootcomplex = new JoystickButton(driverJoystick, XboxController.Button.kX.value);
 
 	public static XboxController codriverJoystick = new XboxController(1);
 	public static JoystickButton cotoggleIntakePistons = new JoystickButton(codriverJoystick,

@@ -6,8 +6,8 @@ package frc.robot.commands.shooting;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.shooter.Hood;
+import frc.robot.Constants;
 import frc.robot.subsystems.serializer.Accumulator;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
@@ -77,7 +77,7 @@ public class FlywheelHoodTuningShoot extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		flywheel.stopMotors();
+		//flywheel.stopMotors();
 		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();

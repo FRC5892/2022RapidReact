@@ -5,8 +5,8 @@
 package frc.robot.commands.shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.shooter.Hood;
+import frc.robot.Constants;
 import frc.robot.subsystems.serializer.Accumulator;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;

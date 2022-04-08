@@ -1,7 +1,9 @@
 package frc.robot.commands.autonomous;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.shooting.AimAndShoot;
 import frc.robot.commands.shooting.TimedShoot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.serializer.Accumulator;
@@ -17,6 +19,9 @@ public class AutonSetup1 extends SequentialCommandGroup {
 
 	public AutonSetup1(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv,
 			DriveTrain dt, Intake i) {
-		addCommands(new TimedShoot(f, a, tw, k, Constants.AUTONOMOUS_SHOOT_TIMER), new AutonDrive(dt, 3, false, k));
+		addCommands(new InstantCommand(i::openPistons, i), new AutonDriveAndIntake(f, t, h, a, tw, k, tv, dt, i), new InstantCommand(i::closePistonsdelayed, i), new RotateRobot(dt, 177), new AimAndShoot(f, t, h, a, tw, k, tv, dt));
+		//addCommands(new RotateRobot(dt, 177));
 	}
 }
+//new TimedShoot(f, a, tw, k, Constants.AUTONOMOUS_SHOOT_TIMER)
+//new AutonDrive(dt, 1, false, k)
