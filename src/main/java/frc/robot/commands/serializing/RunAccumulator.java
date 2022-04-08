@@ -39,7 +39,7 @@ public class RunAccumulator extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
+		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0.02) {
 			// spit ball out
 			preloading = false;
 			accumulator.setMotors(
@@ -48,7 +48,7 @@ public class RunAccumulator extends CommandBase {
 		else if (OperatorInput.driverJoystick.getLeftTriggerAxis() == 0 && !preloading) {
 			accumulator.stopMotors();
 		}
-		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02) {
 			// intake
 			preloading = true;
 			timer.reset();

@@ -35,7 +35,7 @@ public class RunKicker extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02) {
 			System.out.println("Trigger hit");
 			// intake
 			timer.reset();
