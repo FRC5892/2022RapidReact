@@ -52,8 +52,8 @@ public class TapeShot extends CommandBase {
 	@Override
 	public void initialize() {
 		shootWhenReady = false;
-		flywheel.setSetpoint(2400);
-		hood.setSetpoint(34);
+		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
+		hood.setSetpoint(Constants.FLYWHEEL_SHOOTING_ANGLE);
 		hood.enable();
 	}
 	
