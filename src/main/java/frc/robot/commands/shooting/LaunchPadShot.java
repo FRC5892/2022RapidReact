@@ -72,7 +72,7 @@ public class LaunchPadShot extends CommandBase {
 				driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), -3));
 
 				if (driveTrainPIDController.atSetpoint()) {
-					driveTrain.stop();
+					driveTrain.stopMotors();
 					shootWhenReady = true;
 				}
 			}
@@ -112,11 +112,11 @@ public class LaunchPadShot extends CommandBase {
 	public void end(boolean interrupted) {
 		//flywheel.stop();
 		// turret.stop();
-		hood.stop();
+		hood.stopMotors();
 		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
-		driveTrain.stop();
+		driveTrain.stopMotors();
 		System.out.println("Stopping");
 	}
 
