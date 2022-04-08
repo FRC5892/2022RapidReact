@@ -21,12 +21,12 @@ public class PrespoolFlywheel extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
 	}
-
+	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		flywheel.setSetpoint(Constants.FLYWHEEL_SHOOTING_SPEED);
 	}
 
 	// Called once the command ends or is interrupted.
