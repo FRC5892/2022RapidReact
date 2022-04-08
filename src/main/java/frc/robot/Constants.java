@@ -25,8 +25,8 @@ public final class Constants {
 	public static final int[] FLYWHEEL_ENCODER_PORTS = new int[] { 4, 5 };
 	public static final double FLYWHEEL_ENCODER_CONVERSION_FACTOR = 1 / .4;
 	public static final int[] FLYWHEEL_MOTOR_IDS = new int[] { 9, 10 };
-	public static final double FLYWHEEL_SHOOTING_SPEED = 2345;
-	public static final double FLYWHEEL_SHOOTING_ANGLE = 29;
+	public static final double FLYWHEEL_SHOOTING_SPEED = 2400;
+	public static final double FLYWHEEL_SHOOTING_ANGLE = 34;
     public static final double[] FLYWHEEL_SPARKMAX_PIDF = new double[] { 0.00105, 8E-7, 0.000002, 0.00001 };
 
 	public static final double FLYWHEEL_LONG_SHOOTING_SPEED = 2700;
@@ -71,6 +71,7 @@ public final class Constants {
 
 	public static final int[] CLIMB_MOTOR_PORTS = new int[] { 19, 20 };
 	public static final int[] CLIMB_ACTUATION_SOLENOID_PORTS = new int[] { 0, 1 };
-	public static double AUTON_DISTANCE = 1.5; //meters
+	public static double AUTON_DISTANCE = 2; //meters
 	public static double AUTONINTAKEWAIT = 2;
+	public static double FLYWHEELIDLERPM;
 }

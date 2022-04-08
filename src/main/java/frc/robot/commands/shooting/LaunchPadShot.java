@@ -110,7 +110,7 @@ public class LaunchPadShot extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		flywheel.stop();
+		//flywheel.stop();
 		// turret.stop();
 		hood.stop();
 		accumulator.stopMotors();
