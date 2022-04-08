@@ -40,7 +40,7 @@ public class RunTower extends CommandBase {
 			timer.start();
 			tower.setMotors(Constants.TOWER_SPEED);
 		}
-		if (timer.get() > Constants.PRELOAD_TIMEOUT || (kicker.hasBall() && tower.hasBall())) {
+		if (timer.hasElapsed(Constants.PRELOAD_TIMEOUT) || (kicker.hasBall() && tower.hasBall())) {
 			tower.stopMotors();
 			timer.stop();
 		}
