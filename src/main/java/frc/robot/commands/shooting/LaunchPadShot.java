@@ -61,12 +61,12 @@ public class LaunchPadShot extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (turretVision.hasTargets()) {
+		//if (turretVision.hasTargets()) {
 			if (shootWhenReady) {
 				if (hood.atSetpoint() && flywheel.atSetpoint() /*&& turret.atSetpoint()*/) {
 					// shoot
 					kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
-					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+					tower.setMotors(Constants.TOWER_SPEED);
 				}
 			} else {
 				driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), -3));
@@ -76,14 +76,14 @@ public class LaunchPadShot extends CommandBase {
 					shootWhenReady = true;
 				}
 			}
-		}
+		//}
 
 		// preload balls
 		if (!shootWhenReady) {
 			if (!kicker.hasBall()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+
 			}
 			else if (!tower.hasBall()) {
 				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
@@ -93,16 +93,14 @@ public class LaunchPadShot extends CommandBase {
 			if (kicker.hasBall()) {
 				kicker.stopMotors();
 
-				if (tower.hasBall()) {
-					accumulator.stopMotors();
-					tower.stopMotors();
-				}
 			} 
 			
 			else {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+			}
+			if (tower.hasBall() && kicker.hasBall()) {
+				tower.stopMotors();
 			}
 		}
 	}
@@ -113,7 +111,6 @@ public class LaunchPadShot extends CommandBase {
 		//flywheel.stop();
 		// turret.stop();
 		hood.stopMotors();
-		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
 		driveTrain.stopMotors();

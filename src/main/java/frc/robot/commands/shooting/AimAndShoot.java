@@ -39,6 +39,8 @@ public class AimAndShoot extends CommandBase {
 	private double[] shooterYCoords;
 	private double[] hoodYCoords;
 
+	
+
 	/** Creates a new AimAndShoot. */
 	public AimAndShoot(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv,
 			DriveTrain dt) {
@@ -52,6 +54,7 @@ public class AimAndShoot extends CommandBase {
 		driveTrain = dt;
 		driveTrainPIDController.setTolerance(.25);
 		addRequirements(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
@@ -74,7 +77,7 @@ public class AimAndShoot extends CommandBase {
 				if (hood.atSetpoint() && flywheel.atSetpoint() /*&& turret.atSetpoint()*/) {
 					// shoot
 					kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
-					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+					tower.setMotors(Constants.TOWER_SPEED);
 				}
 			} else {
 				driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), -3));
@@ -104,16 +107,16 @@ public class AimAndShoot extends CommandBase {
 			if (kicker.hasBall()) {
 				kicker.stopMotors();
 
-				if (tower.hasBall()) {
-					accumulator.stopMotors();
-					tower.stopMotors();
-				}
 			} 
 			
 			else {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
 				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+			}
+			if (tower.hasBall() && kicker.hasBall()) {
+				accumulator.stopMotors();
+				tower.stopMotors();
 			}
 		}
 		// else {

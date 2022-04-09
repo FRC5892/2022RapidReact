@@ -60,12 +60,12 @@ public class TapeShot extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (turretVision.hasTargets()) {
+		//if (turretVision.hasTargets()) {
 			if (shootWhenReady) {
 				if (hood.atSetpoint() && flywheel.atSetpoint() /*&& turret.atSetpoint()*/) {
 					// shoot
 					kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
-					accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+					tower.setMotors(Constants.TOWER_SPEED);
 				}
 			} else {
 				driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), -3));
@@ -75,7 +75,7 @@ public class TapeShot extends CommandBase {
 					shootWhenReady = true;
 				}
 			}
-		}
+		//}
 
 		// preload balls
 		if (!shootWhenReady) {
@@ -92,16 +92,17 @@ public class TapeShot extends CommandBase {
 			if (kicker.hasBall()) {
 				kicker.stopMotors();
 
-				if (tower.hasBall()) {
-					accumulator.stopMotors();
-					tower.stopMotors();
-				}
+				
 			} 
 			
 			else {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
 				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
+			}
+			if (tower.hasBall() && kicker.hasBall()) {
+				accumulator.stopMotors();
+				tower.stopMotors();
 			}
 		}
 	}
