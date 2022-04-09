@@ -34,7 +34,7 @@ public class RunTower extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0) {
+		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02) {
 			// intake
 			timer.reset();
 			timer.start();
