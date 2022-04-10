@@ -36,20 +36,20 @@ public class RunIntakeRollers extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
-			// outake
-			intake.setMotors(0);
-		}
-		else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02 && intake.returnPistons() == Value.kForward) {
-			// intake
-			intake.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
-		}
-
 		if (intake.returnPistons() == Value.kForward){
-			if (!tower.hasBall() || !kicker.hasBall()){
+			if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0) {
+				// outake
+				intake.setMotors(0);
+			}
+			else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02) {
+				// intake
+				intake.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
+			}
+
+			else if (!tower.hasBall() || !kicker.hasBall()){
 				intake.setMotors(Constants.INTAKE_SPEED_MULTIPLIER);
 			}
-			else if (OperatorInput.driverJoystick.getRightTriggerAxis() == 0){
+			else{
 				intake.setMotors(0);
 			}
 		}
