@@ -39,8 +39,7 @@ public class AutonAimAndShoot extends CommandBase {
 	private double[] xCoords;
 	private double[] shooterYCoords;
 	private double[] hoodYCoords;
-	private Timer timer;
-	private Timer timer2;
+	
 
 	
 
@@ -65,9 +64,6 @@ public class AutonAimAndShoot extends CommandBase {
 	@Override
 	public void initialize() {
 		shootWhenReady = false;
-		timer = new Timer();
-		timer2 = new Timer();
-		timer.reset();
 		xCoords = new double[] {0,71,74,78,81.5,84,85.7,90,94,98,102.5,106.2,111,115,120,124,128,133,137,141.5,147,151,154,159,164.5,170,175,180,184,188,192,195,200,204,208,211,215.7,221,225,228};
 		shooterYCoords = new double[] {2160,2160,2190,2190,2190,2190,2240,2290,2290,2320,2345,2365,2385,2410,2440,2460,2480,2480,2495,2515,2580,2580,2610,2610,2650,2680,2660,2700,2680,2720,2720,2720,2720,2760,2780,2810,2830,2850,2850,2860};
 		hoodYCoords = new double[] {32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,34,34,35,35,35,36,36,37,37,37,37,37,38,38};
@@ -78,28 +74,15 @@ public class AutonAimAndShoot extends CommandBase {
 	public void execute() {
 		if (turretVision.hasTargets()) {
 			// turret.setSetpoint(turret.getMeasurement() - turretVision.xAngle());
+			xCoords = new double[] {0,71,74,78,81.5,84,85.7,90,94,98,102.5,106.2,111,115,120,124,128,133,137,141.5,147,151,154,159,164.5,170,175,180,184,188,192,195,200,204,208,211,215.7,221,225,228};
+			shooterYCoords = new double[] {2160,2160,2190,2190,2190,2190,2240,2290,2290,2320,2345,2365,2385,2410,2440,2460,2480,2480,2495,2515,2580,2580,2610,2610,2650,2680,2660,2700,2680,2720,2720,2720,2720,2760,2780,2810,2830,2850,2850,2860};
+			hoodYCoords = new double[] {32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,34,34,35,35,35,36,36,37,37,37,37,37,38,38};
 
 			if (shootWhenReady) {
 				if (hood.atSetpoint() && flywheel.atSetpoint() /*&& turret.atSetpoint()*/) {
 					// shoot
-					
-					timer2.start();
-					
-					if (timer2.get() < .15){
-						kicker.setMotors(1);
-					}
-					else {
-						kicker.stopMotors();
-						timer2.stop();
-						timer.start();
-					}
-
-					if (timer.get() > 2){
-						kicker.setMotors(1);
-						tower.setMotors(Constants.TOWER_SPEED);	
-					}
-					
-
+					kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
+					tower.setMotors(Constants.TOWER_SPEED);
 				}
 			} else {
 				driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), -3));
