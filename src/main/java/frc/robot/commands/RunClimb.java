@@ -36,9 +36,9 @@ public class RunClimb extends CommandBase {
 		if (OperatorInput.codriverJoystick.getRightTriggerAxis() == 0 && OperatorInput.codriverJoystick.getLeftTriggerAxis() == 0){
 			climb.driveArmsUp(OperatorInput.codriverJoystick.getLeftY(), OperatorInput.codriverJoystick.getRightY());
 		}
-		}
-		
 	}
+		
+	
 
 	// Called once the command ends or is interrupted.
 	@Override
