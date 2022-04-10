@@ -40,9 +40,13 @@ public class Climb extends SubsystemBase {
 		actuationSolenoid.set(Value.kReverse);
 	}
 
-	public void driveArms(double leftSpeed, double rightSpeed) {
+	public void driveArmsUp(double leftSpeed, double rightSpeed) {
 		leftMotor.set(leftSpeed);
 		rightMotor.set(rightSpeed);
+	}
+	public void driveArmsDown(double leftSpeed, double rightSpeed) {
+		leftMotor.set(-leftSpeed);
+		rightMotor.set(-rightSpeed);
 	}
 
 	public void togglePistons(){
