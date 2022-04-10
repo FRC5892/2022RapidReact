@@ -40,7 +40,7 @@ public class RunIntakeRollers extends CommandBase {
 			// outake
 			intake.setMotors(0);
 		}
-		else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02) {
+		else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02 && intake.returnPistons() == Value.kForward) {
 			// intake
 			intake.setMotors(-OperatorInput.driverJoystick.getRightTriggerAxis() * Constants.INTAKE_SPEED_MULTIPLIER);
 		}
@@ -49,7 +49,7 @@ public class RunIntakeRollers extends CommandBase {
 			if (!tower.hasBall() || !kicker.hasBall()){
 				intake.setMotors(Constants.INTAKE_SPEED_MULTIPLIER);
 			}
-			else{
+			else if (OperatorInput.driverJoystick.getRightTriggerAxis() == 0){
 				intake.setMotors(0);
 			}
 		}
