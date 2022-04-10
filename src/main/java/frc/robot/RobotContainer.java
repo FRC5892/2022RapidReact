@@ -42,7 +42,7 @@ import frc.robot.commands.shooting.RunShooterAtSetpoint;
 import frc.robot.commands.shooting.Shoot;
 import frc.robot.commands.shooting.TapeShot;
 import frc.robot.commands.shooting.TimedShoot;
-
+ // foo
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).

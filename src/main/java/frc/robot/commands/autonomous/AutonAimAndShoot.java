@@ -39,8 +39,7 @@ public class AutonAimAndShoot extends CommandBase {
 	private double[] xCoords;
 	private double[] shooterYCoords;
 	private double[] hoodYCoords;
-	private Timer timer;
-	private Timer timer2;
+	
 
 	
 
