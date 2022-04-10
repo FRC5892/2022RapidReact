@@ -14,7 +14,6 @@ import frc.robot.subsystems.shooter.Flywheel;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
-import frc.robot.commands.shooting.LinearInterpolation;
 
 public class AimAndShoot extends CommandBase {
 	private Flywheel flywheel;
@@ -22,8 +21,6 @@ public class AimAndShoot extends CommandBase {
 	private Hood hood;
 	private TurretVision turretVision;
 	private boolean finished;
-	private double[] hoodRangingCoefficients = new double[] { .00000000000001, .00000000000001, .00000000000001 };
-	private double[] flywheelRangingCoefficients = new double[] { .00000000000001, .00000000000001, .00000000000001 };
 	private Tower tower;
 	private Kicker kicker;
 	private DriveTrain driveTrain;

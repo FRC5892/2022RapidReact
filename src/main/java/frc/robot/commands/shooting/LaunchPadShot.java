@@ -14,7 +14,6 @@ import frc.robot.subsystems.shooter.Flywheel;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
-import frc.robot.commands.shooting.LinearInterpolation;
 
 public class LaunchPadShot extends CommandBase {
 	private Flywheel flywheel;

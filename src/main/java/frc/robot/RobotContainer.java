@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AimDriveTrain;
 import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.OutputFlywheelEncoder;
 import frc.robot.commands.RunClimb;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
@@ -26,7 +25,6 @@ import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
 import frc.robot.commands.autonomous.AutonSetup1;
-import frc.robot.commands.autonomous.RotateRobot2;
 import frc.robot.commands.serializing.RunIntakeRollers;
 import frc.robot.commands.serializing.RunKicker;
 import frc.robot.commands.serializing.RunKickerManual;
@@ -69,8 +67,6 @@ public class RobotContainer {
 	private ReverseKickerAndTower reverseKickerAndTower;
 	private RunKickerManual runKickerManual;
 
-	private OutputFlywheelEncoder outputFlywheelEncoder;
-
 	private AutonSetup1 simpleAuto;
 
 	private RunKicker runKicker;
@@ -79,21 +75,15 @@ public class RobotContainer {
 
 	private Compressor compressor;
 
-	private Shoot shoot;
-
 	private Climb climb;
 
 	private RunClimb runClimb;
 
-	private Shoot longShot;
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 
 	private PrespoolFlywheel prespoolFlywheel;
 
 	private FlywheelHoodTuningShoot flywheelHoodTuningShoot;
-
-	private RotateRobot2 rotateRobot;
-    private AimDriveTrain aimDriveTrain;
 
 	private LaunchPadShot launchpadShot;
 
@@ -139,13 +129,13 @@ public class RobotContainer {
 		tapeshot = new TapeShot(flywheel, turret, hood, tower, kicker, turretVision, driveTrain);
 
 		aimAndShoot = new AimAndShoot(flywheel, turret, hood, tower, kicker, turretVision, driveTrain);
-		shoot = new Shoot(flywheel, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED,
+		new Shoot(flywheel, tower, kicker, hood, Constants.FLYWHEEL_SHOOTING_SPEED,
 				Constants.FLYWHEEL_SHOOTING_ANGLE);
-		longShot = new Shoot(flywheel, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED,
+		new Shoot(flywheel, tower, kicker, hood, Constants.FLYWHEEL_LONG_SHOOTING_SPEED,
 				Constants.FLYWHEEL_LONG_SHOOTING_ANGLE);
 		reverseKickerAndTower = new ReverseKickerAndTower(kicker, tower);
 		flywheelHoodTuningShoot = new FlywheelHoodTuningShoot(flywheel, tower, kicker, hood);
-		aimDriveTrain = new AimDriveTrain(driveTrain, turretVision);
+		new AimDriveTrain(driveTrain, turretVision);
 
 		climb = new Climb();
 		runClimb = new RunClimb(climb);
