@@ -16,6 +16,7 @@ import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
 import frc.robot.subsystems.shooter.Flywheel;
 import frc.robot.subsystems.shooter.Hood;
+
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
 import frc.robot.commands.shooting.LinearInterpolation;
@@ -39,6 +40,7 @@ public class AutonAimAndShoot extends CommandBase {
 	private double[] xCoords;
 	private double[] shooterYCoords;
 	private double[] hoodYCoords;
+	private Timer timer;
 	
 
 	
