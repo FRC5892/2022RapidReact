@@ -39,9 +39,7 @@ public class AimDriveTrain extends CommandBase {
   @Override
   public void execute() { 
     driveTrain.arcadeDrive(0, -driveTrainPIDController.calculate(turretVision.xAngle(), SmartDashboard.getNumber("Point Angle", -3)));
-    // driveTrainPIDController.setP(SmartDashboard.getNumber("Shooter P", 0));
-		// driveTrainPIDController.setI(SmartDashboard.getNumber("Shooter I", 0));
-		// driveTrainPIDController.setD(SmartDashboard.getNumber("Shooter D", 0));
+    
   }
 
   // Called once the command ends or is interrupted.

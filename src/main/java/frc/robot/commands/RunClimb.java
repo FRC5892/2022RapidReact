@@ -27,12 +27,6 @@ public class RunClimb extends CommandBase {
 	@Override
 	public void execute() {
 		climb.driveArms(OperatorInput.codriverJoystick.getLeftY(), OperatorInput.codriverJoystick.getRightY());
-		// if (OperatorInput.codriverJoystick.getLeftY() != 0 || OperatorInput.codriverJoystick.getRightY() != 0) {
-		// climb.unlockTelescope();
-		// }
-		// else {
-		// climb.lockTelescope();
-		// }
 	}
 
 	// Called once the command ends or is interrupted.

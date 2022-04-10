@@ -16,7 +16,7 @@ public class RunTower extends CommandBase {
 	private Timer timer;
 	private Tower tower;
 
-	/** Creates a new RunAccumulator. */
+	/** Creates a new Run. */
 	public RunTower(Kicker k, Tower t) {
 		kicker = k;
 		tower = t;
