@@ -137,7 +137,7 @@ public class RobotContainer {
 		accumulator.setDefaultCommand(runAccumulator);
 
 		intake = new Intake();
-		runIntakeRollers = new RunIntakeRollers(intake);
+		runIntakeRollers = new RunIntakeRollers(intake, tower, kicker);
 		intake.setDefaultCommand(runIntakeRollers);
 
 		turret = new Turret();

@@ -63,6 +63,10 @@ public class Intake extends SubsystemBase {
 		pistons.set(value);
 	}
 
+	public Value returnPistons(){
+		return pistons.get();
+	}
+
 	public void stopMotors() {
 		motor.stopMotor();
 	}
