@@ -37,13 +37,15 @@ public class RunIntakeRollers extends CommandBase {
 	@Override
 	public void execute() {
 		if (intake.returnPistons() == Value.kReverse){
-			if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0.05 && OperatorInput.driverJoystick.getRightTriggerAxis() > 0.05){
-				intake.openPistons();
-				intake.setMotors(Constants.INTAKE_SPEED_MULTIPLIER);
-			}
-			else if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.05 && OperatorInput.driverJoystick.getLeftTriggerAxis() == 0){
+			if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.05 && OperatorInput.driverJoystick.getLeftTriggerAxis() == 0){
 				intake.openPistons();
 				intake.setMotors(-Constants.INTAKE_SPEED_MULTIPLIER);
+				System.out.println("Backwards");
+			}
+			else if (OperatorInput.driverJoystick.getLeftTriggerAxis() > 0){
+				intake.openPistons();
+				intake.setMotors(Constants.INTAKE_SPEED_MULTIPLIER);
+				System.out.println("Fowards");
 			}
 		}
 		else if (intake.returnPistons() == Value.kForward){
