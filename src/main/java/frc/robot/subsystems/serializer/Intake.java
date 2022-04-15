@@ -50,14 +50,10 @@ public class Intake extends SubsystemBase {
 		
 	}
 
-	public void closePistonsdelayed() {
-		timer.start();
-		if (timer.get() > Constants.AUTONINTAKEWAIT){
-
+	public void closePistons() {
 		pistons.set(Value.kReverse);
-		timer.stop();
 		}
-	}
+
 
 	public void setPistons(DoubleSolenoid.Value value) {
 		pistons.set(value);
