@@ -52,7 +52,6 @@ public class Turret extends PIDSubsystem {
 	}
 
 	public double getAngle() {
-		// TODO set conversion factor
 		return potentiometer.getVoltage() * 1 + 1;
 	}
 

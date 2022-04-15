@@ -49,13 +49,9 @@ public final class Constants {
 	public static final double INTAKE_SPEED_MULTIPLIER = 1;
 	public static final int[] INTAKE_PISTON_SOLENOID_PORTS = new int[] { 7, 6 };
 
-	public static final int ACCUMULATOR_MOTOR_PORT = 12;
-	public static final double ACCUMULATOR_SPEED = 1;
-	public static final double ACCUMULATOR_SPEED_MULTIPLIER = 1;
 	public static final int KICKER_SENSOR_PORT = 7;
 	public static final double KICKER_SPEED = .25;
 	public static final double KICKER_SHOOT_SPEED = .5;
-	// public static final double KICKER_SHOOT_SPEED = .25;
 
 	public static final double TOWER_SPEED = .5;
 	public static final int TOWER_MOTOR_PORT = 13;
@@ -73,5 +69,4 @@ public final class Constants {
 	public static final int[] CLIMB_ACTUATION_SOLENOID_PORTS = new int[] { 0, 1 };
 	public static double AUTON_DISTANCE = 2.2; //meters
 	public static double AUTONINTAKEWAIT = 2;
-	//public static double FLYWHEELIDLERPM;
 }

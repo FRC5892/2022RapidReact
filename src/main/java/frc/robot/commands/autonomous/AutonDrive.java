@@ -12,7 +12,6 @@ public class AutonDrive extends CommandBase {
 	DriveTrain driveTrain;
 	Boolean finish;
 	private double distance;
-	private boolean inverted;
 	private double initialPosition;
 	private Kicker kicker;
 	private Intake intake;
@@ -23,7 +22,6 @@ public class AutonDrive extends CommandBase {
 		kicker = k;
 		intake = i;
 		addRequirements(driveTrain, kicker, intake);
-		inverted = invert;
 		new Timer();
 	}
 

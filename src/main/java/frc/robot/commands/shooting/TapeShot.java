@@ -5,12 +5,9 @@
 package frc.robot.commands.shooting;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.PolynomialFunction;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.serializer.Accumulator;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
 import frc.robot.subsystems.shooter.Flywheel;
@@ -23,7 +20,6 @@ public class TapeShot extends CommandBase {
 	private Turret turret;
 	private Hood hood;
 	private TurretVision turretVision;
-	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
 	private DriveTrain driveTrain;
@@ -33,18 +29,17 @@ public class TapeShot extends CommandBase {
 	private boolean shootWhenReady;
 
 	/** Creates a new AimAndShoot. */
-	public TapeShot(Flywheel f, Turret t, Hood h, Accumulator a, Tower tw, Kicker k, TurretVision tv,
+	public TapeShot(Flywheel f, Turret t, Hood h, Tower tw, Kicker k, TurretVision tv,
 			DriveTrain dt) {
 		flywheel = f;
 		turret = t;
 		hood = h;
-		accumulator = a;
 		tower = tw;
 		kicker = k;
 		turretVision = tv;
 		driveTrain = dt;
 		driveTrainPIDController.setTolerance(.25);
-		addRequirements(flywheel, turret, hood, accumulator, tower, kicker, turretVision, driveTrain);
+		addRequirements(flywheel, turret, hood, tower, kicker, turretVision, driveTrain);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
@@ -82,10 +77,8 @@ public class TapeShot extends CommandBase {
 			if (!kicker.hasBall()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 			}
 			else if (!tower.hasBall()) {
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
 			}
 
@@ -98,10 +91,8 @@ public class TapeShot extends CommandBase {
 			else {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 			}
 			if (tower.hasBall() && kicker.hasBall()) {
-				accumulator.stopMotors();
 				tower.stopMotors();
 			}
 		}
@@ -110,10 +101,7 @@ public class TapeShot extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		//flywheel.stop();
-		// turret.stop();
 		hood.stopMotors();
-		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
 		driveTrain.stopMotors();

@@ -8,27 +8,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.Constants;
-import frc.robot.subsystems.serializer.Accumulator;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
 import frc.robot.subsystems.shooter.Flywheel;
 
 public class FlywheelHoodTuningShoot extends CommandBase {
 	private Flywheel flywheel;
-	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
 	private Hood hood;
 
 	/** Creates a new AimAndShoot. */
-	public FlywheelHoodTuningShoot(Flywheel f, Accumulator a, Tower tw, Kicker k, Hood h) {
+	public FlywheelHoodTuningShoot(Flywheel f, Tower tw, Kicker k, Hood h) {
 		flywheel = f;
-		accumulator = a;
 		tower = tw;
 		kicker = k;
 		hood = h;
 
-		addRequirements(flywheel, accumulator, tower, kicker, hood);
+		addRequirements(flywheel,  tower, kicker, hood);
 		// Use addRequirements() here to declare subsystem dependencies.
 		SmartDashboard.putNumber("Flywheel Setpoint", 0);
 		SmartDashboard.putNumber("Hood Setpoint", 0);
@@ -50,16 +47,13 @@ public class FlywheelHoodTuningShoot extends CommandBase {
 		hood.setSetpoint(SmartDashboard.getNumber("Hood Setpoint", 0));
 		if (flywheel.atSetpoint() && hood.atSetpoint()) {
 			kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
-			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 		}
 		else {
 			if (!kicker.hasBall()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 			}
 			else if (!tower.hasBall()) {
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
 			}
 			if (kicker.hasBall()) {
@@ -67,7 +61,6 @@ public class FlywheelHoodTuningShoot extends CommandBase {
 			}
 			if (kicker.hasBall() && tower.hasBall()) {
 				kicker.stopMotors();
-				accumulator.stopMotors();
 				tower.stopMotors();
 			}
 		}
@@ -78,7 +71,6 @@ public class FlywheelHoodTuningShoot extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		//flywheel.stopMotors();
-		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
 		hood.stopMotors();
