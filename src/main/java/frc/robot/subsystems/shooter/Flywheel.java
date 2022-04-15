@@ -11,7 +11,6 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -74,12 +73,5 @@ public class Flywheel extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Flywheel Velocity", neoEncoderLeft.getVelocity());
 		SmartDashboard.putBoolean("Flywheel At Setpoint", this.atSetpoint());
-    // SmartDashboard.putNumber("Flywheel Setpoint", setPoint);
-
-		// pidController.setP(SmartDashboard.getNumber("Flywheel P", Constants.FLYWHEEL_SPARKMAX_PID[0]));
-		// pidController.setI(SmartDashboard.getNumber("Flywheel I", Constants.FLYWHEEL_SPARKMAX_PID[1]));
-		// pidController.setD(SmartDashboard.getNumber("Flywheel D", Constants.FLYWHEEL_SPARKMAX_PID[2]));
-    
-    // This method will be called once per scheduler run
   }
 }

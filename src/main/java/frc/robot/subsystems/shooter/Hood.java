@@ -56,9 +56,7 @@ public class Hood extends PIDSubsystem {
 	}
 
 	public double getAngle() {
-		// TODO set conversion factor
 		return potentiometer.getVoltage() * (-29.4784) + 85.7506;
-		// return motor.getEncoder().getPosition() * 1 + 1;
 	}
 
 	public boolean atSetpoint() {

@@ -14,12 +14,10 @@ import frc.robot.subsystems.serializer.Tower;
 public class RunKicker extends CommandBase {
 	private Kicker kicker;
 	private Timer timer;
-	private Tower tower;
 
-	/** Creates a new RunAccumulator. */
+	/** Creates a new Run. */
 	public RunKicker(Kicker k, Tower t) {
 		kicker = k;
-		tower = t;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(kicker);
 		timer = new Timer();

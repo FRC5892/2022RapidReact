@@ -7,14 +7,12 @@ package frc.robot.commands.shooting;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.Constants;
-import frc.robot.subsystems.serializer.Accumulator;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
 import frc.robot.subsystems.shooter.Flywheel;
 
 public class Shoot extends CommandBase {
 	private Flywheel flywheel;
-	private Accumulator accumulator;
 	private Tower tower;
 	private Kicker kicker;
 	private Hood hood;
@@ -22,16 +20,15 @@ public class Shoot extends CommandBase {
 	private Double angle;
 
 	/** Creates a new AimAndShoot. */
-	public Shoot(Flywheel f, Accumulator a, Tower tw, Kicker k, Hood h, Double s, Double ag) {
+	public Shoot(Flywheel f, Tower tw, Kicker k, Hood h, Double s, Double ag) {
 		flywheel = f;
-		accumulator = a;
 		tower = tw;
 		kicker = k;
 		hood = h;
 		speed = s;
 		angle = ag;
 
-		addRequirements(flywheel, accumulator, tower, kicker, hood);
+		addRequirements(flywheel, tower, kicker, hood);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
@@ -48,16 +45,13 @@ public class Shoot extends CommandBase {
 	public void execute() {
 		if (flywheel.atSetpoint() && hood.atSetpoint()) {
 			kicker.setMotors(Constants.KICKER_SHOOT_SPEED);
-			accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 		}
 		else {
 			if (!kicker.hasBall()) {
 				kicker.setMotors(Constants.KICKER_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 			}
 			else if (!tower.hasBall()) {
-				accumulator.setMotors(Constants.ACCUMULATOR_SPEED);
 				tower.setMotors(Constants.TOWER_SPEED);
 			}
 			if (kicker.hasBall()) {
@@ -65,7 +59,6 @@ public class Shoot extends CommandBase {
 			}
 			if (kicker.hasBall() && tower.hasBall()) {
 				kicker.stopMotors();
-				accumulator.stopMotors();
 				tower.stopMotors();
 			}
 		}
@@ -76,7 +69,6 @@ public class Shoot extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		flywheel.stopMotors();
-		accumulator.stopMotors();
 		tower.stopMotors();
 		kicker.stopMotors();
 		hood.stopMotors();

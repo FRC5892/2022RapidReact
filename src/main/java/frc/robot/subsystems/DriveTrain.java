@@ -30,7 +30,6 @@ public class DriveTrain extends SubsystemBase {
 	private CANSparkMax rightMotor2 = driveMotor(5, false);
 	private CANSparkMax rightMotor3 = driveMotor(6, false);
 
-	// TODO evaluate connecting to spark maxes, make sparkmax sim work
 	private Encoder leftEncoder = new Encoder(0, 1, true);
 	private Encoder rightEncoder = new Encoder(2, 3, false);
 
@@ -72,9 +71,6 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 	public DriveTrain() {
-		// TODO set distance per pulse and distance per rev
-		// leftEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev)
-		// rightEncoder.setDistancePerPulse(distancePerRev/pulsesPerRev)
 		SmartDashboard.putData(field);
 	}
 
