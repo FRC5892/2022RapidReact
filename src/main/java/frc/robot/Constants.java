@@ -67,6 +67,7 @@ public final class Constants {
 
 	public static final int[] CLIMB_MOTOR_PORTS = new int[] { 19, 20 };
 	public static final int[] CLIMB_ACTUATION_SOLENOID_PORTS = new int[] { 0, 1 };
+    public static final double DRIVETRAIN_ACCEL = 1.9;
 	public static double AUTON_DISTANCE = 2.2; //meters
 	public static double AUTONINTAKEWAIT = 2;
 }

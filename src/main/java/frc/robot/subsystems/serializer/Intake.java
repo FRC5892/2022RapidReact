@@ -22,6 +22,7 @@ public class Intake extends SubsystemBase {
 		sparkMax.restoreFactoryDefaults();
 		sparkMax.setInverted(inverted);
 		sparkMax.setIdleMode(IdleMode.kBrake);
+		sparkMax.setSmartCurrentLimit(20);
 		
 		return sparkMax;
 	}
