@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -24,7 +25,8 @@ import frc.robot.subsystems.shooter.Flywheel;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
-import frc.robot.commands.autonomous.AutonSetup1;
+import frc.robot.commands.autonomous.DumbAuton;
+import frc.robot.commands.autonomous.DumbAutonRotate;
 import frc.robot.commands.serializing.RunIntakeRollers;
 import frc.robot.commands.serializing.RunKicker;
 import frc.robot.commands.serializing.RunKickerManual;
@@ -67,7 +69,7 @@ public class RobotContainer {
 	private ReverseKickerAndTower reverseKickerAndTower;
 	private RunKickerManual runKickerManual;
 
-	private AutonSetup1 simpleAuto;
+	private DumbAutonRotate dumbautonrotate;
 
 	private RunKicker runKicker;
 
@@ -89,7 +91,12 @@ public class RobotContainer {
 
 	private TapeShot tapeshot;
 
+	private DumbAuton dumbauton;
+
+	private final SendableChooser<String> autonomousChooser;
+
 	public RobotContainer() {
+		autonomousChooser = new SendableChooser<>();
 
 		compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
 		compressor.enableDigital();
@@ -143,7 +150,11 @@ public class RobotContainer {
 		// autonDrive = new AutonDrive(driveTrain);
 		SmartDashboard.putData(CommandScheduler.getInstance());
 
-		simpleAuto = new AutonSetup1(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
+		dumbautonrotate = new DumbAutonRotate(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
+		dumbauton = new DumbAuton(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
+
+		autonomousChooser.setDefaultOption("DumbAuton", "DumbAuton");
+		autonomousChooser.addOption("None", null);
 
 		// Configure the button bindingsz
 		configureButtonBindings();
@@ -186,7 +197,14 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		return simpleAuto;
+		switch (autonomousChooser.getSelected()){
+			case "DumbAutonRotate":
+				return dumbautonrotate;
+			case "DumbAuton":
+				return dumbauton;
+			default:
+				return null;
+		}
 
 	}
 }
