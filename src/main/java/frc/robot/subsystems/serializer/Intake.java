@@ -42,6 +42,10 @@ public class Intake extends SubsystemBase {
 		motor.set(speed);
 	}
 
+	public double getMotors(){
+		return motor.get();
+	}
+
 	public void togglePistons() {
 		pistons.toggle();
 	}
