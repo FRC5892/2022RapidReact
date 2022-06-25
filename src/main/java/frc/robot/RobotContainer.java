@@ -93,7 +93,7 @@ public class RobotContainer {
 
 	private DumbAuton dumbauton;
 
-	private final SendableChooser<String> autonomousChooser;
+	public SendableChooser<Command> autonomousChooser;
 
 	public RobotContainer() {
 		autonomousChooser = new SendableChooser<>();
@@ -153,8 +153,11 @@ public class RobotContainer {
 		dumbautonrotate = new DumbAutonRotate(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
 		dumbauton = new DumbAuton(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
 
-		autonomousChooser.setDefaultOption("DumbAuton", "DumbAuton");
+		autonomousChooser.setDefaultOption("DumbAuton", dumbauton);
 		autonomousChooser.addOption("None", null);
+		autonomousChooser.addOption("DumbAutonRotate", dumbautonrotate);
+
+		SmartDashboard.putData(autonomousChooser);
 
 		// Configure the button bindingsz
 		configureButtonBindings();
@@ -197,14 +200,7 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		switch (autonomousChooser.getSelected()){
-			case "DumbAutonRotate":
-				return dumbautonrotate;
-			case "DumbAuton":
-				return dumbauton;
-			default:
-				return null;
-		}
+		return autonomousChooser.getSelected();
 
 	}
 }
