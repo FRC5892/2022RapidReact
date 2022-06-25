@@ -71,16 +71,18 @@ public final class Constants {
     public static final double DRIVETRAIN_ACCEL = 1.9;
 	public static double AUTON_DISTANCE = 2.2; //meters
 	public static double AUTONINTAKEWAIT = 2;
-    public static double ksVolts = 0.13835;
-    public static double kvVoltSecondsPerMeter = 1.5373;
-    public static double kaVoltSecondsSquaredPerMeter = 0.32049;
-	public static double kTrackWidthMeters = 0.5; //TEST distance between wheels
+
+    public static double ksVolts = 0.15071;
+    public static double kvVoltSecondsPerMeter = 1.5545;
+    public static double kaVoltSecondsSquaredPerMeter = 0.32436;
+	public static double kTrackWidthMeters = 0.69; //distance between wheels horizontal
     public static DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
     public static double kMaxSpeedMetersPerSecond = 3;
     public static double kMaxAccelerationMetersPerSecondSquared = 3;
     public static double kRamseteB = 2;
     public static double kRamseteZeta = 0.7;
-    public static double kPDriveVel = 2.12;
-    public static double kEncoderDistancePerPulse = 0.25; //full encoder cycle (i.e. four edges), and thus will be 1/4 the value that was specified in the SysId config
+    public static double kPDriveVel = 2.1468;
+    public static double kEncoderDistancePerPulse = 0.0798; //full encoder cycle (i.e. four edges), and thus will be 1/4 the value that was specified in the SysId config
 
 }
+//units per rotation 0.3191858136
