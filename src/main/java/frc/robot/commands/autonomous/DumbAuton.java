@@ -25,6 +25,6 @@ public class DumbAuton extends SequentialCommandGroup {
   DriveTrain dt, Intake i) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AimAndShoot(f, t, h,  tw, k, tv, dt), new AutonDrive(dt, 1.5, true, k, i, tw));
+    addCommands(new AimAndShoot(f, t, h,  tw, k, tv, dt), new AutonDrive(dt, -1.5, true, k, i, tw));
   }
 }
