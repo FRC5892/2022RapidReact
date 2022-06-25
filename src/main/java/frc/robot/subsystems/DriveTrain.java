@@ -43,6 +43,10 @@ public class DriveTrain extends SubsystemBase {
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
+	
+	//new PIDController(Constants.kPDriveVel, 0, 0);
+	//new PIDController(Constants.kPDriveVel, 0, 0);
+
 	private final Gyro m_gyro = new ADXRS450_Gyro();
 	private final DifferentialDriveOdometry m_odometry;
 
@@ -66,6 +70,10 @@ public class DriveTrain extends SubsystemBase {
 
 	public Pose2d getPose() {
 		return m_odometry.getPoseMeters();
+	  }
+
+	  public void setMaxOutput(double maxOutput) {
+		drive.setMaxOutput(maxOutput);
 	  }
 
 	public void tankDriveVolts(double leftVolts, double rightVolts) {
@@ -110,9 +118,13 @@ public class DriveTrain extends SubsystemBase {
 		SmartDashboard.putData(field);
 		leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
 		rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+		//setMaxOutput(0.1);
 	
 		m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
 	}
+	
+
+	
 
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
 		drive.arcadeDrive(xSpeed, zRotation, true);
@@ -128,7 +140,7 @@ public class DriveTrain extends SubsystemBase {
 		SmartDashboard.putNumber("Left Encoder", getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", getRightPosition());
 		m_odometry.update(
-        m_gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
+        	m_gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
 	}
 
 	@Override
@@ -167,7 +179,7 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 	public DifferentialDriveWheelSpeeds getWheelSpeeds(){
-		return new DifferentialDriveWheelSpeeds(getLeftRate(), getRightRate());
+		return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
 	}
 
 }
