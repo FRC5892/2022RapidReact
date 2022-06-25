@@ -9,11 +9,16 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
@@ -37,6 +42,37 @@ public class DriveTrain extends SubsystemBase {
 	private MotorControllerGroup rightMotors = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+
+	private final Gyro m_gyro = new ADXRS450_Gyro();
+	private final DifferentialDriveOdometry m_odometry;
+
+	public double getHeading() {
+		return m_gyro.getRotation2d().getDegrees();
+	  }
+
+	public void zeroHeading() {
+		m_gyro.reset();
+	}
+
+	public void resetOdometry(Pose2d pose) {
+		leftEncoder.reset();
+		rightEncoder.reset();
+		m_odometry.resetPosition(pose, m_gyro.getRotation2d());
+	  }
+
+	public double getTurnRate() {
+		return -m_gyro.getRate();
+	  }
+
+	public Pose2d getPose() {
+		return m_odometry.getPoseMeters();
+	  }
+
+	public void tankDriveVolts(double leftVolts, double rightVolts) {
+		leftMotors.setVoltage(leftVolts);
+		rightMotors.setVoltage(rightVolts);
+		drive.feed();
+	}
 
 	// Create the simulation model of our drivetrain.
 	// https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/drivesim-tutorial/drivetrain-model.html
@@ -72,6 +108,10 @@ public class DriveTrain extends SubsystemBase {
 
 	public DriveTrain() {
 		SmartDashboard.putData(field);
+		leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+		rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+	
+		m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
 	}
 
 	public void driveWithJoysticks(double xSpeed, double zRotation) {
@@ -87,6 +127,8 @@ public class DriveTrain extends SubsystemBase {
 		// This method will be called once per scheduler run
 		SmartDashboard.putNumber("Left Encoder", getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", getRightPosition());
+		m_odometry.update(
+        m_gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
 	}
 
 	@Override
@@ -122,6 +164,10 @@ public class DriveTrain extends SubsystemBase {
 
 	public double getRightRate() {
 		return rightEncoder.getRate() * Constants.ENCODER_CONVERSION_FACTOR;
+	}
+
+	public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+		return new DifferentialDriveWheelSpeeds(getLeftRate(), getRightRate());
 	}
 
 }
