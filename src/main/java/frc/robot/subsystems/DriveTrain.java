@@ -58,6 +58,8 @@ public class DriveTrain extends SubsystemBase {
 		m_gyro.reset();
 	}
 
+
+
 	public void resetOdometry(Pose2d pose) {
 		leftEncoder.reset();
 		rightEncoder.reset();
@@ -119,7 +121,7 @@ public class DriveTrain extends SubsystemBase {
 		leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
 		rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
 		//setMaxOutput(0.1);
-	
+		//leftEncoder.get
 		m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
 	}
 	
@@ -179,7 +181,7 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 	public DifferentialDriveWheelSpeeds getWheelSpeeds(){
-		return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+		return new DifferentialDriveWheelSpeeds(getLeftRate(), getRightRate());
 	}
 
 }
