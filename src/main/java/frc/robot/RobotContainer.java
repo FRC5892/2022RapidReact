@@ -25,8 +25,9 @@ import frc.robot.subsystems.shooter.Flywheel;
 import frc.robot.subsystems.shooter.Hood;
 import frc.robot.subsystems.shooter.Turret;
 import frc.robot.subsystems.shooter.TurretVision;
-import frc.robot.commands.autonomous.DumbAuton;
-import frc.robot.commands.autonomous.DumbAutonRotate;
+import frc.robot.commands.autonomous.OneBallAuto;
+import frc.robot.commands.autonomous.ThreeBallAuto;
+import frc.robot.commands.autonomous.TwoBallAuto;
 import frc.robot.commands.serializing.RunIntakeRollers;
 import frc.robot.commands.serializing.RunKicker;
 import frc.robot.commands.serializing.RunKickerManual;
@@ -69,7 +70,7 @@ public class RobotContainer {
 	private ReverseKickerAndTower reverseKickerAndTower;
 	private RunKickerManual runKickerManual;
 
-	private DumbAutonRotate dumbautonrotate;
+	private TwoBallAuto twoballauto;
 
 	private RunKicker runKicker;
 
@@ -78,6 +79,8 @@ public class RobotContainer {
 	private Compressor compressor;
 
 	private Climb climb;
+
+	private ThreeBallAuto threeballauto;
 
 	private RunClimb runClimb;
 
@@ -91,7 +94,7 @@ public class RobotContainer {
 
 	private TapeShot tapeshot;
 
-	private DumbAuton dumbauton;
+	private OneBallAuto oneballauto;
 
 	public SendableChooser<Command> autonomousChooser;
 
@@ -115,9 +118,9 @@ public class RobotContainer {
 		tower = new Tower();
 		kicker = new Kicker();
 
-		runKicker = new RunKicker(kicker, tower);
+		runKicker = new RunKicker(kicker, tower, intake);
 		kicker.setDefaultCommand(runKicker);
-		runTower = new RunTower(kicker, tower);
+		runTower = new RunTower(kicker, tower, intake);
 		tower.setDefaultCommand(runTower);
 
 		
@@ -150,12 +153,14 @@ public class RobotContainer {
 		// autonDrive = new AutonDrive(driveTrain);
 		SmartDashboard.putData(CommandScheduler.getInstance());
 
-		dumbautonrotate = new DumbAutonRotate(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
-		dumbauton = new DumbAuton(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
+		twoballauto = new TwoBallAuto(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
+		oneballauto = new OneBallAuto(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
+		threeballauto = new ThreeBallAuto(flywheel, turret, hood, tower, kicker, turretVision, driveTrain, intake);
 
-		autonomousChooser.setDefaultOption("DumbAuton", dumbauton);
+		autonomousChooser.setDefaultOption("1 Ball Auto", oneballauto);
 		autonomousChooser.addOption("None", null);
-		autonomousChooser.addOption("DumbAutonRotate", dumbautonrotate);
+		autonomousChooser.addOption("2 Ball Auto", twoballauto);
+		autonomousChooser.addOption("3 Ball Auto", threeballauto);
 
 		SmartDashboard.putData(autonomousChooser);
 
