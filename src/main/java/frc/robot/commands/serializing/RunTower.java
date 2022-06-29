@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.OperatorInput;
+import frc.robot.subsystems.serializer.Intake;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
 
@@ -15,11 +16,13 @@ public class RunTower extends CommandBase {
 	private Kicker kicker;
 	private Timer timer;
 	private Tower tower;
+	private Intake intake;
 
 	/** Creates a new Run. */
-	public RunTower(Kicker k, Tower t) {
+	public RunTower(Kicker k, Tower t, Intake i) {
 		kicker = k;
 		tower = t;
+		intake = i;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(tower);
 		timer = new Timer();
@@ -34,7 +37,7 @@ public class RunTower extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02) {
+		if (intake.getMotors() > 0.05) {
 			// intake
 			timer.reset();
 			timer.start();

@@ -8,16 +8,19 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.OperatorInput;
+import frc.robot.subsystems.serializer.Intake;
 import frc.robot.subsystems.serializer.Kicker;
 import frc.robot.subsystems.serializer.Tower;
 
 public class RunKicker extends CommandBase {
 	private Kicker kicker;
 	private Timer timer;
+	private Intake intake;
 
 	/** Creates a new Run. */
-	public RunKicker(Kicker k, Tower t) {
+	public RunKicker(Kicker k, Tower t, Intake i) {
 		kicker = k;
+		intake = i;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(kicker);
 		timer = new Timer();
@@ -33,7 +36,7 @@ public class RunKicker extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.02) {
+		if (intake.getMotors() > 0.05) {
 			System.out.println("Trigger hit");
 			// intake
 			timer.reset();
