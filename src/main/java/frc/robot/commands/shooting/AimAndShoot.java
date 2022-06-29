@@ -106,6 +106,7 @@ public class AimAndShoot extends CommandBase {
 			if (tower.hasBall() && kicker.hasBall()) {
 				tower.stopMotors();
 			}
+			
 		}
 		// else {
 		// if (turret.atLeftLimit()) {
@@ -134,6 +135,7 @@ public class AimAndShoot extends CommandBase {
 		kicker.stopMotors();
 		driveTrain.stopMotors();
 		System.out.println("Stopping");
+		//finished = true;
 	}
 
 	// Returns true when the command should end.
