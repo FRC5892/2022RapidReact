@@ -19,12 +19,12 @@ import frc.robot.commands.autonomous.AutonDrive;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DumbAuton extends SequentialCommandGroup {
+public class OneBallAuto extends SequentialCommandGroup {
   /** Creates a new DumbAuton. */
-  public DumbAuton(Flywheel f, Turret t, Hood h, Tower tw, Kicker k, TurretVision tv,
+  public OneBallAuto(Flywheel f, Turret t, Hood h, Tower tw, Kicker k, TurretVision tv,
   DriveTrain dt, Intake i) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AimAndShoot(f, t, h,  tw, k, tv, dt), new AutonDrive(dt, -1.5, true, k, i, tw));
+    addCommands(new AimAndShoot(f, t, h,  tw, k, tv, dt), new AutonDrive(dt, -1.5, false, k, i, tw));
   }
 }
