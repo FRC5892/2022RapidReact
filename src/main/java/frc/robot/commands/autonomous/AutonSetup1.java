@@ -17,7 +17,7 @@ public class AutonSetup1 extends SequentialCommandGroup {
 
 	public AutonSetup1(Flywheel f, Turret t, Hood h, Tower tw, Kicker k, TurretVision tv,
 			DriveTrain dt, Intake i) {
-		addCommands(new InstantCommand(i::openPistons, i), new AutonDriveAndIntake(f, t, h,  tw, k, tv, dt, i), new InstantCommand(i::closePistons, i), new RotateRobot2(dt, 160), new AimAndShoot(f, t, h,  tw, k, tv, dt));
+		addCommands(new InstantCommand(i::openPistons, i), new AutonDriveAndIntake(f, t, h,  tw, k, tv, dt, i), new RotateRobot2(dt, 160), new InstantCommand(i::closePistons, i), new AimAndShoot(f, t, h,  tw, k, tv, dt));
 		//addCommands(new RotateRobot(dt, 177));
 	}
 }

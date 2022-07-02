@@ -28,13 +28,13 @@ public class AutonDrive extends CommandBase {
 	@Override
 	public void initialize() {
 		finish = false;
-		initialPosition = driveTrain.getLeftPosition();
+		initialPosition = driveTrain.getRightPosition();
 		kicker.setMotors(Constants.KICKER_SPEED);
 	}
 
 	@Override
 	public void execute() {
-		if (Math.abs(driveTrain.getLeftPosition() - initialPosition) <= distance) {
+		if (Math.abs(driveTrain.getRightPosition() - initialPosition) <= distance) {
 				driveTrain.arcadeDrive(-Constants.AUTONOMOUS_SPEED, 0);
 			}
 		else {

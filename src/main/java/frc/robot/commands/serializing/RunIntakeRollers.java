@@ -46,9 +46,11 @@ public class RunIntakeRollers extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		System.out.print("INTAKESPEED" + intake.getMotors());
 		System.out.println("INTAKE TIMER = " + timer.get());
 		System.out.println("RUNNING = "+running);
 		System.out.println("STOPPING = "+stopping);
+		
 
 		if (intake.returnPistons() == Value.kReverse){
 			if (OperatorInput.driverJoystick.getRightTriggerAxis() > 0.05){
@@ -77,7 +79,7 @@ public class RunIntakeRollers extends CommandBase {
 		
 			}
 		if (stopping){
-			if (timer.get() > 0.7){
+			if (timer.get() > 0.1){
 				intake.setMotors(0);
 				timer.stop();
 				timer.reset();

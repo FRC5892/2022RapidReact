@@ -14,7 +14,7 @@ public class AutonRunKicker extends CommandBase {
   private Kicker kicker;
 	private Timer timer;
 	/** Creates a new AutonRunKicker. */
-  public AutonRunKicker(Kicker k, Tower t) {
+  public AutonRunKicker(Kicker k) {
     kicker = k;
 		timer = new Timer();
 		// Use addRequirements() here to declare subsystem dependencies.
