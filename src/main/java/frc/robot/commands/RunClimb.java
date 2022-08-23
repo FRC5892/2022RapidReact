@@ -27,14 +27,14 @@ public class RunClimb extends CommandBase {
 	@Override
 	public void execute() {
 		if (OperatorInput.codriverJoystick.getRightTriggerAxis() > 0 && OperatorInput.codriverJoystick.getLeftTriggerAxis() == 0){
-			climb.driveArms(-OperatorInput.codriverJoystick.getRightTriggerAxis(), -OperatorInput.codriverJoystick.getRightTriggerAxis());
+			climb.driveArms(OperatorInput.codriverJoystick.getRightTriggerAxis(), OperatorInput.codriverJoystick.getRightTriggerAxis());
 		}
 		else if (OperatorInput.codriverJoystick.getLeftTriggerAxis() > 0 && OperatorInput.codriverJoystick.getRightTriggerAxis() == 0){
-			climb.driveArms(OperatorInput.codriverJoystick.getLeftTriggerAxis(), OperatorInput.codriverJoystick.getLeftTriggerAxis());
+			climb.driveArms(-OperatorInput.codriverJoystick.getLeftTriggerAxis(), -OperatorInput.codriverJoystick.getLeftTriggerAxis());
 		}
 
 		if (OperatorInput.codriverJoystick.getRightTriggerAxis() == 0 && OperatorInput.codriverJoystick.getLeftTriggerAxis() == 0){
-			climb.driveArms(OperatorInput.codriverJoystick.getRightY(), OperatorInput.codriverJoystick.getLeftY());
+			climb.driveArms(-OperatorInput.codriverJoystick.getRightY(), -OperatorInput.codriverJoystick.getLeftY());
 		}
 	}
 		
