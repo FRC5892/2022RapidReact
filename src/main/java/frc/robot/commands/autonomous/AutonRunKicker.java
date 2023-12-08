@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.serializer.Kicker;
-import frc.robot.subsystems.serializer.Tower;
 
 public class AutonRunKicker extends CommandBase {
   private Kicker kicker;

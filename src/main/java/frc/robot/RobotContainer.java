@@ -155,28 +155,28 @@ public class RobotContainer {
 	 * and then passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
-		OperatorInput.toggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
-		OperatorInput.holdRunKickerManual.whileHeld(runKickerManual);
-		OperatorInput.shootFromSafe.whileHeld(launchpadShot);
-		OperatorInput.holdReverseKickerAndTower.whileHeld(reverseKickerAndTower);
-		OperatorInput.holdFlywheelTuning.whileHeld(flywheelHoodTuningShoot);
-		OperatorInput.shootFromTape.whileHeld(tapeshot);
-		OperatorInput.aimandshootcomplex.whenHeld(aimAndShoot);
-		//OperatorInput.toggleAimAndShoot.whenPressed(aimAndShoot);
-		//OperatorInput.toggleRunShooterAtSetpoint.whileHeld(shoot);
-		// OperatorInput.aimAndShootToggle.whileHeld(shoot);
-		//OperatorInput.holdLongShot.whileHeld(longShot);
-		// OperatorInput.aimAndShootToggle.whileHeld(shoot);
-		//OperatorInput.holdLongShot.whileHeld(longShot);
-		//OperatorInput.holdPointDriveTrain.whileHeld(aimDriveTrain);
+		OperatorInput.toggleIntakePistons.onTrue(new InstantCommand(intake::togglePistons, intake));
+		OperatorInput.holdRunKickerManual.whileTrue(runKickerManual);
+		OperatorInput.shootFromSafe.whileTrue(launchpadShot);
+		OperatorInput.holdReverseKickerAndTower.whileTrue(reverseKickerAndTower);
+		OperatorInput.holdFlywheelTuning.whileTrue(flywheelHoodTuningShoot);
+		OperatorInput.shootFromTape.whileTrue(tapeshot);
+		OperatorInput.aimandshootcomplex.whileTrue(aimAndShoot);
+		//OperatorInput.toggleAimAndShoot.onTrue(aimAndShoot);
+		//OperatorInput.toggleRunShooterAtSetpoint.whileTrue(shoot);
+		// OperatorInput.aimAndShootToggle.whileTrue(shoot);
+		//OperatorInput.holdLongShot.whileTrue(longShot);
+		// OperatorInput.aimAndShootToggle.whileTrue(shoot);
+		//OperatorInput.holdLongShot.whileTrue(longShot);
+		//OperatorInput.holdPointDriveTrain.whileTrue(aimDriveTrain);
 
-		OperatorInput.cotoggleIntakePistons.whenPressed(new InstantCommand(intake::togglePistons, intake));
-		OperatorInput.cotoggleAimAndShoot.whenPressed(aimAndShoot);
-		OperatorInput.cotoggleRunShooterAtSetpoint.whileHeld(runShooterAtSetpoint);
-		OperatorInput.coholdRunKickerManual.whileHeld(runKickerManual);
-		OperatorInput.cotoggleClimbPistons.whenPressed(new InstantCommand(climb::togglePistons, climb));
-		//OperatorInput.corunKickerAndTower.whenPressed(new InstantCommand(climb::unlockTelescope, climb));
-		//OperatorInput.cotoggleClimbTelescope.whenPressed(new InstantCommand(climb::lockTelescope, climb));
+		OperatorInput.cotoggleIntakePistons.onTrue(new InstantCommand(intake::togglePistons, intake));
+		OperatorInput.cotoggleAimAndShoot.onTrue(aimAndShoot);
+		OperatorInput.cotoggleRunShooterAtSetpoint.whileTrue(runShooterAtSetpoint);
+		OperatorInput.coholdRunKickerManual.whileTrue(runKickerManual);
+		OperatorInput.cotoggleClimbPistons.onTrue(new InstantCommand(climb::togglePistons, climb));
+		//OperatorInput.corunKickerAndTower.onTrue(new InstantCommand(climb::unlockTelescope, climb));
+		//OperatorInput.cotoggleClimbTelescope.onTrue(new InstantCommand(climb::lockTelescope, climb));
 		
 	}
 
