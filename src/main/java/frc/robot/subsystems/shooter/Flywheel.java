@@ -57,8 +57,8 @@ public class Flywheel extends SubsystemBase {
 
   public void setSetpoint(double setpoint) {
     setPoint = setpoint;
-	pidController.setReference(setpoint, ControlType.kVelocity);
-	System.out.println(setpoint);
+	  pidController.setReference(setpoint, ControlType.kVelocity);
+    System.out.println(setpoint);
 	}
 
 	public double getVelocity(){
